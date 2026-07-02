@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
+class ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -607,6 +607,9 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Http\\Requests\\Admin\\AdminPostEditRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/AdminPostEditRequest.php',
+        'App\\Http\\Requests\\Admin\\AdminPostStoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/AdminPostStoreRequest.php',
+        'App\\Http\\Requests\\ArtikelIndexRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ArtikelIndexRequest.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\Event' => __DIR__ . '/../..' . '/app/Models/Event.php',
         'App\\Models\\Galery' => __DIR__ . '/../..' . '/app/Models/Galery.php',
@@ -621,7 +624,12 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Repositories\\Admin\\AdminCategoryRepository' => __DIR__ . '/../..' . '/app/Repositories/Admin/AdminCategoryRepository.php',
+        'App\\Repositories\\Admin\\AdminPostRepository' => __DIR__ . '/../..' . '/app/Repositories/Admin/AdminPostRepository.php',
         'App\\Repositories\\ArtikelRepository' => __DIR__ . '/../..' . '/app/Repositories/ArtikelRepository.php',
+        'App\\Repositories\\Contracts\\Admin\\AdminCategoryRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/Admin/AdminCategoryRepositoryInterface.php',
+        'App\\Repositories\\Contracts\\Admin\\AdminPostRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/Admin/AdminPostRepositoryInterface.php',
+        'App\\Repositories\\Contracts\\Admin\\CrudInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/Admin/CrudInterface.php',
         'App\\Repositories\\Contracts\\ArtikelRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/ArtikelRepositoryInterface.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
@@ -1521,6 +1529,7 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'GuzzleHttp\\Handler\\Proxy' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/Proxy.php',
         'GuzzleHttp\\Handler\\ProxyEnvironment' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/ProxyEnvironment.php',
         'GuzzleHttp\\Handler\\StreamHandler' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/StreamHandler.php',
+        'GuzzleHttp\\Handler\\TlsVersion' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/TlsVersion.php',
         'GuzzleHttp\\MessageFormatter' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/MessageFormatter.php',
         'GuzzleHttp\\MessageFormatterInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/MessageFormatterInterface.php',
         'GuzzleHttp\\Middleware' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Middleware.php',
@@ -2089,6 +2098,7 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'Illuminate\\Database\\ConnectionInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/ConnectionInterface.php',
         'Illuminate\\Database\\ConnectionResolver' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/ConnectionResolver.php',
         'Illuminate\\Database\\ConnectionResolverInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/ConnectionResolverInterface.php',
+        'Illuminate\\Database\\Connectors\\Concerns\\ConfiguresPooledConnections' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Connectors/Concerns/ConfiguresPooledConnections.php',
         'Illuminate\\Database\\Connectors\\ConnectionFactory' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFactory.php',
         'Illuminate\\Database\\Connectors\\Connector' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Connectors/Connector.php',
         'Illuminate\\Database\\Connectors\\ConnectorInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Connectors/ConnectorInterface.php',
@@ -2097,6 +2107,7 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'Illuminate\\Database\\Connectors\\PostgresConnector' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Connectors/PostgresConnector.php',
         'Illuminate\\Database\\Connectors\\SQLiteConnector' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Connectors/SQLiteConnector.php',
         'Illuminate\\Database\\Connectors\\SqlServerConnector' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Connectors/SqlServerConnector.php',
+        'Illuminate\\Database\\Console\\Concerns\\InteractsWithPooledConnections' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Console/Concerns/InteractsWithPooledConnections.php',
         'Illuminate\\Database\\Console\\DatabaseInspectionCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Console/DatabaseInspectionCommand.php',
         'Illuminate\\Database\\Console\\DbCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Console/DbCommand.php',
         'Illuminate\\Database\\Console\\DumpCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Console/DumpCommand.php',
@@ -2390,6 +2401,7 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'Illuminate\\Foundation\\Console\\ConfigShowCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Console/ConfigShowCommand.php',
         'Illuminate\\Foundation\\Console\\ConsoleMakeCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Console/ConsoleMakeCommand.php',
         'Illuminate\\Foundation\\Console\\DevCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Console/DevCommand.php',
+        'Illuminate\\Foundation\\Console\\DevListCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Console/DevListCommand.php',
         'Illuminate\\Foundation\\Console\\DocsCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Console/DocsCommand.php',
         'Illuminate\\Foundation\\Console\\DownCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Console/DownCommand.php',
         'Illuminate\\Foundation\\Console\\EnumMakeCommand' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Console/EnumMakeCommand.php',
@@ -3194,6 +3206,7 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
         'Laravel\\Prompts\\AutoCompletePrompt' => __DIR__ . '/..' . '/laravel/prompts/src/AutoCompletePrompt.php',
+        'Laravel\\Prompts\\Callout' => __DIR__ . '/..' . '/laravel/prompts/src/Callout.php',
         'Laravel\\Prompts\\Clear' => __DIR__ . '/..' . '/laravel/prompts/src/Clear.php',
         'Laravel\\Prompts\\Concerns\\Colors' => __DIR__ . '/..' . '/laravel/prompts/src/Concerns/Colors.php',
         'Laravel\\Prompts\\Concerns\\Cursor' => __DIR__ . '/..' . '/laravel/prompts/src/Concerns/Cursor.php',
@@ -3211,6 +3224,13 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'Laravel\\Prompts\\Concerns\\TypedValue' => __DIR__ . '/..' . '/laravel/prompts/src/Concerns/TypedValue.php',
         'Laravel\\Prompts\\ConfirmPrompt' => __DIR__ . '/..' . '/laravel/prompts/src/ConfirmPrompt.php',
         'Laravel\\Prompts\\DataTablePrompt' => __DIR__ . '/..' . '/laravel/prompts/src/DataTablePrompt.php',
+        'Laravel\\Prompts\\Elements\\BulletedList' => __DIR__ . '/..' . '/laravel/prompts/src/Elements/BulletedList.php',
+        'Laravel\\Prompts\\Elements\\Element' => __DIR__ . '/..' . '/laravel/prompts/src/Elements/Element.php',
+        'Laravel\\Prompts\\Elements\\ElementContract' => __DIR__ . '/..' . '/laravel/prompts/src/Elements/ElementContract.php',
+        'Laravel\\Prompts\\Elements\\Heading' => __DIR__ . '/..' . '/laravel/prompts/src/Elements/Heading.php',
+        'Laravel\\Prompts\\Elements\\KeyValueList' => __DIR__ . '/..' . '/laravel/prompts/src/Elements/KeyValueList.php',
+        'Laravel\\Prompts\\Elements\\Link' => __DIR__ . '/..' . '/laravel/prompts/src/Elements/Link.php',
+        'Laravel\\Prompts\\Elements\\NumberedList' => __DIR__ . '/..' . '/laravel/prompts/src/Elements/NumberedList.php',
         'Laravel\\Prompts\\Exceptions\\FormRevertedException' => __DIR__ . '/..' . '/laravel/prompts/src/Exceptions/FormRevertedException.php',
         'Laravel\\Prompts\\Exceptions\\NonInteractiveValidationException' => __DIR__ . '/..' . '/laravel/prompts/src/Exceptions/NonInteractiveValidationException.php',
         'Laravel\\Prompts\\FormBuilder' => __DIR__ . '/..' . '/laravel/prompts/src/FormBuilder.php',
@@ -3243,6 +3263,7 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'Laravel\\Prompts\\TextareaPrompt' => __DIR__ . '/..' . '/laravel/prompts/src/TextareaPrompt.php',
         'Laravel\\Prompts\\Themes\\Contracts\\Scrolling' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Contracts/Scrolling.php',
         'Laravel\\Prompts\\Themes\\Default\\AutoCompletePromptRenderer' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Default/AutoCompletePromptRenderer.php',
+        'Laravel\\Prompts\\Themes\\Default\\CalloutRenderer' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Default/CalloutRenderer.php',
         'Laravel\\Prompts\\Themes\\Default\\ClearRenderer' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Default/ClearRenderer.php',
         'Laravel\\Prompts\\Themes\\Default\\Concerns\\DrawsBoxes' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Default/Concerns/DrawsBoxes.php',
         'Laravel\\Prompts\\Themes\\Default\\Concerns\\DrawsScrollbars' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Default/Concerns/DrawsScrollbars.php',
@@ -5608,6 +5629,7 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'Psy\\Manual\\V2Manual' => __DIR__ . '/..' . '/psy/psysh/src/Manual/V2Manual.php',
         'Psy\\Manual\\V3Manual' => __DIR__ . '/..' . '/psy/psysh/src/Manual/V3Manual.php',
         'Psy\\OutputAware' => __DIR__ . '/..' . '/psy/psysh/src/OutputAware.php',
+        'Psy\\Output\\BuiltinOutputPager' => __DIR__ . '/..' . '/psy/psysh/src/Output/BuiltinOutputPager.php',
         'Psy\\Output\\OutputPager' => __DIR__ . '/..' . '/psy/psysh/src/Output/OutputPager.php',
         'Psy\\Output\\PassthruPager' => __DIR__ . '/..' . '/psy/psysh/src/Output/PassthruPager.php',
         'Psy\\Output\\ProcOutputPager' => __DIR__ . '/..' . '/psy/psysh/src/Output/ProcOutputPager.php',
@@ -5716,13 +5738,12 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'Psy\\Readline\\Interactive\\Helper\\ArgumentExtractorVisitor' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Helper/ArgumentExtractorVisitor.php',
         'Psy\\Readline\\Interactive\\Helper\\BracketPair' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Helper/BracketPair.php',
         'Psy\\Readline\\Interactive\\Helper\\CommandHighlighter' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Helper/CommandHighlighter.php',
-        'Psy\\Readline\\Interactive\\Helper\\CompletionRenderer' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Helper/CompletionRenderer.php',
         'Psy\\Readline\\Interactive\\Helper\\CurrentWord' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Helper/CurrentWord.php',
         'Psy\\Readline\\Interactive\\Helper\\DebugLog' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Helper/DebugLog.php',
-        'Psy\\Readline\\Interactive\\Helper\\HistorySearchRenderer' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Helper/HistorySearchRenderer.php',
         'Psy\\Readline\\Interactive\\Helper\\TokenHelper' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Helper/TokenHelper.php',
         'Psy\\Readline\\Interactive\\HistorySearch' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/HistorySearch.php',
         'Psy\\Readline\\Interactive\\Input\\Buffer' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Input/Buffer.php',
+        'Psy\\Readline\\Interactive\\Input\\ClosureKeyBindings' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Input/ClosureKeyBindings.php',
         'Psy\\Readline\\Interactive\\Input\\History' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Input/History.php',
         'Psy\\Readline\\Interactive\\Input\\IndentationPolicy' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Input/IndentationPolicy.php',
         'Psy\\Readline\\Interactive\\Input\\InputQueue' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Input/InputQueue.php',
@@ -5736,9 +5757,20 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'Psy\\Readline\\Interactive\\InteractiveSession' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/InteractiveSession.php',
         'Psy\\Readline\\Interactive\\Layout\\DisplayString' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Layout/DisplayString.php',
         'Psy\\Readline\\Interactive\\Layout\\SoftWrapCalculator' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Layout/SoftWrapCalculator.php',
+        'Psy\\Readline\\Interactive\\Pager' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Pager.php',
         'Psy\\Readline\\Interactive\\Readline' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Readline.php',
+        'Psy\\Readline\\Interactive\\ReadlineMode' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/ReadlineMode.php',
+        'Psy\\Readline\\Interactive\\Renderer\\Area' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Renderer/Area.php',
+        'Psy\\Readline\\Interactive\\Renderer\\CompletionMenuWidget' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Renderer/CompletionMenuWidget.php',
+        'Psy\\Readline\\Interactive\\Renderer\\Frame' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Renderer/Frame.php',
         'Psy\\Readline\\Interactive\\Renderer\\FrameRenderer' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Renderer/FrameRenderer.php',
+        'Psy\\Readline\\Interactive\\Renderer\\HistorySearchOverlayWidget' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Renderer/HistorySearchOverlayWidget.php',
+        'Psy\\Readline\\Interactive\\Renderer\\InputFrameWidget' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Renderer/InputFrameWidget.php',
+        'Psy\\Readline\\Interactive\\Renderer\\LineMetrics' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Renderer/LineMetrics.php',
+        'Psy\\Readline\\Interactive\\Renderer\\LinesWidget' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Renderer/LinesWidget.php',
         'Psy\\Readline\\Interactive\\Renderer\\OverlayViewport' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Renderer/OverlayViewport.php',
+        'Psy\\Readline\\Interactive\\Renderer\\PagerWidget' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Renderer/PagerWidget.php',
+        'Psy\\Readline\\Interactive\\Renderer\\WidgetInterface' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Renderer/WidgetInterface.php',
         'Psy\\Readline\\Interactive\\Suggestion\\FrecencyIndex' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Suggestion/FrecencyIndex.php',
         'Psy\\Readline\\Interactive\\Suggestion\\Source\\CallSignatureSource' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Suggestion/Source/CallSignatureSource.php',
         'Psy\\Readline\\Interactive\\Suggestion\\Source\\ContextAwareSource' => __DIR__ . '/..' . '/psy/psysh/src/Readline/Interactive/Suggestion/Source/ContextAwareSource.php',
@@ -7431,6 +7463,7 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'Symfony\\Contracts\\Service\\Attribute\\Required' => __DIR__ . '/..' . '/symfony/service-contracts/Attribute/Required.php',
         'Symfony\\Contracts\\Service\\Attribute\\SubscribedService' => __DIR__ . '/..' . '/symfony/service-contracts/Attribute/SubscribedService.php',
         'Symfony\\Contracts\\Service\\ContainerAwareInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ContainerAwareInterface.php',
+        'Symfony\\Contracts\\Service\\ContainerProviderInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ContainerProviderInterface.php',
         'Symfony\\Contracts\\Service\\ResetInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ResetInterface.php',
         'Symfony\\Contracts\\Service\\ServiceCollectionInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceCollectionInterface.php',
         'Symfony\\Contracts\\Service\\ServiceLocatorTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceLocatorTrait.php',
@@ -7495,6 +7528,7 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'Tests\\CreatesApplication' => __DIR__ . '/../..' . '/tests/CreatesApplication.php',
         'Tests\\Feature\\ExampleTest' => __DIR__ . '/../..' . '/tests/Feature/ExampleTest.php',
         'Tests\\TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
+        'Tests\\Unit\\ArtikelControllerTest' => __DIR__ . '/../..' . '/tests/Unit/ArtikelControllerTest.php',
         'Tests\\Unit\\ExampleTest' => __DIR__ . '/../..' . '/tests/Unit/ExampleTest.php',
         'TheSeer\\Tokenizer\\Exception' => __DIR__ . '/..' . '/theseer/tokenizer/src/Exception.php',
         'TheSeer\\Tokenizer\\NamespaceUri' => __DIR__ . '/..' . '/theseer/tokenizer/src/NamespaceUri.php',
@@ -7541,9 +7575,9 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e::$classMap;
 
         }, null, ClassLoader::class);
     }

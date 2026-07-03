@@ -6,9 +6,9 @@ use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\ArtikelRepository;
+use App\Repositories\{ArtikelRepository, HomeRepository};
 use App\Repositories\Admin\AdminPostRepository;
-use App\Repositories\Contracts\ArtikelRepositoryInterface;
+use App\Repositories\Contracts\{ArtikelRepositoryInterface, HomeRepositoryInterface};
 use App\Repositories\Contracts\Admin\AdminPostRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(HomeRepositoryInterface::class, HomeRepository::class);
         $this->app->bind(ArtikelRepositoryInterface::class, ArtikelRepository::class);
 
         // Admin

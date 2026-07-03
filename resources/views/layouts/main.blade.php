@@ -205,7 +205,7 @@
             //handling ESC
             $('body').on('keyup.modal-close', function(e) {
                 if (e.key === 'Escape') {
-                removeModal();
+                    removeModal();
                 }
             });
         }

@@ -7,29 +7,7 @@
             <div class="container">
                 <h4 class="text-capitalize">Artikel Terbaru</h4>
                 <div class="divider mb-4"></div>
-                    <template v-if="home?.articles?.length">
-                        <div class="row">
-                            <template v-for="(article, index) in home.articles" :key="index">
-                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <div class="service-block mb-5">
-                                        <img :src="baseUrl + '/storage/' + article.post_image" :alt="article.title" class="img-fluid" @click="zoomImg">
-
-                                        <div class="content">
-                                            <h4 class="mt-4 mb-2 title-color"><a href="/artikel/{{ article.id }}">{{ article.title }}</a></h4>
-                                            <small class=""> <strong> <i class="icofont-book-mark mr-2"></i>{{ article.category_name }}</strong></small>
-                                            <small class="float-right"><strong> <i class="icofont-calendar mr-2"></i> {{ article.created_at_humans }}</strong></small>
-                                            <p class="mb-4 mt-2">{{  article.excerpt }} <small><a href="/artikel/{{ article.id }}">Selengkapnya</a></small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </template>
-                        </div>
-                    </template>
-                    <div v-else class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 text-center p-3 mb-5">
-                                Produk tidak ditemukan.
-                        </div>
-                    </div>
+                <CustListCard :listDataCard="listDataCard"/>
             </div>
         </section>
     </template>
@@ -43,12 +21,14 @@
     import { ContentLoader } from 'vue-content-loader';
     import CustBanner from '@/components/base/templates/CustBanner.vue'
     import CustCarousel from '@/components/base/templates/CustCarousel.vue'
+    import CustListCard from '@/components/base/templates/CustListCard.vue';
 
     const baseUrl = window.location.origin
     const store = useStore()
 
     const home = ref(null)
     const carouselData = ref(null)
+    const listDataCard = ref(null)
     const loading = ref(true)
     const errorMessage = ref('')
 
@@ -61,6 +41,17 @@
                 url: baseUrl + '/storage/' + galery_image
             }));
             carouselData.value = galeriesBaru;
+
+            const articlesBaru = home.value.articles.map(({ image_title, post_image, id, category, ...sisaKey }) => ({
+                title: image_title,
+                img_url: baseUrl + '/storage/' + post_image,
+                action_url: baseUrl + '/article/' + id,
+                category_name: category.category_name,
+                ...sisaKey
+            }));
+            console.log(articlesBaru);
+            listDataCard.value = articlesBaru;
+
         } catch (error) {
             errorMessage.value = 'Gagal mengambil data dari server.'
             Swal.fire({

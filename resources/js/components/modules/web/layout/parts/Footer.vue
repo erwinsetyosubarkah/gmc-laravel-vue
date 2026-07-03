@@ -5,10 +5,10 @@
                 <div class="col-lg-4 mr-auto col-sm-6">
                     <div class="widget mb-5 mb-lg-0">
                         <div class="logo mb-4">
-                            <img src="http://gasmotorclub.test/storage/logo.jpg" alt="" class="" height="100"> <span class="font-weight-bold">Gas Motor Club</span>
+                            <img :src="baseUrl+'/storage/'+profile.club_logo" alt="" class="" height="100"> <span class="font-weight-bold">{{ profile.club_name }}</span>
 
                         </div>
-                        Gas Motor Club (GMC) adalah wadah organisasi dan komunitas bagi para pencinta otomotif roda dua yang
+                        {{ profile.short_description }}
 
                         <ul class="list-inline footer-socials mt-4">
                             <li class="list-inline-item"><a href="https://www.facebook.com/themefisher"><i class="icofont-facebook"></i></a></li>
@@ -24,9 +24,9 @@
                         <div class="divider mb-4"></div>
 
                         <ul class="list-unstyled footer-menu lh-35">
-                                <li><a href="#">Auto Tips </a></li>
-                                <li><a href="#">Oto Sports </a></li>
-                                <li><a href="#">Oto Custom </a></li>
+                            <li v-for="(category, index) in categories" :key="index">
+                               <a href="#">{{ category.category_name }}</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -37,7 +37,9 @@
                         <div class="divider mb-4"></div>
 
                         <ul class="list-unstyled footer-menu lh-35">
-                                <li><a href="#">Explore The Beauty of Lombok 2026 </a></li>
+                            <li v-for="(event, index) in newevents" :key="index">
+                               <a href="#">{{ event.event_title }}</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -52,7 +54,7 @@
                                 <i class="icofont-email mr-3"></i>
                                 <span class="h6 mb-0">Support Selama 24/7</span>
                             </div>
-                            <h4 class="mt-2"><a href="tel:08756496xxx">gmc@gmail.com</a></h4>
+                            <h4 class="mt-2"><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></h4>
                         </div>
 
                         <div class="footer-contact-block">
@@ -60,7 +62,7 @@
                                 <i class="icofont-support mr-3"></i>
                                 <span class="h6 mb-0">Senin s/d Jum'at : 08:30 - 18:00</span>
                             </div>
-                            <h4 class="mt-2"><a href="tel:08756496xxx">08756496xxx</a></h4>
+                            <h4 class="mt-2"><a href="tel:{{ profile.phone }}">{{ profile.phone }}</a></h4>
                         </div>
                     </div>
                 </div>
@@ -70,7 +72,7 @@
                 <div class="row align-items-center justify-content-between">
                     <div class="col-lg-6">
                         <div class="copyright">
-                            © Copyright 2023
+                            © Copyright 2026
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -94,3 +96,17 @@
         </div>
     </footer>
 </template>
+
+<script setup>
+    import { computed } from 'vue'
+    import { useStore } from 'vuex'
+    const baseUrl = window.location.origin
+
+    // 1. Inisialisasi store di dalam komponen
+    const store = useStore()
+
+    // 2. Membuat computed property untuk mengambil data profile dari store
+    const profile = computed(() => store.state.profile)
+    const categories = computed(() => store.state.categories)
+    const newevents = computed(() => store.state.newevents)
+</script>

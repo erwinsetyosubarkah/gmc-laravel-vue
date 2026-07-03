@@ -22,7 +22,10 @@ export default defineConfig({
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
-            Popper: ['popper.js', 'default']
+            'window.Shuffle': ['shufflejs', 'default'],
+            Shuffle: ['shufflejs', 'default'],
+            Popper: ['popper.js', 'default'],
+            include: ['**/*.js', '**/*.ts', '**/*.jsx', '**/*.tsx', '**/*.vue'],
         })
     ],
     resolve: {

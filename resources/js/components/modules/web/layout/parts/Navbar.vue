@@ -23,7 +23,7 @@
         <nav class="navbar navbar-expand-lg navigation shadow" id="navbar">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="http://gasmotorclub.test/storage/{{ profile.club_logo }}" alt="" class="" height="100"> <span class="font-weight-bold">{{ profile.club_name }}</span>
+                    <img :src="baseUrl+'/storage/'+profile.club_logo" alt="" class="" height="100"> <span class="font-weight-bold">{{ profile.club_name }}</span>
                 </a>
 
 
@@ -67,11 +67,10 @@
 <script setup>
     import { computed } from 'vue'
     import { useStore } from 'vuex'
+    const baseUrl = window.location.origin
 
-    // 1. Inisialisasi store di dalam komponen
     const store = useStore()
 
-    // 2. Ambil data profile dari state menggunakan computed properti
     const profile = computed(() => store.state.profile)
 
 

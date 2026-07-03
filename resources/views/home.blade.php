@@ -22,7 +22,7 @@
                     <div class="feature-block d-lg-flex">
                         <div class="col-lg-12 testimonial-wrap-2">
                             @foreach ($galeries as $galery)
-                            <div class="testimonial-block style-2  gray-bg feature-item">
+                            <div class="testimonial-block style-2 gray-bg feature-item">
                                 <div class="">
                                     <img src="{{ asset('storage/'.$galery->galery_image) }}" alt="" class="img-fluid">
                                 </div>

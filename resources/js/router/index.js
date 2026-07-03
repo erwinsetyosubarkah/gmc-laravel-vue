@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 // Impor komponen halaman Anda di sini
-import Home from '../components/modules/web/pages/Home.vue';
+import Home from '../components/modules/web/pages/home/Home.vue';
 
 const routes = [
   // Definisikan rute Anda di sini

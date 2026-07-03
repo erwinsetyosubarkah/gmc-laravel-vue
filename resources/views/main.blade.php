@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $profile->club_name }}</title>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <div id="app" data-profile="{{ json_encode($profile) }}">
+    <div id="app" data-profile="{{ json_encode($profile) }}" data-categories="{{ json_encode($categories) }}" data-newevents="{{ json_encode($newevents) }}">
         <layout></layout>
     </div>
 </body>

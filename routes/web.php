@@ -22,6 +22,8 @@ use App\Http\Controllers\Admin\AdminMyclientController;
 use App\Http\Controllers\Admin\AdminRegisterController;
 use App\Http\Controllers\Admin\AdminMyproductController;
 use App\Http\Controllers\Admin\AdminVisidanmisiController;
+use App\Models\Category;
+use App\Models\Event;
 use App\Models\Profile;
 
 /*
@@ -35,7 +37,7 @@ use App\Models\Profile;
 |
 */
 // // Route web
-Route::get('/', [HomeController::class,'index']);
+Route::get('/home', [HomeController::class,'index']);
 // Route::get('/profile', [ProfileController::class,'index']);
 // Route::get('/visidanmisi', [VisidanmisiController::class,'index']);
 // Route::get('/produkkami', [ProdukkamiController::class,'index']);
@@ -109,7 +111,9 @@ Route::get('/', [HomeController::class,'index']);
 
 Route::get('/', function () {
     return view('main',[
-        'profile'  => Profile::first()
+        'profile'  => Profile::first(),
+        'categories' => Category::all(),
+        'newevents' => Event::latest()->take(1)->get(),
     ]);
 });
 

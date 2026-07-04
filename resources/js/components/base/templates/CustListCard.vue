@@ -7,10 +7,10 @@
                         <img :src="item.img_url" :alt="item.title" class="img-fluid" style="cursor: zoom-in;" @click="zoomImg(item.img_url)">
 
                         <div class="content">
-                            <h4 class="mt-4 mb-2 title-color"><a href="{{ item.action_url }}">{{ item.title }}</a></h4>
+                            <h4 class="mt-4 mb-2 title-color"><RouterLink :to="item.action_url">{{ item.title }}</RouterLink></h4>
                             <small class=""> <strong> <i class="icofont-book-mark mr-2"></i>{{ item.category_name }}</strong></small>
                             <small class="float-right"><strong> <i class="icofont-calendar mr-2"></i> {{ item.created_at_humans }}</strong></small>
-                            <p class="mb-4 mt-2">{{  item.excerpt }} <small><a href="{{ item.action_url }}">Selengkapnya</a></small></p>
+                            <div class="mb-4 mt-2"><p v-html="item.excerpt"></p> <small><RouterLink :to="item.action_url">Selengkapnya</RouterLink></small></div>
                         </div>
                     </div>
                 </div>

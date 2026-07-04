@@ -57,6 +57,10 @@ class ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e
         array (
             'Whoops\\' => 7,
         ),
+        'V' =>
+        array (
+            'Vinkla\\Hashids\\' => 15,
+        ),
         'T' =>
         array (
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
@@ -150,6 +154,10 @@ class ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e
             'Illuminate\\Support\\' => 19,
             'Illuminate\\' => 11,
         ),
+        'H' =>
+        array (
+            'Hashids\\' => 8,
+        ),
         'G' =>
         array (
             'GuzzleHttp\\UriTemplate\\' => 23,
@@ -157,6 +165,7 @@ class ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
             'GrahamCampbell\\ResultType\\' => 26,
+            'GrahamCampbell\\Manager\\' => 23,
         ),
         'F' =>
         array (
@@ -201,6 +210,10 @@ class ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e
         'Whoops\\' =>
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
+        ),
+        'Vinkla\\Hashids\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/vinkla/hashids/src',
         ),
         'TijsVerkoyen\\CssToInlineStyles\\' =>
         array (
@@ -486,6 +499,10 @@ class ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
         ),
+        'Hashids\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/hashids/hashids/src',
+        ),
         'GuzzleHttp\\UriTemplate\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/uri-template/src',
@@ -505,6 +522,10 @@ class ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e
         'GrahamCampbell\\ResultType\\' =>
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
+        ),
+        'GrahamCampbell\\Manager\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/graham-campbell/manager/src',
         ),
         'Fruitcake\\Cors\\' =>
         array (
@@ -631,6 +652,8 @@ class ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e
         'App\\Repositories\\Contracts\\Admin\\AdminPostRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/Admin/AdminPostRepositoryInterface.php',
         'App\\Repositories\\Contracts\\Admin\\CrudInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/Admin/CrudInterface.php',
         'App\\Repositories\\Contracts\\ArtikelRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/ArtikelRepositoryInterface.php',
+        'App\\Repositories\\Contracts\\HomeRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/HomeRepositoryInterface.php',
+        'App\\Repositories\\HomeRepository' => __DIR__ . '/../..' . '/app/Repositories/HomeRepository.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
@@ -1494,6 +1517,9 @@ class ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e
         'Filter\\FilterFailedException' => __DIR__ . '/..' . '/symfony/polyfill-php85/Resources/stubs/Filter/FilterFailedException.php',
         'Fruitcake\\Cors\\CorsService' => __DIR__ . '/..' . '/fruitcake/php-cors/src/CorsService.php',
         'Fruitcake\\Cors\\Exceptions\\InvalidOptionException' => __DIR__ . '/..' . '/fruitcake/php-cors/src/Exceptions/InvalidOptionException.php',
+        'GrahamCampbell\\Manager\\AbstractManager' => __DIR__ . '/..' . '/graham-campbell/manager/src/AbstractManager.php',
+        'GrahamCampbell\\Manager\\ConnectorInterface' => __DIR__ . '/..' . '/graham-campbell/manager/src/ConnectorInterface.php',
+        'GrahamCampbell\\Manager\\ManagerInterface' => __DIR__ . '/..' . '/graham-campbell/manager/src/ManagerInterface.php',
         'GrahamCampbell\\ResultType\\Error' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Error.php',
         'GrahamCampbell\\ResultType\\Result' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Result.php',
         'GrahamCampbell\\ResultType\\Success' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Success.php',
@@ -1658,6 +1684,11 @@ class ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e
         'Hamcrest\\Type\\IsString' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsString.php',
         'Hamcrest\\Util' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
         'Hamcrest\\Xml\\HasXPath' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
+        'Hashids\\Hashids' => __DIR__ . '/..' . '/hashids/hashids/src/Hashids.php',
+        'Hashids\\HashidsInterface' => __DIR__ . '/..' . '/hashids/hashids/src/HashidsInterface.php',
+        'Hashids\\Math\\BCMath' => __DIR__ . '/..' . '/hashids/hashids/src/Math/BCMath.php',
+        'Hashids\\Math\\Gmp' => __DIR__ . '/..' . '/hashids/hashids/src/Math/Gmp.php',
+        'Hashids\\Math\\MathInterface' => __DIR__ . '/..' . '/hashids/hashids/src/Math/MathInterface.php',
         'Illuminate\\Auth\\Access\\AuthorizationException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/AuthorizationException.php',
         'Illuminate\\Auth\\Access\\Events\\GateEvaluated' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/Events/GateEvaluated.php',
         'Illuminate\\Auth\\Access\\Gate' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/Gate.php',
@@ -7546,6 +7577,10 @@ class ComposerStaticInit84c8a6a1f9872cc9e0741b76ab81eb2e
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
+        'Vinkla\\Hashids\\Facades\\Hashids' => __DIR__ . '/..' . '/vinkla/hashids/src/Facades/Hashids.php',
+        'Vinkla\\Hashids\\HashidsFactory' => __DIR__ . '/..' . '/vinkla/hashids/src/HashidsFactory.php',
+        'Vinkla\\Hashids\\HashidsManager' => __DIR__ . '/..' . '/vinkla/hashids/src/HashidsManager.php',
+        'Vinkla\\Hashids\\HashidsServiceProvider' => __DIR__ . '/..' . '/vinkla/hashids/src/HashidsServiceProvider.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',
         'Whoops\\Exception\\Formatter' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Formatter.php',
         'Whoops\\Exception\\Frame' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Frame.php',

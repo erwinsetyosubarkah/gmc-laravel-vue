@@ -26,11 +26,17 @@ class ArtikelRepository implements ArtikelRepositoryInterface
         ];
     }
 
+    /**
+     * Summary of show
+     * @param array $data
+     * @return array{artikel: Post|\Illuminate\Database\Eloquent\Collection<int, Post>|\stdClass|null, page_title: string, profile: Profile|\stdClass|null}
+     */
     public function show(array $data)
     {
 
         $profile = Profile::first();
-        $singleArtikel = Post::find($data['id']);
+        $singleArtikel = Post::with(['category'])->find($data['id']);
+        $singleArtikel->created_at_humans = $singleArtikel->created_at->diffForHumans();
 
         return [
             'page_title' => 'Artikel',

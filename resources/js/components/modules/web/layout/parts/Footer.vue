@@ -5,7 +5,7 @@
                 <div class="col-lg-4 mr-auto col-sm-6">
                     <div class="widget mb-5 mb-lg-0">
                         <div class="logo mb-4">
-                            <img :src="baseUrl+'/storage/'+profile.club_logo" alt="" class="" height="100"> <span class="font-weight-bold">{{ profile.club_name }}</span>
+                            <img :src="'/storage/'+profile.club_logo" alt="" class="" height="100"> <span class="font-weight-bold">{{ profile.club_name }}</span>
 
                         </div>
                         {{ profile.short_description }}
@@ -100,7 +100,6 @@
 <script setup>
     import { computed } from 'vue'
     import { useStore } from 'vuex'
-    const baseUrl = window.location.origin
 
     // 1. Inisialisasi store di dalam komponen
     const store = useStore()

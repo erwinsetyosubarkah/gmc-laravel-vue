@@ -26,7 +26,7 @@ export default defineConfig({
             Shuffle: ['shufflejs', 'default'],
             Popper: ['popper.js', 'default'],
             include: ['**/*.js', '**/*.ts', '**/*.jsx', '**/*.tsx', '**/*.vue'],
-        })
+        }),
     ],
     resolve: {
         alias: {

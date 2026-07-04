@@ -23,7 +23,7 @@
         <nav class="navbar navbar-expand-lg navigation shadow" id="navbar">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img :src="baseUrl+'/storage/'+profile.club_logo" alt="" class="" height="100"> <span class="font-weight-bold">{{ profile.club_name }}</span>
+                    <img :src="'/storage/'+profile.club_logo" alt="" class="" height="100"> <span class="font-weight-bold">{{ profile.club_name }}</span>
                 </a>
 
 
@@ -67,7 +67,6 @@
 <script setup>
     import { computed } from 'vue'
     import { useStore } from 'vuex'
-    const baseUrl = window.location.origin
 
     const store = useStore()
 

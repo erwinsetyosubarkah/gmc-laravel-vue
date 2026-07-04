@@ -43,7 +43,7 @@ Route::get('/home', [HomeController::class,'index']);
 // Route::get('/produkkami', [ProdukkamiController::class,'index']);
 // Route::get('/produkkami/{produkkami}', [ProdukkamiController::class,'show']);
 // Route::get('/artikel', [ArtikelController::class,'index']);
-// Route::get('/artikel/{artikel}', [ArtikelController::class,'show']);
+Route::get('/artikel/{id}', [ArtikelController::class,'show']);
 // Route::get('/event', [EventController::class,'index']);
 // Route::get('/event/{event}', [EventController::class,'show']);
 // Route::get('/galery', [GaleryController::class,'index']);
@@ -109,11 +109,11 @@ Route::get('/home', [HomeController::class,'index']);
 // Route::post('/admin-user-edit/{user}', [AdminUserController::class,'edit'])->middleware('admin');
 
 
-Route::get('/', function () {
+Route::get('/{any}', function () {
     return view('main',[
         'profile'  => Profile::first(),
         'categories' => Category::all(),
         'newevents' => Event::latest()->take(1)->get(),
     ]);
-});
+})->where('any', '.*');
 

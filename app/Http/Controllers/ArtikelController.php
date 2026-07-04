@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ArtikelIndexRequest;
-use App\Models\Post;
 use App\Repositories\Contracts\ArtikelRepositoryInterface;
+use Illuminate\Http\Request;
 
+/**
+ * Summary of ArtikelController
+ */
 class ArtikelController extends Controller
 {
 
     private Object $artikelRepository;
 
+    /**
+     * Summary of __construct
+     * @param ArtikelRepositoryInterface $artikelRepository
+     */
     public function __construct(ArtikelRepositoryInterface $artikelRepository)
     {
         $this->artikelRepository = $artikelRepository;
@@ -24,8 +31,13 @@ class ArtikelController extends Controller
         return view('artikel',$latestArtikels);
     }
 
-    public function show(Post $artikel) {
-        $singleArtikel = $this->artikelRepository->show(["id" => $artikel->id]);
-        return view('artikelsingle', $singleArtikel);
+    /**
+     * Summary of show
+     * @param Request $request
+     * @return void
+     */
+    public function show(Request $request) {
+        $singleArtikel = $this->artikelRepository->show(["id" => $request->id]);
+        echo json_encode($singleArtikel);
     }
 }

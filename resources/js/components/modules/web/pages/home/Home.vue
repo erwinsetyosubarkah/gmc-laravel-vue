@@ -1,7 +1,7 @@
 <template>
     <ContentLoader v-if="loading" />
     <template v-else>
-        <CustBanner :backgroundImage="baseUrl+'/storage/banner.png'" :description="home?.profile?.short_description" />
+        <CustBanner :backgroundImage="'/storage/banner.png'" :description="home?.profile?.short_description" />
         <CustCarousel v-if="carouselData" :dataImage="carouselData" />
         <section class="newest-articles mt-5">
             <div class="container">
@@ -23,7 +23,6 @@
     import CustCarousel from '@/components/base/templates/CustCarousel.vue'
     import CustListCard from '@/components/base/templates/CustListCard.vue';
 
-    const baseUrl = window.location.origin
     const store = useStore()
 
     const home = ref(null)
@@ -38,18 +37,17 @@
             home.value = response.data
             const galeriesBaru = home.value.galeries.map(({ image_title, galery_image }) => ({
                 title: image_title,
-                url: baseUrl + '/storage/' + galery_image
+                url:'/storage/' + galery_image
             }));
             carouselData.value = galeriesBaru;
 
             const articlesBaru = home.value.articles.map(({ image_title, post_image, id, category, ...sisaKey }) => ({
                 title: image_title,
-                img_url: baseUrl + '/storage/' + post_image,
-                action_url: baseUrl + '/article/' + id,
+                img_url: '/storage/' + post_image,
+                action_url: '/article/' + id,
                 category_name: category.category_name,
                 ...sisaKey
             }));
-            console.log(articlesBaru);
             listDataCard.value = articlesBaru;
 
         } catch (error) {

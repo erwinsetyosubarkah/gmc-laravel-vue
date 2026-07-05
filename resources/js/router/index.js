@@ -5,6 +5,7 @@ import ArticleSingle from '@/components/modules/web/pages/article/ArticleSingle.
 import Profile from '@/components/modules/web/pages/profile/Profile.vue';
 import Visidanmisi from '@/components/modules/web/pages/visidanmisi/Visidanmisi.vue';
 import ProdukKami from '@/components/modules/web/pages/produkkami/ProdukKami.vue';
+import KontakKami from '@/components/modules/web/pages/kontakkami/KontakKami.vue';
 import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
 
 const routes = [
@@ -33,6 +34,11 @@ const routes = [
         path: '/produkkami',
         name: 'produkkami',
         component: ProdukKami
+    },
+    {
+        path: '/kontakkami',
+        name: 'kontakkami',
+        component: KontakKami
     },
     {
         path: '/:pathMatch(.*)*',

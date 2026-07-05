@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
-use Illuminate\Http\Request;
+use App\Repositories\Contracts\KontakkamiRepositoryInterface;
 
+/**
+ * Summary of KontakkamiController
+ */
 class KontakkamiController extends Controller
 {
+
+    private Object $kontakkamiRepository;
+
+    public function __construct(KontakkamiRepositoryInterface $kontakkamiRepository)
+    {
+        $this->kontakkamiRepository = $kontakkamiRepository;
+    }
+
     public function index() {
 
-        return view('kontakkami',[
-            'page_title' => 'Kontak Kami',
-            'profile' => Profile::first()
-        ]);
+        $result = $this->kontakkamiRepository->getProfile();
+
+        echo json_encode($result);
+
     }
 }

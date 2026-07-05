@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class ArtikelIndexRequest extends FormRequest
+class ProdukkamiIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,7 +20,8 @@ class ArtikelIndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search'  => 'nullable|string|max:255'
+            'search'  => 'nullable|string|max:255',
+            'page'  => 'nullable',
         ];
     }
 
@@ -28,7 +29,7 @@ class ArtikelIndexRequest extends FormRequest
     {
         return [
             'search.string'     => 'Keyword pencarian wajib string',
-            'search.max'          => 'Keyword pencarian terlalu panjang, maksimal 255 karakter.'
+            'search.max'        => 'Keyword pencarian terlalu panjang, maksimal 255 karakter.'
         ];
     }
 

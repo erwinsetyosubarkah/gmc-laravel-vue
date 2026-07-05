@@ -2,33 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Myproduct;
-use App\Models\Profile;
+use App\Http\Requests\ProdukkamiIndexRequest;
+use App\Repositories\Contracts\ProdukkamiRepositoryInterface;
 use Illuminate\Http\Request;
 
 class ProdukkamiController extends Controller
 {
-    public function index() {
 
-        $produkkami = Myproduct::latest();
+    private object $produkkamiRepository;
+    public function __construct(ProdukkamiRepositoryInterface $produkkamiRepository)
+    {
+        $this->produkkamiRepository = $produkkamiRepository;
+    }
+    public function index(ProdukkamiIndexRequest $request) {
+        $validatedData = $request->validated();
+        $result = $this->produkkamiRepository->latest($validatedData);
 
-        if(request('search')){
-            $produkkami->where('product_name','like', '%' . request('search') . '%');
-        }
-
-        return view('produkkami',[
-            'page_title' => 'Produk Kami',
-            'profile' => Profile::first(),
-            'produkkami' => $produkkami->paginate(5)
-        ]);
+        echo json_encode($result);
     }
 
-    public function show(Myproduct $produkkami) {
-     
-        return view('produkkamisingle',[
-            'page_title' => 'Produk Kami',
-            'profile' => Profile::first(),
-            'produkkami' => Myproduct::find($produkkami->id)
-        ]);
+    public function show(Request $request) {
+        $result = $this->produkkamiRepository->show(["id" => $request->id]);
+        echo json_encode($result);
     }
 }

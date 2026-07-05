@@ -4,6 +4,7 @@ import Home from '@/components/modules/web/pages/home/Home.vue';
 import ArticleSingle from '@/components/modules/web/pages/article/ArticleSingle.vue';
 import Profile from '@/components/modules/web/pages/profile/Profile.vue';
 import Visidanmisi from '@/components/modules/web/pages/visidanmisi/Visidanmisi.vue';
+import ProdukKami from '@/components/modules/web/pages/produkkami/ProdukKami.vue';
 import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
 
 const routes = [
@@ -27,6 +28,11 @@ const routes = [
         path: '/visidanmisi',
         name: 'visidanmisi',
         component: Visidanmisi
+    },
+    {
+        path: '/produkkami',
+        name: 'produkkami',
+        component: ProdukKami
     },
     {
         path: '/:pathMatch(.*)*',

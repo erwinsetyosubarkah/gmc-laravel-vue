@@ -40,7 +40,7 @@ use App\Models\Profile;
 Route::get('/gethome', [HomeController::class,'index']);
 Route::get('/getprofile', [ProfileController::class,'index']);
 Route::get('/getvisidanmisi', [VisidanmisiController::class,'index']);
-// Route::get('/produkkami', [ProdukkamiController::class,'index']);
+Route::get('/getprodukkami', [ProdukkamiController::class,'index']);
 // Route::get('/produkkami/{produkkami}', [ProdukkamiController::class,'show']);
 // Route::get('/artikel', [ArtikelController::class,'index']);
 Route::get('/getartikel/{id}', [ArtikelController::class,'show']);

@@ -33,7 +33,7 @@
 
     const fetchHome = async () => {
         try {
-            const response = await apiClient.get('/home')
+            const response = await apiClient.get('/gethome')
             home.value = response.data
             const galeriesBaru = home.value.galeries.map(({ image_title, galery_image }) => ({
                 title: image_title,

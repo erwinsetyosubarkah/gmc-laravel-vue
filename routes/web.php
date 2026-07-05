@@ -37,13 +37,13 @@ use App\Models\Profile;
 |
 */
 // // Route web
-Route::get('/home', [HomeController::class,'index']);
-// Route::get('/profile', [ProfileController::class,'index']);
-// Route::get('/visidanmisi', [VisidanmisiController::class,'index']);
+Route::get('/gethome', [HomeController::class,'index']);
+Route::get('/getprofile', [ProfileController::class,'index']);
+Route::get('/getvisidanmisi', [VisidanmisiController::class,'index']);
 // Route::get('/produkkami', [ProdukkamiController::class,'index']);
 // Route::get('/produkkami/{produkkami}', [ProdukkamiController::class,'show']);
 // Route::get('/artikel', [ArtikelController::class,'index']);
-Route::get('/artikel/{id}', [ArtikelController::class,'show']);
+Route::get('/getartikel/{id}', [ArtikelController::class,'show']);
 // Route::get('/event', [EventController::class,'index']);
 // Route::get('/event/{event}', [EventController::class,'show']);
 // Route::get('/galery', [GaleryController::class,'index']);

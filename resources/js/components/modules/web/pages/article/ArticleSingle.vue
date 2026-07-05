@@ -73,7 +73,7 @@
 
     const fetchSingleArticle = async () => {
         try {
-            const response = await apiClient.get('/artikel/'+articleId)
+            const response = await apiClient.get('/getartikel/'+articleId)
             articleData.value = response.data
 
         } catch (error) {

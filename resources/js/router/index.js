@@ -2,11 +2,38 @@ import { createRouter, createWebHistory } from 'vue-router';
 // Impor komponen halaman Anda di sini
 import Home from '@/components/modules/web/pages/home/Home.vue';
 import ArticleSingle from '@/components/modules/web/pages/article/ArticleSingle.vue';
+import Profile from '@/components/modules/web/pages/profile/Profile.vue';
+import Visidanmisi from '@/components/modules/web/pages/visidanmisi/Visidanmisi.vue';
+import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
 
 const routes = [
-  // Definisikan rute Anda di sini
-  { path: '/', component: Home },
-  { path: '/article/:id', component: ArticleSingle }
+    // Definisikan rute Anda di sini
+    {
+        path: '/',
+        name: 'home',
+        component: Home
+    },
+    {
+        path: '/article/:id',
+        name: 'article-single',
+        component: ArticleSingle
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: Profile
+    },
+    {
+        path: '/visidanmisi',
+        name: 'visidanmisi',
+        component: Visidanmisi
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'not-found',
+        component: NotFoundPage
+    }
+
 ];
 
 const router = createRouter({

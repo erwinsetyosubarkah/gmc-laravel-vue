@@ -2,15 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
-use Illuminate\Http\Request;
+use App\Repositories\Contracts\ProfileRepositoryInterface;
 
+/**
+ * Summary of ProfileController
+ */
 class ProfileController extends Controller
 {
+
+    private Object $profileRepository;
+
+    /**
+     * Summary of __construct
+     * @param ProfileRepositoryInterface $profileRepository
+     */
+    public function __construct(ProfileRepositoryInterface $profileRepository)
+    {
+        $this->profileRepository = $profileRepository;
+    }
+
+    /**
+     * Summary of index
+     * @return void
+     */
     public function index() {
-        return view('profile',[
-            'page_title' => 'Profile',
-            'profile' => Profile::first()
-        ]);
+        $result = $this->profileRepository->getProfile();
+
+        echo json_encode($result);
     }
 }

@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
-use App\Models\Visidanmisi;
-use Illuminate\Http\Request;
+use App\Repositories\Contracts\VisidanmisiRepositoryInterface;
 
 class VisidanmisiController extends Controller
 {
+
+    private object $visidanmisiRepository;
+
+    public function __construct(VisidanmisiRepositoryInterface $visidanmisiRepository)
+    {
+        $this->visidanmisiRepository = $visidanmisiRepository;
+    }
+
     public function index() {
-        return view('visidanmisi',[
-            'page_title' => 'Visi dan Misi',
-            'profile' => Profile::first(),
-            'visidanmisi' => Visidanmisi::first()
-        ]);
+        $result = $this->visidanmisiRepository->getVisidanmisi();
+
+        echo json_encode($result);
     }
 }

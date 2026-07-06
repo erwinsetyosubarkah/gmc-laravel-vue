@@ -22,9 +22,9 @@
         </div>
         <nav class="navbar navbar-expand-lg navigation shadow" id="navbar">
             <div class="container">
-                <a class="navbar-brand" href="/">
+                <RouterLink class="navbar-brand" to="/">
                     <img :src="'/storage/'+profile.club_logo" alt="" class="" height="100"> <span class="font-weight-bold">{{ profile.club_name }}</span>
-                </a>
+                </RouterLink>
 
 
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain" aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,21 +34,21 @@
             <div class="collapse navbar-collapse" id="navbarmain">
                 <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home</a>
+                    <RouterLink class="nav-link" to="/">Home</RouterLink>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile Club <i class="icofont-thin-down"></i></a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown02">
-                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                        <li><a class="dropdown-item" href="/visidanmisi">Visi dan Misi</a></li>
-                        <li><a class="dropdown-item" href="/produkkami">Produk Kami</a></li>
-                        <li><a class="dropdown-item" href="/kontakkami">Kontak Kami</a></li>
+                        <li><RouterLink class="dropdown-item" to="/profile">Profile</RouterLink></li>
+                        <li><RouterLink class="dropdown-item" to="/visidanmisi">Visi dan Misi</RouterLink></li>
+                        <li><RouterLink class="dropdown-item" to="/produkkami">Produk Kami</RouterLink></li>
+                        <li><RouterLink class="dropdown-item" to="/kontakkami">Kontak Kami</RouterLink></li>
                     </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="/artikel">Artikel</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/event">Event</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/galery">Galery Foto</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/klienkami">Klien Kami</a></li>
+                <li class="nav-item"><RouterLink class="nav-link" to="/article">Artikel</RouterLink></li>
+                    <li class="nav-item"><RouterLink class="nav-link" to="/event">Event</RouterLink></li>
+                    <li class="nav-item"><RouterLink class="nav-link" to="/galery">Galery Foto</RouterLink></li>
+                    <li class="nav-item"><RouterLink class="nav-link" to="/klienkami">Klien Kami</RouterLink></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle btn btn-primary btn-sm text-white" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> Login <i class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown05">

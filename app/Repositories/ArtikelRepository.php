@@ -9,20 +9,24 @@ use App\Repositories\Contracts\ArtikelRepositoryInterface;
 class ArtikelRepository implements ArtikelRepositoryInterface
 {
 
+    /**
+     * Summary of latest
+     * @param array $data
+     * @return array{artikels: \Illuminate\Pagination\LengthAwarePaginator<int, Post>, page_title: string}
+     */
     public function latest(array $data)
     {
-        $artikels = Post::latest();
+        $artikels = Post::with(['category'])->latest();
 
         if(isset($data['search'])){
             $artikels->where('title','like', '%' . $data['search'] . '%');
         }
 
-        $profile = Profile::first();
+        $artikels = $artikels->paginate(6);
 
         return [
             'page_title' => 'Artikel',
-            'profile' => $profile,
-            'artikels' => $artikels->paginate(6)
+            'artikels' => $artikels
         ];
     }
 

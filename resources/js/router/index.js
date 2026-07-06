@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 // Impor komponen halaman Anda di sini
 import Home from '@/components/modules/web/pages/home/Home.vue';
+import Article from '@/components/modules/web/pages/article/Article.vue';
 import ArticleSingle from '@/components/modules/web/pages/article/ArticleSingle.vue';
 import Profile from '@/components/modules/web/pages/profile/Profile.vue';
 import Visidanmisi from '@/components/modules/web/pages/visidanmisi/Visidanmisi.vue';
@@ -14,6 +15,11 @@ const routes = [
         path: '/',
         name: 'home',
         component: Home
+    },
+    {
+        path: '/article',
+        name: 'article',
+        component: Article
     },
     {
         path: '/article/:id',

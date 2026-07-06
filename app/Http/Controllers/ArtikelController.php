@@ -23,12 +23,17 @@ class ArtikelController extends Controller
         $this->artikelRepository = $artikelRepository;
     }
 
+    /**
+     * Summary of index
+     * @param ArtikelIndexRequest $request
+     * @return \Illuminate\Contracts\View\View
+     */
     public function index(ArtikelIndexRequest $request) {
 
         $validatedData = $request->validated();
-        $latestArtikels = $this->artikelRepository->latest($validatedData);
+        $result = $this->artikelRepository->latest($validatedData);
 
-        return view('artikel',$latestArtikels);
+        echo json_encode($result);
     }
 
     /**

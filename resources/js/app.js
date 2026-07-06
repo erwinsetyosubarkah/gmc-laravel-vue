@@ -26,6 +26,12 @@ import './script.js';
 import './contact.js';
 
 import VueSweetalert2 from 'vue-sweetalert2';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/id';
+
+dayjs.extend(relativeTime);
+dayjs.locale('id');
 
 const rootElement = document.getElementById('app')
 
@@ -42,6 +48,10 @@ if (rootElement) {
     store.commit('SET_CATEGORIES', categoriesData)
     store.commit('SET_NEWEVENTS', newEventsData)
 
+    app.config.globalProperties.$diffForHumans = (dateString) => {
+        if (!dateString) return '';
+        return dayjs(dateString).fromNow();
+    };
 
     app.use(store)
 

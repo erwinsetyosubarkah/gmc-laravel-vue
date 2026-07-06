@@ -47,8 +47,8 @@ Route::get('/getartikel/{id}', [ArtikelController::class,'show']);
 Route::get('/getevent', [EventController::class,'index']);
 Route::get('/getevent/{id}', [EventController::class,'show']);
 Route::get('/getgalery', [GaleryController::class,'index']);
-// Route::get('/klienkami', [KlienkamiController::class,'index']);
-// Route::get('/kontakkami', [KontakkamiController::class,'index']);
+Route::get('/getklienkami', [KlienkamiController::class,'index']);
+Route::get('/getkontakkami', [KontakkamiController::class,'index']);
 
 // route Admin
 // Route::get('/admin',  [AdminHomeController::class,'index'])->middleware('auth');

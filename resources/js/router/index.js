@@ -11,6 +11,7 @@ import KontakKami from '@/components/modules/web/pages/kontakkami/KontakKami.vue
 import Event from '@/components/modules/web/pages/event/Event.vue';
 import EventSingle from '@/components/modules/web/pages/event/EventSingle.vue';
 import Galery from '@/components/modules/web/pages/galery/Galery.vue';
+import KlienKami from '@/components/modules/web/pages/klienkami/KlienKami.vue';
 import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
 
 const routes = [
@@ -69,6 +70,11 @@ const routes = [
         path: '/galery',
         name: 'galery',
         component: Galery
+    },
+    {
+        path: '/klienkami',
+        name: 'klienkami',
+        component: KlienKami
     },
     {
         path: '/:pathMatch(.*)*',

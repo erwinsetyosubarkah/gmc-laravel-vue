@@ -6,9 +6,9 @@ use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\{ArtikelRepository, EventRepository, GaleryRepository, HomeRepository, KontakkamiRepository, ProdukkamiRepository, ProfileRepository, VisidanmisiRepository};
+use App\Repositories\{ArtikelRepository, EventRepository, GaleryRepository, HomeRepository, KlienkamiRepository, KontakkamiRepository, ProdukkamiRepository, ProfileRepository, VisidanmisiRepository};
 use App\Repositories\Admin\AdminPostRepository;
-use App\Repositories\Contracts\{ArtikelRepositoryInterface, EventRepositoryInterface, GaleryRepositoryInterface, HomeRepositoryInterface, KontakkamiRepositoryInterface, ProdukkamiRepositoryInterface, ProfileRepositoryInterface, VisidanmisiRepositoryInterface};
+use App\Repositories\Contracts\{ArtikelRepositoryInterface, EventRepositoryInterface, GaleryRepositoryInterface, HomeRepositoryInterface, KlienkamiRepositoryInterface, KontakkamiRepositoryInterface, ProdukkamiRepositoryInterface, ProfileRepositoryInterface, VisidanmisiRepositoryInterface};
 use App\Repositories\Contracts\Admin\AdminPostRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(KontakkamiRepositoryInterface::class, KontakkamiRepository::class);
         $this->app->bind(EventRepositoryInterface::class, EventRepository::class);
         $this->app->bind(GaleryRepositoryInterface::class, GaleryRepository::class);
+        $this->app->bind(KlienkamiRepositoryInterface::class, KlienkamiRepository::class);
 
         // Admin
         $this->app->bind(AdminPostRepositoryInterface::class, AdminPostRepository::class);

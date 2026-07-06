@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Myclient;
-use App\Models\Profile;
-use Illuminate\Http\Request;
+use App\Http\Requests\KlienkamiIndexRequest;
+use App\Repositories\Contracts\KlienkamiRepositoryInterface;
 
 class KlienkamiController extends Controller
 {
-    public function index() {
 
-        $clients = Myclient::latest();
+    private Object $klienkamiRepository;
 
-        if(request('search')){
-            $clients->where('client_name','like', '%' . request('search') . '%');
-        }
+    public function __construct(KlienkamiRepositoryInterface $klienkamiRepository)
+    {
+        $this->klienkamiRepository = $klienkamiRepository;
+    }
 
-        return view('klienkami',[
-            'page_title' => 'Klien Kami',
-            'profile' => Profile::first(),
-            'clients' => $clients->paginate(5)
-        ]);
+    public function index(KlienkamiIndexRequest $request) {
+
+        $validatedData = $request->validated();
+        $result = $this->klienkamiRepository->latest($validatedData);
+
+        echo json_encode($result);
     }
 
 }

@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="doctor-details mt-4 mt-lg-0">
-                        <h2 class="text-md">{{ articleData.artikel.page_title }}</h2>
+                        <h2 class="text-md">{{ articleData.page_title }}</h2>
                         <div class="divider my-4"></div>
                         <section class="section blog-wrap" style="padding:0 !important;">
                             <div class="container">

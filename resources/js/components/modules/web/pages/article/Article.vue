@@ -5,7 +5,7 @@
           <div class="row">
               <div class="col-lg-12">
                   <div class="doctor-details mt-4 mt-lg-0">
-                        <h2 class="text-md">{{ $page_title }}</h2>
+                        <h2 class="text-md">{{ articlesData.page_title }}</h2>
                       <div class="divider my-4"></div>
                         <div class="row justify-content-center mb-4">
                             <div class="col-md-6">
@@ -37,7 +37,7 @@
                                                     <h4 class="mt-4 mb-2 title-color"><RouterLink :to="'/article/'+item.id">{{ item.title }}</RouterLink></h4>
                                                     <small class=""> <strong> <i class="icofont-book-mark mr-2"></i>{{ item.category.category_name }}</strong></small>
                                                     <small class="float-right"><strong> <i class="icofont-calendar mr-2"></i> {{ $diffForHumans(item.created_at) }}</strong></small>
-                                                    <div class="mb-4 mt-2"><p v-html="item.excerpt"></p> <small><a href="/article/{{ $item->id }}">Selengkapnya</a></small></div>
+                                                    <div class="mb-4 mt-2"><p v-html="item.excerpt"></p> <small><RouterLink :to="'/article/'+ item.id">Selengkapnya</RouterLink></small></div>
                                                 </div>
                                             </div>
                                         </div>

@@ -41,7 +41,7 @@ Route::get('/gethome', [HomeController::class,'index']);
 Route::get('/getprofile', [ProfileController::class,'index']);
 Route::get('/getvisidanmisi', [VisidanmisiController::class,'index']);
 Route::get('/getprodukkami', [ProdukkamiController::class,'index']);
-// Route::get('/produkkami/{produkkami}', [ProdukkamiController::class,'show']);
+Route::get('/getprodukkami/{id}', [ProdukkamiController::class,'show']);
 Route::get('/getartikel', [ArtikelController::class,'index']);
 Route::get('/getartikel/{id}', [ArtikelController::class,'show']);
 Route::get('/getevent', [EventController::class,'index']);

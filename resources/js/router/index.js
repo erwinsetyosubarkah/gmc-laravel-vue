@@ -6,6 +6,7 @@ import ArticleSingle from '@/components/modules/web/pages/article/ArticleSingle.
 import Profile from '@/components/modules/web/pages/profile/Profile.vue';
 import Visidanmisi from '@/components/modules/web/pages/visidanmisi/Visidanmisi.vue';
 import ProdukKami from '@/components/modules/web/pages/produkkami/ProdukKami.vue';
+import ProdukKamiSingle from '@/components/modules/web/pages/produkkami/ProdukKamiSingle.vue';
 import KontakKami from '@/components/modules/web/pages/kontakkami/KontakKami.vue';
 import Event from '@/components/modules/web/pages/event/Event.vue';
 import EventSingle from '@/components/modules/web/pages/event/EventSingle.vue';
@@ -42,6 +43,11 @@ const routes = [
         path: '/produkkami',
         name: 'produkkami',
         component: ProdukKami
+    },
+    {
+        path: '/produkkami/:id',
+        name: 'produkkami-single',
+        component: ProdukKamiSingle
     },
     {
         path: '/kontakkami',

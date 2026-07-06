@@ -19,6 +19,7 @@ export default defineConfig({
             },
         }),
         inject({
+            include: ['**/*.js', '**/*.vue'],
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',

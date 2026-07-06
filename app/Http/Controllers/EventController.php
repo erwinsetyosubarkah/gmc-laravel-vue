@@ -2,33 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
-use App\Models\Profile;
+use App\Http\Requests\EventIndexRequest;
+use App\Repositories\Contracts\EventRepositoryInterface;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function index() {
 
-        $events = Event::latest();
+    private Object $eventRepository;
 
-        if(request('search')){
-            $events->where('title','like', '%' . request('search') . '%');
-        }
-
-        return view('event',[
-            'page_title' => 'Event',
-            'profile' => Profile::first(),
-            'events' => $events->paginate(5)
-        ]);
+    /**
+     * Summary of __construct
+     * @param EventRepositoryInterface $eventRepository
+     */
+    public function __construct(EventRepositoryInterface $eventRepository)
+    {
+        $this->eventRepository = $eventRepository;
     }
 
-    public function show(Event $event) {
-     
-        return view('eventsingle',[
-            'page_title' => 'Event',
-            'profile' => Profile::first(),
-            'event' => Event::find($event->id)
-        ]);
+    /**
+     * Summary of index
+     * @param EventIndexRequest $request
+     * @return void
+     */
+    public function index(EventIndexRequest $request) {
+
+        $validatedData = $request->validated();
+        $result = $this->eventRepository->latest($validatedData);
+
+        echo json_encode($result);
+    }
+
+    /**
+     * Summary of show
+     * @param Request $request
+     * @return void
+     */
+    public function show(Request $request) {
+        $result = $this->eventRepository->show(["id" => $request->id]);
+        echo json_encode($result);
     }
 }

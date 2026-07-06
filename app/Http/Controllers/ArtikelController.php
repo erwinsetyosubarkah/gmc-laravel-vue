@@ -26,7 +26,7 @@ class ArtikelController extends Controller
     /**
      * Summary of index
      * @param ArtikelIndexRequest $request
-     * @return \Illuminate\Contracts\View\View
+     * @return void
      */
     public function index(ArtikelIndexRequest $request) {
 

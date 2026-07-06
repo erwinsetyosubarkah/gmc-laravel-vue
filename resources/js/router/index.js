@@ -10,6 +10,7 @@ import ProdukKamiSingle from '@/components/modules/web/pages/produkkami/ProdukKa
 import KontakKami from '@/components/modules/web/pages/kontakkami/KontakKami.vue';
 import Event from '@/components/modules/web/pages/event/Event.vue';
 import EventSingle from '@/components/modules/web/pages/event/EventSingle.vue';
+import Galery from '@/components/modules/web/pages/galery/Galery.vue';
 import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
 
 const routes = [
@@ -63,6 +64,11 @@ const routes = [
         path: '/event/:id',
         name: 'event-single',
         component: EventSingle
+    },
+    {
+        path: '/galery',
+        name: 'galery',
+        component: Galery
     },
     {
         path: '/:pathMatch(.*)*',

@@ -36,7 +36,7 @@ use App\Models\Profile;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// // Route web
+// Route web
 Route::get('/gethome', [HomeController::class,'index']);
 Route::get('/getprofile', [ProfileController::class,'index']);
 Route::get('/getvisidanmisi', [VisidanmisiController::class,'index']);
@@ -46,11 +46,11 @@ Route::get('/getartikel', [ArtikelController::class,'index']);
 Route::get('/getartikel/{id}', [ArtikelController::class,'show']);
 Route::get('/getevent', [EventController::class,'index']);
 Route::get('/getevent/{id}', [EventController::class,'show']);
-// Route::get('/galery', [GaleryController::class,'index']);
+Route::get('/getgalery', [GaleryController::class,'index']);
 // Route::get('/klienkami', [KlienkamiController::class,'index']);
 // Route::get('/kontakkami', [KontakkamiController::class,'index']);
 
-// // route Admin
+// route Admin
 // Route::get('/admin',  [AdminHomeController::class,'index'])->middleware('auth');
 
 // Route::get('/admin-login', [AdminLoginController::class,'index'])->name('login')->middleware('guest');

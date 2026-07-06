@@ -2,25 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Galery;
-use App\Models\Profile;
-use Illuminate\Http\Request;
+use App\Http\Requests\GaleryIndexRequest;
+use App\Repositories\Contracts\GaleryRepositoryInterface;
 
 class GaleryController extends Controller
 {
-    public function index() {
 
-        $galeries = Galery::latest();
+    private Object $galeryRepository;
 
-        if(request('search')){
-            $galeries->where('image_title','like', '%' . request('search') . '%');
-        }
+    /**
+     * Summary of __construct
+     * @param GaleryRepositoryInterface $galeryRepository
+     */
+    public function __construct(GaleryRepositoryInterface $galeryRepository)
+    {
+        $this->galeryRepository = $galeryRepository;
+    }
 
-        return view('galery',[
-            'page_title' => 'Galery Foto',
-            'profile' => Profile::first(),
-            'galeries' => $galeries->paginate(5)
-        ]);
+    /**
+     * Summary of index
+     * @param GaleryIndexRequest $request
+     * @return void
+     */
+    public function index(GaleryIndexRequest $request) {
+
+        $validatedData = $request->validated();
+        $result = $this->galeryRepository->latest($validatedData);
+
+        echo json_encode($result);
     }
 
 }

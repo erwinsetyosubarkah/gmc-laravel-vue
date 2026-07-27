@@ -6,7 +6,7 @@ import '../css/auth.css';
 import router from './router';
 import store from './store';
 
-import Login from './components/modules/auth/Login.vue';
+import Layout from './components/modules/auth/Layout.vue';
 
 
 
@@ -47,7 +47,7 @@ if (rootElement) {
 
     app.use(VueSweetalert2);
 
-    app.component('login', Login);
+    app.component('layout', Layout);
     app.mount('#app')
 }
 

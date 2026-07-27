@@ -52,7 +52,7 @@
                     <li v-if="auth?.authenticated" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="blog-sidebar.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> Selamat Datang, {{ auth?.user?.name }} <i class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                            <li><RouterLink class="dropdown-item" to="/admin"><i class="fas fa-cogs"></i> Dashboard</RouterLink></li>
+                            <li><a class="dropdown-item" href="/admin-dashboard"><i class="fas fa-cogs"></i> Dashboard</a></li>
                             <li>
                                 <button type="submit" class="btn btn-secondary ml-2" @click="onLogout"><i class="fas fa-sign-out-alt"></i> Logout</button>
                             </li>

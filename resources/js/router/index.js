@@ -12,7 +12,9 @@ import Event from '@/components/modules/web/pages/event/Event.vue';
 import EventSingle from '@/components/modules/web/pages/event/EventSingle.vue';
 import Galery from '@/components/modules/web/pages/galery/Galery.vue';
 import KlienKami from '@/components/modules/web/pages/klienkami/KlienKami.vue';
+import Dashboard from '@/components/modules/admin/pages/dashboard/Dashboard.vue';
 import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
+import Login from '@/components/modules/auth/Login.vue';
 
 const routes = [
     // Definisikan rute Anda di sini
@@ -77,16 +79,31 @@ const routes = [
         component: KlienKami
     },
     {
+        path: '/admin-dashboard',
+        name: 'admin-dashboard',
+        component: Dashboard,
+         meta: {
+            title: 'Dashboard'
+        }
+    },
+    {
+        path: '/admin-login',
+        name: 'admin-login',
+        component: Login
+    },
+    {
         path: '/:pathMatch(.*)*',
         name: 'not-found',
-        component: NotFoundPage
+        beforeEnter() {
+            window.location.href = '/not-found'
+        }
     }
 
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
+    history: createWebHistory(),
+    routes,
     // Tambahkan fungsi ini di bawah konfigurasi rute Anda
     scrollBehavior(to, from, savedPosition) {
         // Jika pengguna menekan tombol Back/Forward browser, kembalikan ke posisi terakhir mereka
@@ -96,7 +113,8 @@ const router = createRouter({
             // Untuk navigasi rute baru, otomatis scroll ke koordinat x:0, y:0 (paling atas)
             return { top: 0, left: 0 };
         }
-    }
+    },
+    linkActiveClass: 'active'
 });
 
 export default router;

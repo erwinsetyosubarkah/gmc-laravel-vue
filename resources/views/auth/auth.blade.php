@@ -10,7 +10,7 @@
 </head>
 <body class="hold-transition login-page">
     <div id="app" data-profile="{{ json_encode($profile) }}">
-        <login></login>
+        <layout></layout>
     </div>
 </body>
 </html>

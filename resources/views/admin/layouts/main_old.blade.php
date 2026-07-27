@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $profile->club_name }}</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('storage/'. $profile->club_logo) }}">
+@php
+    $site_profile = App\Models\Profile::first();
+@endphp
 
-     <!-- Google Font: Source Sans Pro -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ $site_profile->club_name_abbreviation }} | {{ $page_title }}</title>
+  <link rel="icon" type="image/x-icon" href="{{ asset('storage/'. $site_profile->club_logo) }}">
+
+  <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('/') }}vendor/adminlte/plugins/fontawesome-free/css/all.min.css">
@@ -31,14 +35,44 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('/') }}vendor/adminlte/plugins/summernote/summernote-bs4.min.css">
 
-    @vite(['resources/css/admin.css', 'resources/js/admin.js'])
-</head>
-<body>
-    <div id="app" data-profile="{{ json_encode($profile) }}">
-        <layout></layout>
-    </div>
 
-    <!-- ./wrapper -->
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+  <div class="wrapper">
+      @include('admin.partials.navbar')    
+      @include('admin.partials.sidebar') 
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">   
+          @include('admin.partials.header') 
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="card card-secondary">                  
+                <div class="card-header">
+                  <h3>Halaman {{ $page_title }}</h3>
+                </div>         
+                <div class="card-body">
+                  @yield('content')                
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+          </section>
+          <!-- end main content -->
+        </div>
+
+        <footer class="main-footer">
+          <strong>{{ $site_profile->club_name }} - Copyright &copy; 2014-2021.</strong>
+          All rights reserved.          
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+          <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
 <!-- jQuery -->
 <script src="{{ asset('/') }}vendor/adminlte/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -90,7 +124,7 @@
 <script src="{{ asset('/') }}vendor/sweetalert/sweetalert.all.js"></script>
 <script src="{{ asset('/') }}vendor/ckeditor5/ckeditor.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function () {      
         ClassicEditor
           .create( document.querySelector( '.ckeditor' ), {
             // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
@@ -135,7 +169,7 @@
     function string_to_slug (str) {
         str = str.replace(/^\s+|\s+$/g, ''); // trim
         str = str.toLowerCase();
-
+      
         // remove accents, swap ñ for n, etc
         var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
         var to   = "aaaaeeeeiiiioooouuuunc------";
@@ -151,5 +185,7 @@
     }
 
 </script>
+@yield('script') 
+
 </body>
 </html>

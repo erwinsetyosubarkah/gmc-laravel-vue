@@ -51,7 +51,7 @@ Route::get('/getklienkami', [KlienkamiController::class,'index']);
 Route::get('/getkontakkami', [KontakkamiController::class,'index']);
 
 // route Admin
-// Route::get('/admin',  [AdminHomeController::class,'index'])->middleware('auth');
+Route::get('/admin-dashboard',  [AdminHomeController::class,'index'])->middleware('auth');
 
 // Route::get('/admin-login', [AdminLoginController::class,'index'])->name('login')->middleware('guest');
 Route::get('/admin-cek-auth', [AdminLoginController::class,'check'])->name('check');
@@ -115,7 +115,19 @@ Route::get('/admin-login', function () {
     ]);
 })->middleware('guest');
 
+Route::get('/admin-dashboard', function () {
+    return view('admin.layouts.main',[
+        'profile'  => Profile::first()
+    ]);
+})->middleware('auth');
 
+Route::get('/not-found', function () {
+    return response()->view('errors.404', [], 404);
+});
+
+// Route::fallback( function () {
+//     return response()->view('errors.404', [], 404);
+// });
 
 Route::get('/{any?}', function () {
     return view('main',[

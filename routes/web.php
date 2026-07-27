@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\AdminVisidanmisiController;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\Profile;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,9 +122,14 @@ Route::get('/admin-dashboard', function () {
     ]);
 })->middleware('auth');
 
-Route::get('/not-found', function () {
-    return response()->view('errors.404', [], 404);
+Route::get('/not-found', function (Request $request) {
+    $previousUrl = $request->query('from', '/');
+
+    return response()->view('errors.404', [
+        'previousUrl' => $previousUrl
+    ], 404);
 });
+
 
 // Route::fallback( function () {
 //     return response()->view('errors.404', [], 404);

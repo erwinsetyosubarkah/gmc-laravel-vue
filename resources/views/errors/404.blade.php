@@ -24,6 +24,10 @@
         Maaf, halaman yang Anda cari tidak tersedia.
     </p>
 
+    <a href="{{ $previousUrl }}">
+        Kembali ke Halaman Sebelumnya
+    </a>
+    &nbsp;&nbsp;
     <a href="{{ url('/') }}">
         Kembali ke Home
     </a>

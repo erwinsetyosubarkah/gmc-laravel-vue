@@ -94,9 +94,18 @@ const routes = [
     {
         path: '/:pathMatch(.*)*',
         name: 'not-found',
-        beforeEnter() {
-            window.location.href = '/not-found'
+        beforeEnter(to, from) {
+            // 1. Ambil URL halaman asal (sebelum tersasar ke 404)
+            const previousUri = from.fullPath;
+
+            // 2. Encode URI agar aman dibaca sebagai query parameter
+            const encodedUri = encodeURIComponent(previousUri);
+
+            // 3. Redirect ke /not-found sambil membawa parameter
+            // Hasilnya akan menjadi seperti: /not-found?from=%2Fhalaman-lama
+            window.location.href = `/not-found?from=${encodedUri}`;
         }
+
     }
 
 ];

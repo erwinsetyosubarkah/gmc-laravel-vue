@@ -54,8 +54,9 @@ Route::get('/getkontakkami', [KontakkamiController::class,'index']);
 // Route::get('/admin',  [AdminHomeController::class,'index'])->middleware('auth');
 
 // Route::get('/admin-login', [AdminLoginController::class,'index'])->name('login')->middleware('guest');
-// Route::post('/admin-login', [AdminLoginController::class,'authenticate'])->middleware('guest');
-// Route::post('/admin-logout', [AdminLoginController::class,'logout'])->middleware('auth');
+Route::get('/admin-cek-auth', [AdminLoginController::class,'check'])->name('check');
+Route::post('/admin-login', [AdminLoginController::class,'authenticate'])->middleware('guest');
+Route::post('/admin-logout', [AdminLoginController::class,'logout'])->middleware('auth');
 // Route::get('/admin-register', [AdminRegisterController::class,'index'])->middleware('guest');
 // Route::post('/admin-register', [AdminRegisterController::class,'store'])->middleware('guest');
 
@@ -108,12 +109,21 @@ Route::get('/getkontakkami', [KontakkamiController::class,'index']);
 // Route::get('/admin-user-edit/{user}', [AdminUserController::class,'showedit'])->middleware('admin');
 // Route::post('/admin-user-edit/{user}', [AdminUserController::class,'edit'])->middleware('admin');
 
+Route::get('/admin-login', function () {
+    return view('auth.auth',[
+        'profile'  => Profile::first()
+    ]);
+})->middleware('guest');
 
-Route::get('/{any}', function () {
+
+
+Route::get('/{any?}', function () {
     return view('main',[
         'profile'  => Profile::first(),
         'categories' => Category::all(),
         'newevents' => Event::latest()->take(1)->get(),
     ]);
-})->where('any', '.*');
+})->where('any', '[\/\w\.-]*');
+
+
 

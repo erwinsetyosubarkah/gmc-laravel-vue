@@ -14,6 +14,7 @@
     },
     "dependencies": {
         "@fontsource/roboto": "^5.2.10",
+        "@vee-validate/yup": "^4.15.1",
         "@vitejs/plugin-vue": "^6.0.7",
         "bootstrap": "^4.5.3",
         "dayjs": "^1.11.21",

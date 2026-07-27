@@ -7,6 +7,7 @@ export default createStore({
       profile: null,
       categories: null,
       newevents: null,
+      auth: null
     }
   },
   mutations: {
@@ -19,6 +20,9 @@ export default createStore({
     },
     SET_NEWEVENTS(state, payload) {
       state.newevents = payload
+    },
+    SET_AUTH(state, payload) {
+      state.auth = payload
     }
   },
   actions: {
@@ -31,13 +35,17 @@ export default createStore({
     },
     updateNewEvents({ commit }, data) {
       commit('SET_NEWEVENTS', data)
+    },
+    updateAuth({ commit }, data) {
+      commit('SET_AUTH', data)
     }
   },
   getters: {
     // Mengambil data profile dari state
     getProfile: (state) => state.profile,
     getCategories: (state) => state.categories,
-    getNewEvents: (state) => state.newevents
+    getNewEvents: (state) => state.newevents,
+    getAuth: (state) => state.auth,
   }
 })
 

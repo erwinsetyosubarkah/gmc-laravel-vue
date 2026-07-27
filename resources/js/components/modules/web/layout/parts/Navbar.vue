@@ -49,7 +49,16 @@
                     <li class="nav-item"><RouterLink class="nav-link" to="/event">Event</RouterLink></li>
                     <li class="nav-item"><RouterLink class="nav-link" to="/galery">Galery Foto</RouterLink></li>
                     <li class="nav-item"><RouterLink class="nav-link" to="/klienkami">Klien Kami</RouterLink></li>
-                    <li class="nav-item dropdown">
+                    <li v-if="auth?.authenticated" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="blog-sidebar.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> Selamat Datang, {{ auth?.user?.name }} <i class="icofont-thin-down"></i></a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown05">
+                            <li><RouterLink class="dropdown-item" to="/admin"><i class="fas fa-cogs"></i> Dashboard</RouterLink></li>
+                            <li>
+                                <button type="submit" class="btn btn-secondary ml-2" @click="onLogout"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li v-else class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle btn btn-primary btn-sm text-white" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> Login <i class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown05">
                             <li><a class="dropdown-item" href="/admin-login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
@@ -65,12 +74,41 @@
 </template>
 
 <script setup>
-    import { computed } from 'vue'
-    import { useStore } from 'vuex'
+import { computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import apiClient from '@/services/api'
+import Swal, { swal } from 'sweetalert2/dist/sweetalert2';
 
-    const store = useStore()
+const store = useStore()
 
-    const profile = computed(() => store.state.profile)
+const profile = computed(() => store.state.profile)
+const auth = computed(() => store.state.auth)
+
+onMounted(async () => {
+    try {
+        const { data } = await apiClient.get('/admin-cek-auth')
+
+        await store.dispatch('updateAuth', data)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+const onLogout = async () => {
+    try {
+        const { data } = await apiClient.post('/admin-logout');
+        await store.dispatch('updateAuth', null)
+    } catch (error) {
+        Swal.fire({
+            title: 'Gagal!',
+            html: 'Gagal Logout',
+            icon: 'error'
+        });
+    }
+}
+
+
+
 
 
 </script>

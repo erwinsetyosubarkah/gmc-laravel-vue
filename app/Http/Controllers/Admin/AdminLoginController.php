@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AdminAuthRequest;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -16,22 +17,37 @@ class AdminLoginController extends Controller
         ]);
     }
 
-    public function authenticate(Request $request){
-        $credentials = $request->validate([
-            'username' => 'required',
-            'password' => 'required'
-        ]);
-
+    public function authenticate(AdminAuthRequest $request){
+        $credentials = $request->validated();
+        $result = [];
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            Alert::success('Berhasil', 'Login Berhasil !');
-            return redirect()->intended('/');
+            $result = [
+                "status"    => "success",
+                "message"   => "Login Berhasil !"
+            ];
         }else{
-            Alert::error('Gagal!', 'Login Gagal');
-            return view('admin/login',[
-                'site_profile' => Profile::first()
+            $result = [
+                "status"    => "error",
+                "message"   => "Login Gagal !"
+            ];
+        }
+
+        echo json_encode($result);
+    }
+
+    public function check()
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'authenticated' => false
             ]);
         }
+
+        return response()->json([
+            'authenticated' => true,
+            'user' => Auth::user()
+        ]);
     }
 
     public function logout(Request $request){
@@ -40,7 +56,10 @@ class AdminLoginController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
-        return redirect('/');
+        $result = [
+            'status'    => 'success',
+            'message'   => "Berhasil Logout !"
+        ];
+        return response()->json($result);
     }
 }

@@ -23,8 +23,9 @@ export default defineConfig({
                 },
             },
         }),
+        // Optimasi 1: Batasi folder pencarian inject, hindari node_modules
         inject({
-            include: ['**/*.js', '**/*.vue'],
+            include: ['resources/js/**/*.js', 'resources/js/**/*.vue'],
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
@@ -36,7 +37,29 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './resources/js'),
+            // Kembalikan ke esm-bundler untuk mendukung runtime compilation
             'vue': 'vue/dist/vue.esm-bundler.js',
+        },
+    },
+
+    // Optimasi 2: Paksa pre-bundling dependensi besar agar dev server instan
+    optimizeDeps: {
+        include: ['jquery', 'shufflejs', 'popper.js', 'vue', 'axios'],
+    },
+    // Optimasi 3: Tingkatkan performa build production
+    build: {
+        chunkSizeWarningLimit: 1000,
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (id.includes('node_modules')) {
+                        if (id.includes('jquery') || id.includes('shufflejs')) {
+                            return 'vendor-libs';
+                        }
+                        return 'vendor';
+                    }
+                },
+            },
         },
     },
 });

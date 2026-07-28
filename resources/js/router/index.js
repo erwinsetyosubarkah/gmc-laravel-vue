@@ -17,6 +17,7 @@ import AdminProfile from '@/components/modules/admin/pages/profile/Profile.vue';
 import AdminVisidanmisi from '@/components/modules/admin/pages/visidanmisi/Visidanmisi.vue';
 import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
 import Login from '@/components/modules/auth/Login.vue';
+import Register from '@/components/modules/auth/Register.vue';
 
 const routes = [
     // Definisikan rute Anda di sini
@@ -108,6 +109,11 @@ const routes = [
         path: '/auth/login',
         name: 'auth-login',
         component: Login
+    },
+    {
+        path: '/auth/register',
+        name: 'auth-register',
+        component: Register
     },
     {
         path: '/',

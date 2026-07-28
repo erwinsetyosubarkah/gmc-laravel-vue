@@ -63,8 +63,7 @@ Route::prefix('auth')->group(function () {
     })->middleware('guest');
     Route::post('/login', [AdminLoginController::class,'authenticate'])->middleware('guest');
     Route::post('/logout', [AdminLoginController::class,'logout'])->middleware('auth');
-    // Route::get('/admin-register', [AdminRegisterController::class,'index'])->middleware('guest');
-    // Route::post('/admin-register', [AdminRegisterController::class,'store'])->middleware('guest');
+    Route::post('/register', [AdminRegisterController::class,'store'])->middleware('guest');
 });
 
 

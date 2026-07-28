@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminAuthRequest;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminLoginController extends Controller
@@ -26,7 +28,19 @@ class AdminLoginController extends Controller
                 "status"    => "success",
                 "message"   => "Login Berhasil !"
             ];
-        }else{
+            echo json_encode($result);
+            return;
+        }
+
+        $user = User::where('username', $credentials['username'])->first();
+        if ($user && Hash::check($credentials['password'], $user->password)) {
+            Auth::login($user);
+            $request->session()->regenerate();
+            $result = [
+                "status"    => "success",
+                "message"   => "Login Berhasil !"
+            ];
+        } else {
             $result = [
                 "status"    => "error",
                 "message"   => "Login Gagal !"

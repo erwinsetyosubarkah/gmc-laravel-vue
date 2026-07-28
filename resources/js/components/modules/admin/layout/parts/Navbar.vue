@@ -59,6 +59,7 @@
         try {
             const { data } = await apiClient.post('/auth/logout');
             await store.dispatch('updateAuth', null)
+            window.location.href = '/'
         } catch (error) {
             Swal.fire({
                 title: 'Gagal!',

@@ -2,44 +2,29 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
 use App\Models\Profile;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\Admin\AdminRegisterRequest;
+use App\Repositories\Contracts\Admin\AdminRegisterRepositoryInterface;
 
 class AdminRegisterController extends Controller
 {
+    private AdminRegisterRepositoryInterface $registerRepository;
+
+    public function __construct(AdminRegisterRepositoryInterface $registerRepository)
+    {
+        $this->registerRepository = $registerRepository;
+    }
     public function index() {
         return view('admin/register',[
             'site_profile' => Profile::first()
         ]);
     }
 
-    public function store(Request $request) {
-        $validatedData = $request->validate([
-            'name'  => 'required|max:255',
-            'username' => 'required|min:3|max:255|unique:users',
-            'email' => 'required|email:dns|unique:users',
-            'level' => 'required',
-            'password' => 'required|min:5|max:255',
-            'password2' => 'required|min:5|max:255'
-        ]);
+    public function store(AdminRegisterRequest $request) {
+        $validatedData = $request->validated();
+        $result = $this->registerRepository->store($validatedData, $request);
 
-        if($validatedData['password2'] == $validatedData['password']){
-            unset($validatedData['password2']);
-            //enkripsi password
-            $validatedData['password'] = Hash::make($validatedData['password']);
-            User::create($validatedData);
-            Alert::success('Selamat', 'Pendaftaran Berhasil !');
-            return view('admin/register');
-        }else{
-            Alert::error('Gagal!', 'Maaf Pendaftaran gagal karena password dan konfirmasi password yang kamu isi tidak sama');
-            return view('admin/register');
-        }
-
-        
-        
+        return response()->json($result, $result['status'] === 'success' ? 200 : 422);
     }
 }

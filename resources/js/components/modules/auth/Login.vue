@@ -79,7 +79,7 @@
         </form>
 
         <div class="text-center mt-2">
-          <a href="/admin-register">Belum memiliki akun?</a>
+          <a href="/auth/register">Belum memiliki akun?</a>
         </div>
       </div>
       <!-- /.card-body -->
@@ -97,6 +97,7 @@ import { toTypedSchema } from "@vee-validate/yup";
 import * as yup from "yup";
 import Swal from "sweetalert2/dist/sweetalert2";
 import apiClient from "@/services/api";
+import { sha256Hex } from "@/services/hash";
 
 const store = useStore();
 
@@ -131,9 +132,10 @@ const errorMessage = ref("");
 // 4. Handle Submit fungsi langsung
 const onSubmit = handleSubmit(async (values) => {
   try {
+    const hashedPassword = await sha256Hex(values.password);
     const response = await apiClient.post("/auth/login", {
       username: values.username,
-      password: values.password,
+      password: hashedPassword,
     });
     if (response.data.status == "success") {
       const result = await Swal.fire({
@@ -153,6 +155,8 @@ const onSubmit = handleSubmit(async (values) => {
       });
     }
   } catch (error) {
+    console.log(error);
+
     if (error.response && error.response.status === 422) {
       errorMessage.value = error.response.data.message || "Validasi Gagal.";
     } else {

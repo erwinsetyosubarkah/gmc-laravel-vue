@@ -14,73 +14,74 @@ import Galery from '@/components/modules/web/pages/galery/Galery.vue';
 import KlienKami from '@/components/modules/web/pages/klienkami/KlienKami.vue';
 import Dashboard from '@/components/modules/admin/pages/dashboard/Dashboard.vue';
 import AdminProfile from '@/components/modules/admin/pages/profile/Profile.vue';
+import AdminVisidanmisi from '@/components/modules/admin/pages/visidanmisi/Visidanmisi.vue';
 import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
 import Login from '@/components/modules/auth/Login.vue';
 
 const routes = [
     // Definisikan rute Anda di sini
     {
-        path: '/',
-        name: 'home',
+        path: '/web/',
+        name: 'web-home',
         component: Home
     },
     {
-        path: '/article',
+        path: '/web/article',
         name: 'article',
         component: Article
     },
     {
-        path: '/article/:id',
+        path: '/web/article/:id',
         name: 'article-single',
         component: ArticleSingle
     },
     {
-        path: '/profile',
+        path: '/web/profile',
         name: 'profile',
         component: Profile
     },
     {
-        path: '/visidanmisi',
+        path: '/web/visidanmisi',
         name: 'visidanmisi',
         component: Visidanmisi
     },
     {
-        path: '/produkkami',
+        path: '/web/produkkami',
         name: 'produkkami',
         component: ProdukKami
     },
     {
-        path: '/produkkami/:id',
+        path: '/web/produkkami/:id',
         name: 'produkkami-single',
         component: ProdukKamiSingle
     },
     {
-        path: '/kontakkami',
+        path: '/web/kontakkami',
         name: 'kontakkami',
         component: KontakKami
     },
     {
-        path: '/event',
+        path: '/web/event',
         name: 'event',
         component: Event
     },
     {
-        path: '/event/:id',
+        path: '/web/event/:id',
         name: 'event-single',
         component: EventSingle
     },
     {
-        path: '/galery',
+        path: '/web/galery',
         name: 'galery',
         component: Galery
     },
     {
-        path: '/klienkami',
+        path: '/web/klienkami',
         name: 'klienkami',
         component: KlienKami
     },
     {
-        path: '/admin-dashboard',
+        path: '/admin/dashboard',
         name: 'admin-dashboard',
         component: Dashboard,
          meta: {
@@ -88,7 +89,7 @@ const routes = [
         }
     },
     {
-        path: '/admin-profile',
+        path: '/admin/profile',
         name: 'admin-profile',
         component: AdminProfile,
          meta: {
@@ -96,9 +97,24 @@ const routes = [
         }
     },
     {
-        path: '/admin-login',
-        name: 'admin-login',
+        path: '/admin/visidanmisi',
+        name: 'admin-visidanmisi',
+        component: AdminVisidanmisi,
+         meta: {
+            title: 'Visi dan Misi'
+        }
+    },
+    {
+        path: '/auth/login',
+        name: 'auth-login',
         component: Login
+    },
+    {
+        path: '/',
+        name: 'home',
+        beforeEnter(){
+            window.location.href = `/web/`;
+        }
     },
     {
         path: '/:pathMatch(.*)*',

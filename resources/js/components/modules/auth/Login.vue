@@ -131,7 +131,7 @@ const errorMessage = ref("");
 // 4. Handle Submit fungsi langsung
 const onSubmit = handleSubmit(async (values) => {
   try {
-    const response = await apiClient.post("/admin-login", {
+    const response = await apiClient.post("/auth/login", {
       username: values.username,
       password: values.password,
     });
@@ -143,7 +143,7 @@ const onSubmit = handleSubmit(async (values) => {
       });
 
       if (result.isConfirmed) {
-        window.location.href = '/admin-dashboard'
+        window.location.href = '/admin/dashboard'
       }
     } else {
       Swal.fire({

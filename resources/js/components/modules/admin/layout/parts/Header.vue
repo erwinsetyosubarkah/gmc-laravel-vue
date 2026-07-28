@@ -5,7 +5,7 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb ">
-              <li class="breadcrumb-item"><RouterLink :to="'/admin-dashboard'">Dashboard</RouterLink></li>
+              <li class="breadcrumb-item"><RouterLink :to="'/admin/dashboard'">Dashboard</RouterLink></li>
               <li class="breadcrumb-item active">{{ title }}</li>
             </ol>
           </div><!-- /.col -->

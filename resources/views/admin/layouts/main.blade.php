@@ -93,25 +93,6 @@
 <script src="{{ asset('/') }}vendor/sweetalert/sweetalert.all.js"></script>
 <script src="{{ asset('/') }}vendor/ckeditor5/ckeditor.js"></script>
 <script>
-    $(document).ready(function () {
-        const editorElement = document.querySelector('.ckeditor');
-
-        if (!editorElement) {
-            return;
-        }
-
-        ClassicEditor
-          .create(editorElement, {
-            // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
-          })
-          .then(editor => {
-            window.editor = editor;
-          })
-          .catch(err => {
-            console.error(err.stack);
-          });
-    });
-
     function previmg(src){
         var modal;
 

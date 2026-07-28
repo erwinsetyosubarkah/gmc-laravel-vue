@@ -94,7 +94,7 @@
 
     const fetchGaleries = async (page = 1) => {
         try {
-            const response = await apiClient.get('/getgalery', {
+            const response = await apiClient.get('/web/getgalery', {
                 params: {
                     search: searchKeyword.value,
                     page: page

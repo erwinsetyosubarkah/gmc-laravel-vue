@@ -93,18 +93,18 @@
 
     <div class="form-group">
       <label for="address">Alamat</label>
-      <textarea id="address" class="form-control" cols="30" rows="2" v-model="address"></textarea>
+      <textarea id="address" class="form-control" cols="30" rows="2" v-model="address" ref="editor_al"></textarea>
     </div>
 
     <div class="form-group">
       <label for="short_description">Deskripsi Singkat</label>
-      <textarea id="short_description" class="form-control" maxlength="100" v-model="short_description"></textarea>
+      <textarea id="short_description" class="form-control" maxlength="100" v-model="short_description" ref="editor_ds"></textarea>
       <div class="invalid-feedback d-block">{{ errors.short_description }}</div>
     </div>
 
     <div class="form-group">
       <label for="description">Deskripsi Lengkap</label>
-      <textarea id="description" class="form-control ckeditor" v-model="description"></textarea>
+      <textarea id="description" class="form-control" v-model="description" ref="editor_dl"></textarea>
     </div>
 
     <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
@@ -115,7 +115,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watchEffect } from 'vue';
+import { computed, ref, watchEffect, onBeforeUnmount, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { useForm, useField } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
@@ -172,6 +172,12 @@ const { value: old_club_logo } = useField('old_club_logo');
 
 const selectedFile = ref(null);
 const previewImage = ref('');
+const editor_al = ref(null)
+const editor_ds = ref(null)
+const editor_dl = ref(null)
+let instance_al = null
+let instance_ds = null
+let instance_dl = null
 
 watchEffect(() => {
   const data = profileData.value;
@@ -204,9 +210,28 @@ const handleFileChange = (event) => {
   previewImage.value = URL.createObjectURL(file);
 };
 
+const syncEditorContent = async () => {
+  if (instance_al) {
+    const content = await instance_al.getData();
+    setValues({ address: content });
+  }
+
+  if (instance_ds) {
+    const content = await instance_ds.getData();
+    setValues({ short_description: content });
+  }
+
+  if (instance_dl) {
+    const content = await instance_dl.getData();
+    setValues({ description: content });
+  }
+};
+
 const onSubmit = handleSubmit(async (values) => {
+  await syncEditorContent();
+
   const formData = new FormData();
-  formData.append('id',profileData.value.id)
+  formData.append('id', profileData.value.id)
 
   Object.entries(values).forEach(([key, value]) => {
     if (value !== null && value !== undefined && value !== '') {
@@ -219,7 +244,7 @@ const onSubmit = handleSubmit(async (values) => {
   }
 
   try {
-    const response = await apiClient.post('/admin-profile', formData, {
+    const response = await apiClient.post('/admin/profile', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -248,4 +273,34 @@ const onSubmit = handleSubmit(async (values) => {
     });
   }
 });
+
+onMounted(async () => {
+    instance_al = await ClassicEditor.create(editor_al.value)
+    instance_ds = await ClassicEditor.create(editor_ds.value)
+    instance_dl = await ClassicEditor.create(editor_dl.value)
+
+    instance_al.model.document.on('change:data', () => {
+      setValues({ address: instance_al.getData() });
+    });
+
+    instance_ds.model.document.on('change:data', () => {
+      setValues({ short_description: instance_ds.getData() });
+    });
+
+    instance_dl.model.document.on('change:data', () => {
+      setValues({ description: instance_dl.getData() });
+    });
+})
+
+onBeforeUnmount(async () => {
+    if (instance_al) {
+        await instance_al.destroy()
+    }
+    if (instance_ds) {
+        await instance_ds.destroy()
+    }
+    if (instance_dl) {
+        await instance_dl.destroy()
+    }
+})
 </script>

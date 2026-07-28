@@ -3,12 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Visidanmisi;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\Admin\AdminVisidanmisiEditRequest;
+use App\Repositories\Contracts\VisidanmisiRepositoryInterface;
 
 class AdminVisidanmisiController extends Controller
 {
+    private VisidanmisiRepositoryInterface $visidanmisiRepository;
+
+    public function __construct(VisidanmisiRepositoryInterface $visidanmisiRepository)
+    {
+        $this->visidanmisiRepository = $visidanmisiRepository;
+    }
+
     public function index() {
         return view('admin/visidanmisi',[
             'page_title' => 'Visi dan Misi',
@@ -16,16 +23,10 @@ class AdminVisidanmisiController extends Controller
         ]);
     }
 
-    public function edit(Request $request) {
-        $validatedData = $request->validate([
-            'title'  => 'required|min:5',
-            'content' => ''
-        ]);
+    public function edit(AdminVisidanmisiEditRequest $request) {
+        $validatedData = $request->validated();
+        $result = $this->visidanmisiRepository->edit($validatedData, new Visidanmisi(), $request);
 
-        Visidanmisi::where('id',1)
-                    ->update($validatedData);
-        Alert::success('Berhasil', 'Data visi dan misi berhasil diubah !');
-        return redirect('/admin-visidanmisi');
-        
+        return response()->json($result);
     }
 }

@@ -12,7 +12,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/"><i class="fas fa-desktop"></i> Web</a>
+            <a class="nav-link" href="/web/"><i class="fas fa-desktop"></i> Web</a>
         </li>
         </ul>
 
@@ -57,7 +57,7 @@
 
     const onLogout = async () => {
         try {
-            const { data } = await apiClient.post('/admin-logout');
+            const { data } = await apiClient.post('/auth/logout');
             await store.dispatch('updateAuth', null)
         } catch (error) {
             Swal.fire({

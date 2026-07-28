@@ -14,4 +14,13 @@ interface VisidanmisiRepositoryInterface
      */
     public function getVisidanmisi();
 
+    /**
+     * Summary of edit
+     * @param array $data
+     * @param object $obj
+     * @param object $request
+     * @return array
+     */
+    public function edit(array $data, object $obj, object $request);
+
 }

@@ -53,7 +53,7 @@
 
     const fetchVisidanmisi = async () => {
         try {
-            const response = await apiClient.get('/getvisidanmisi')
+            const response = await apiClient.get('/web/getvisidanmisi')
             visidanmisiData.value = response.data
 
         } catch (error) {

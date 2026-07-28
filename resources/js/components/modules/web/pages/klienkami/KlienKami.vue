@@ -91,7 +91,7 @@
 
     const fetchKlienkami = async (page = 1) => {
         try {
-            const response = await apiClient.get('/getklienkami', {
+            const response = await apiClient.get('/web/getklienkami', {
                 params: {
                     search: searchKeyword.value,
                     page: page

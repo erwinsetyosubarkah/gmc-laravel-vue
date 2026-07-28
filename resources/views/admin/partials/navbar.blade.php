@@ -9,10 +9,10 @@
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>      
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="/"><i class="fas fa-desktop"></i> Web</a>
-      </li>      
+      </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -27,13 +27,13 @@
         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
           {{-- <a href="#" class="dropdown-item"><i class="fas fa-cog mr-1"></i> Edit</a>
           <div class="dropdown-divider"></div> --}}
-          <form action="/admin-logout" method="post">
+          <form action="/auth-logout" method="post">
             @csrf
             <button type="submit" class="btn btn-secondary ml-2"><i class="fas fa-sign-out-alt"></i> Logout</button>
           </form>
         </div>
       </li>
-      
+
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>

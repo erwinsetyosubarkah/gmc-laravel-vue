@@ -34,10 +34,10 @@
                                                 <div class="service-block">
                                                     <img :src="'storage/'+ item.event_image" :alt="item.event_title" class="img-fluid">
                                                     <div class="content">
-                                                        <h4 class="mt-4 mb-2 title-color"><RouterLink :to="'/event/'+ item.id">{{ item.event_title }}</RouterLink></h4>
+                                                        <h4 class="mt-4 mb-2 title-color"><RouterLink :to="'/web/event/'+ item.id">{{ item.event_title }}</RouterLink></h4>
                                                         <small class=""> <strong> <i class="icofont-book-mark mr-2"></i>Dilaksanakan: {{ item.event_date}}</strong></small>
                                                         <p class="mt-2" v-html="limitText(item.event_description)"></p>
-                                                        <small><RouterLink :to="'/event/'+ item.id">Selengkapnya</RouterLink></small>
+                                                        <small><RouterLink :to="'/web/event/'+ item.id">Selengkapnya</RouterLink></small>
                                                         <small class="float-right mb-4"><strong> <i class="icofont-calendar mr-2"></i> {{ $diffForHumans(item.created_at) }}</strong></small>
                                                     </div>
                                                 </div>
@@ -97,7 +97,7 @@
 
     const fetchEvent = async (page = 1) => {
         try {
-            const response = await apiClient.get('/getevent', {
+            const response = await apiClient.get('/web/getevent', {
                 params: {
                     search: searchKeyword.value,
                     page: page

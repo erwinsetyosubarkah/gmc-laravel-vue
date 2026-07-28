@@ -73,7 +73,7 @@
 
     const fetchSingleProdukkami = async () => {
         try {
-            const response = await apiClient.get('/getprodukkami/'+produkkamiId)
+            const response = await apiClient.get('/web/getprodukkami/'+produkkamiId)
             produkkamiData.value = response.data
 
         } catch (error) {

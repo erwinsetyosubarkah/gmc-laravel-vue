@@ -12,7 +12,7 @@
       </div>
       <div class="card-body">
         <p class="login-box-msg">Halaman Pendaftaran</p>
-  
+
         <form action="/admin-register" method="post">
           @csrf
           <div class="input-group mb-3">
@@ -81,7 +81,7 @@
                 </div>
             @enderror
           </div>
-          <div class="row">            
+          <div class="row">
             <!-- /.col -->
             <div class="col-12">
               <button type="submit" class="btn btn-primary btn-block">DAFTAR</button>
@@ -90,7 +90,7 @@
           </div>
         </form>
         <div class="text-center mt-2">
-            <a href="/admin-login">Sudah memiliki akun?</a>
+            <a href="/auth-login">Sudah memiliki akun?</a>
         </div>
       </div>
       <!-- /.form-box -->

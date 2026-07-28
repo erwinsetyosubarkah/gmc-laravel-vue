@@ -71,7 +71,7 @@
 
     const fetchSingleEvent = async () => {
         try {
-            const response = await apiClient.get('/getevent/'+eventId)
+            const response = await apiClient.get('/web/getevent/'+eventId)
             eventData.value = response.data
 
         } catch (error) {

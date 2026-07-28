@@ -2,7 +2,7 @@
      <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="/admin" class="brand-link">
+        <a href="/admin/dashboard" class="brand-link">
         <img :src="'/storage/'+profile.club_logo" :alt="profile.club_name" class="brand-image img-circle elevation-3" style="opacity: .8" height="160" width="160">
         <span class="brand-text font-weight-light">{{ profile.club_name }}</span>
         </a>
@@ -27,7 +27,7 @@
                 with font-awesome or any other icon font library -->
             <li class="nav-header">HOME</li>
             <li class="nav-item">
-                <RouterLink :to="'/admin-dashboard'" class="nav-link">
+                <RouterLink :to="'/admin/dashboard'" class="nav-link">
                     <i class="nav-icon fas fa-home"></i>
                     <p>
                         Home
@@ -37,7 +37,7 @@
             <template v-if="auth?.user?.level == 'admin'">
                 <li class="nav-header">PENGATURAN</li>
                 <li class="nav-item">
-                    <RouterLink :to="'/admin-profile'" class="nav-link">
+                    <RouterLink :to="'/admin/profile'" class="nav-link">
                         <i class="nav-icon far fa-user-circle"></i>
                         <p>
                             Profile
@@ -45,7 +45,7 @@
                     </RouterLink>
                 </li>
                 <li class="nav-item">
-                    <RouterLink :to="'/admin-visidanmisi'" class="nav-link">
+                    <RouterLink :to="'/admin/visidanmisi'" class="nav-link">
                         <i class="nav-icon far fa-eye"></i>
                         <p>
                             Visi dan Misi
@@ -134,7 +134,7 @@
 
     onMounted(async () => {
         try {
-            const { data } = await apiClient.get('/admin-cek-auth')
+            const { data } = await apiClient.get('/auth/check')
 
             await store.dispatch('updateAuth', data)
         } catch (error) {

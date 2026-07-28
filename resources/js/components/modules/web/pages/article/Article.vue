@@ -34,10 +34,10 @@
                                             <div class="service-block mb-5">
                                                 <img :src="'/storage/'+ item.post_image" :alt="item.title" class="img-fluid" onclick="zoomImg()">
                                                 <div class="content">
-                                                    <h4 class="mt-4 mb-2 title-color"><RouterLink :to="'/article/'+item.id">{{ item.title }}</RouterLink></h4>
+                                                    <h4 class="mt-4 mb-2 title-color"><RouterLink :to="'/web/article/'+item.id">{{ item.title }}</RouterLink></h4>
                                                     <small class=""> <strong> <i class="icofont-book-mark mr-2"></i>{{ item.category.category_name }}</strong></small>
                                                     <small class="float-right"><strong> <i class="icofont-calendar mr-2"></i> {{ $diffForHumans(item.created_at) }}</strong></small>
-                                                    <div class="mb-4 mt-2"><p v-html="item.excerpt"></p> <small><RouterLink :to="'/article/'+ item.id">Selengkapnya</RouterLink></small></div>
+                                                    <div class="mb-4 mt-2"><p v-html="item.excerpt"></p> <small><RouterLink :to="'/web/article/'+ item.id">Selengkapnya</RouterLink></small></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -96,7 +96,7 @@
 
     const fetchArtikel = async (page = 1) => {
         try {
-            const response = await apiClient.get('/getartikel', {
+            const response = await apiClient.get('/web/getartikel', {
                 params: {
                     search: searchKeyword.value,
                     page: page

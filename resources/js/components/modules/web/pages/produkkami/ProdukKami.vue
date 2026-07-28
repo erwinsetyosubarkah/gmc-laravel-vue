@@ -35,7 +35,7 @@
                                             <div class="service-block">
                                                 <img :src="'/storage/'+ item.product_image" :alt="item.product_name" class="img-fluid" style="width: 300px;height: 200px;object-fit: cover;object-position: center;">
                                                 <div class="content">
-                                                    <h4 class="mt-4 mb-2 title-color"><RouterLink :to="'/produkkami/'+ item.id">{{ item.product_name }}</RouterLink></h4>
+                                                    <h4 class="mt-4 mb-2 title-color"><RouterLink :to="'/web/produkkami/'+ item.id">{{ item.product_name }}</RouterLink></h4>
                                                     <small class=""> <strong> Stock : {{ numberFormat(item.stock) }}</strong></small>
                                                     <small class="float-right"><strong> Harga : {{ formatRupiah(item.price)  }}</strong></small>
                                                     <p class="mb-4 mt-2" v-html="limitText(item.product_description)"></p>
@@ -98,7 +98,7 @@
 
     const fetchProdukKami = async (page = 1) => {
         try {
-            const response = await apiClient.get('/getprodukkami', {
+            const response = await apiClient.get('/web/getprodukkami', {
                 params: {
                     search: searchKeyword.value,
                     page: page

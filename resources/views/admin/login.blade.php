@@ -12,8 +12,8 @@
           </div>
           <div class="card-body">
             <p class="login-box-msg">Halaman Login</p>
-      
-            <form action="/admin-login" method="post">
+
+            <form action="/auth-login" method="post">
               @csrf
               <div class="input-group mb-3">
                 <input type="text" class="form-control @error('username') is-invalid @enderror" placeholder="Username" name="username" autofocus required value="{{ old('username') }}">
@@ -41,14 +41,14 @@
                     </div>
                 @enderror
               </div>
-              <div class="row">             
+              <div class="row">
                 <div class="col-12">
                   <button type="submit" class="btn btn-primary btn-block">LOGIN</button>
                 </div>
                 <!-- /.col -->
               </div>
             </form>
-   
+
             <div class="text-center mt-2">
               <a href="/admin-register">Belum memiliki akun?</a>
             </div>

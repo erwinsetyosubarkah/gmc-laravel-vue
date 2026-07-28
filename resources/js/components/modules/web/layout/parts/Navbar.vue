@@ -22,7 +22,7 @@
         </div>
         <nav class="navbar navbar-expand-lg navigation shadow" id="navbar">
             <div class="container">
-                <RouterLink class="navbar-brand" to="/">
+                <RouterLink class="navbar-brand" to="/web/">
                     <img :src="'/storage/'+profile.club_logo" alt="" class="" height="100"> <span class="font-weight-bold">{{ profile.club_name }}</span>
                 </RouterLink>
 
@@ -34,25 +34,25 @@
             <div class="collapse navbar-collapse" id="navbarmain">
                 <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <RouterLink class="nav-link" to="/">Home</RouterLink>
+                    <RouterLink class="nav-link" to="/web/">Home</RouterLink>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile Club <i class="icofont-thin-down"></i></a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown02">
-                        <li><RouterLink class="dropdown-item" to="/profile">Profile</RouterLink></li>
-                        <li><RouterLink class="dropdown-item" to="/visidanmisi">Visi dan Misi</RouterLink></li>
-                        <li><RouterLink class="dropdown-item" to="/produkkami">Produk Kami</RouterLink></li>
-                        <li><RouterLink class="dropdown-item" to="/kontakkami">Kontak Kami</RouterLink></li>
+                        <li><RouterLink class="dropdown-item" to="/web/profile">Profile</RouterLink></li>
+                        <li><RouterLink class="dropdown-item" to="/web/visidanmisi">Visi dan Misi</RouterLink></li>
+                        <li><RouterLink class="dropdown-item" to="/web/produkkami">Produk Kami</RouterLink></li>
+                        <li><RouterLink class="dropdown-item" to="/web/kontakkami">Kontak Kami</RouterLink></li>
                     </ul>
                 </li>
-                <li class="nav-item"><RouterLink class="nav-link" to="/article">Artikel</RouterLink></li>
-                    <li class="nav-item"><RouterLink class="nav-link" to="/event">Event</RouterLink></li>
-                    <li class="nav-item"><RouterLink class="nav-link" to="/galery">Galery Foto</RouterLink></li>
-                    <li class="nav-item"><RouterLink class="nav-link" to="/klienkami">Klien Kami</RouterLink></li>
+                <li class="nav-item"><RouterLink class="nav-link" to="/web/article">Artikel</RouterLink></li>
+                    <li class="nav-item"><RouterLink class="nav-link" to="/web/event">Event</RouterLink></li>
+                    <li class="nav-item"><RouterLink class="nav-link" to="/web/galery">Galery Foto</RouterLink></li>
+                    <li class="nav-item"><RouterLink class="nav-link" to="/web/klienkami">Klien Kami</RouterLink></li>
                     <li v-if="auth?.authenticated" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="blog-sidebar.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> Selamat Datang, {{ auth?.user?.name }} <i class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                            <li><a class="dropdown-item" href="/admin-dashboard"><i class="fas fa-cogs"></i> Dashboard</a></li>
+                            <li><a class="dropdown-item" href="/admin/dashboard"><i class="fas fa-cogs"></i> Dashboard</a></li>
                             <li>
                                 <button type="submit" class="btn btn-secondary ml-2" @click="onLogout"><i class="fas fa-sign-out-alt"></i> Logout</button>
                             </li>
@@ -61,7 +61,7 @@
                     <li v-else class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle btn btn-primary btn-sm text-white" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> Login <i class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                            <li><a class="dropdown-item" href="/admin-login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                            <li><a class="dropdown-item" href="/auth/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                             <li><a class="dropdown-item" href="/admin-register"><i class="fas fa-edit"></i> Daftar</a></li>
                         </ul>
                     </li>
@@ -86,7 +86,7 @@ const auth = computed(() => store.state.auth)
 
 onMounted(async () => {
     try {
-        const { data } = await apiClient.get('/admin-cek-auth')
+        const { data } = await apiClient.get('/auth/check')
 
         await store.dispatch('updateAuth', data)
     } catch (error) {
@@ -96,7 +96,7 @@ onMounted(async () => {
 
 const onLogout = async () => {
     try {
-        const { data } = await apiClient.post('/admin-logout');
+        const { data } = await apiClient.post('/auth/logout');
         await store.dispatch('updateAuth', null)
     } catch (error) {
         Swal.fire({

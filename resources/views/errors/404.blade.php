@@ -23,10 +23,11 @@
     <p>
         Maaf, halaman yang Anda cari tidak tersedia.
     </p>
-
-    <a href="{{ $previousUrl }}">
-        Kembali ke Halaman Sebelumnya
-    </a>
+    @if(isset($previousUrl))
+        <a href="{{ $previousUrl }}">
+            Kembali ke Halaman Sebelumnya
+        </a>
+    @endif
     &nbsp;&nbsp;
     <a href="{{ url('/') }}">
         Kembali ke Home

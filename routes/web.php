@@ -61,8 +61,8 @@ Route::post('/admin-logout', [AdminLoginController::class,'logout'])->middleware
 // Route::get('/admin-register', [AdminRegisterController::class,'index'])->middleware('guest');
 // Route::post('/admin-register', [AdminRegisterController::class,'store'])->middleware('guest');
 
-// Route::get('/admin-profile', [AdminProfileController::class,'index'])->middleware('admin');
-// Route::post('/admin-profile', [AdminProfileController::class,'edit'])->middleware('admin');
+Route::get('/admin-profile', [AdminProfileController::class,'index'])->middleware('admin');
+Route::post('/admin-profile', [AdminProfileController::class,'edit'])->middleware('admin');
 
 // Route::get('/admin-visidanmisi', [AdminVisidanmisiController::class,'index'])->middleware('admin');
 // Route::post('/admin-visidanmisi', [AdminVisidanmisiController::class,'edit'])->middleware('admin');

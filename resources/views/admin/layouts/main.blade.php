@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $profile->club_name }}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('storage/'. $profile->club_logo) }}">
 
@@ -85,23 +86,30 @@
 
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+@if(request()->is('admin-dashboard'))
 <script src="{{ asset('/') }}vendor/adminlte/dist/js/pages/dashboard.js"></script>
+@endif
 @include('sweetalert::alert')
 <script src="{{ asset('/') }}vendor/sweetalert/sweetalert.all.js"></script>
 <script src="{{ asset('/') }}vendor/ckeditor5/ckeditor.js"></script>
 <script>
     $(document).ready(function () {
-        ClassicEditor
-          .create( document.querySelector( '.ckeditor' ), {
-            // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
-          } )
-          .then( editor => {
-            window.editor = editor;
-          } )
-          .catch( err => {
-            console.error( err.stack );
-          } );
+        const editorElement = document.querySelector('.ckeditor');
 
+        if (!editorElement) {
+            return;
+        }
+
+        ClassicEditor
+          .create(editorElement, {
+            // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+          })
+          .then(editor => {
+            window.editor = editor;
+          })
+          .catch(err => {
+            console.error(err.stack);
+          });
     });
 
     function previmg(src){

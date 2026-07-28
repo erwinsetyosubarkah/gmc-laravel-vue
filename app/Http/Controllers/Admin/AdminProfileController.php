@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Profile;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\Admin\AdminProfileEditRequest;
+use App\Repositories\Contracts\Admin\AdminProfileRepositoryInterface;
 
 class AdminProfileController extends Controller
 {
+    private AdminProfileRepositoryInterface $adminProfileRepository;
+
+    public function __construct(AdminProfileRepositoryInterface $adminProfileRepository)
+    {
+        $this->adminProfileRepository = $adminProfileRepository;
+    }
+
     public function index() {
         return view('admin/profile',[
             'page_title' => 'Profile',
@@ -18,34 +24,10 @@ class AdminProfileController extends Controller
     }
 
 
-    public function edit(Request $request) {
-        $validatedData = $request->validate([
-            'club_name'  => 'required|min:5',
-            'club_name_abbreviation' => 'required',
-            'club_logo' => 'image|file|max:2048',
-            'email' => '',
-            'leader_name' => '',
-            'leader_email' => '',
-            'phone' => '',
-            'address' => '',
-            'description' => '',
-            'short_description' => 'max:100'
-        ]);
-        
-        //jika ada gambar baru
-        if($request->file('club_logo')){
-            //jika gambar lama isi (ada gambar lama)
-            if($request->old_club_logo){
-                // hapus gambar lama
-                Storage::delete($request->old_club_logo);
-            }
-            $validatedData['club_logo'] = $request->file('club_logo')->store('post-images/profile');
-        }
+    public function edit(AdminProfileEditRequest $request) {
+        $validatedData = $request->validated();
+        $result = $this->adminProfileRepository->edit($validatedData, new Profile(), $request);
 
-        Profile::where('id',1)
-                    ->update($validatedData);
-        Alert::success('Berhasil', 'Data kategori berhasil diubah !');
-        return redirect('/admin-profile');
-        
+        return response()->json($result);
     }
 }

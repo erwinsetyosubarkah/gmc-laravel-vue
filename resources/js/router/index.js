@@ -13,6 +13,7 @@ import EventSingle from '@/components/modules/web/pages/event/EventSingle.vue';
 import Galery from '@/components/modules/web/pages/galery/Galery.vue';
 import KlienKami from '@/components/modules/web/pages/klienkami/KlienKami.vue';
 import Dashboard from '@/components/modules/admin/pages/dashboard/Dashboard.vue';
+import AdminProfile from '@/components/modules/admin/pages/profile/Profile.vue';
 import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
 import Login from '@/components/modules/auth/Login.vue';
 
@@ -84,6 +85,14 @@ const routes = [
         component: Dashboard,
          meta: {
             title: 'Dashboard'
+        }
+    },
+    {
+        path: '/admin-profile',
+        name: 'admin-profile',
+        component: AdminProfile,
+         meta: {
+            title: 'Profile'
         }
     },
     {

@@ -23,9 +23,16 @@ export default defineConfig({
                 },
             },
         }),
-        // Optimasi 1: Batasi folder pencarian inject, hindari node_modules
         inject({
-            include: ['resources/js/**/*.js', 'resources/js/**/*.vue'],
+            include: ['**/*.js', '**/*.vue'],
+            // include: [
+            //     'node_modules/jquery/**/*.js',
+            //     'node_modules/shufflejs/**/*.js',
+            //     'node_modules/popper.js/**/*.js',
+            //     'node_modules/@popperjs/core/**/*.js', // Tambahan jika Anda memakai Popper v2 (Bootstrap 5)
+            //     'resources/js/**/*.js',
+            //     'resources/js/**/*.vue',
+            // ],
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
@@ -37,7 +44,6 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './resources/js'),
-            // Kembalikan ke esm-bundler untuk mendukung runtime compilation
             'vue': 'vue/dist/vue.esm-bundler.js',
         },
     },

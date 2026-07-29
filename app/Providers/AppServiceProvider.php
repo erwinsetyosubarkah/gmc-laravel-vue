@@ -7,9 +7,9 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\{ArtikelRepository, EventRepository, GaleryRepository, HomeRepository, KlienkamiRepository, KontakkamiRepository, ProdukkamiRepository, ProfileRepository, VisidanmisiRepository};
-use App\Repositories\Admin\{AdminPostRepository, AdminProfileRepository, AdminRegisterRepository};
+use App\Repositories\Admin\{AdminMyproductRepository, AdminPostRepository, AdminProfileRepository, AdminRegisterRepository};
 use App\Repositories\Contracts\{ArtikelRepositoryInterface, EventRepositoryInterface, GaleryRepositoryInterface, HomeRepositoryInterface, KlienkamiRepositoryInterface, KontakkamiRepositoryInterface, ProdukkamiRepositoryInterface, ProfileRepositoryInterface, VisidanmisiRepositoryInterface};
-use App\Repositories\Contracts\Admin\{AdminPostRepositoryInterface, AdminProfileRepositoryInterface, AdminRegisterRepositoryInterface};
+use App\Repositories\Contracts\Admin\{AdminMyproductRepositoryInterface, AdminPostRepositoryInterface, AdminProfileRepositoryInterface, AdminRegisterRepositoryInterface};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         // Admin
         $this->app->bind(AdminPostRepositoryInterface::class, AdminPostRepository::class);
         $this->app->bind(AdminProfileRepositoryInterface::class, AdminProfileRepository::class);
+        $this->app->bind(AdminMyproductRepositoryInterface::class, AdminMyproductRepository::class);
         $this->app->bind(AdminRegisterRepositoryInterface::class, AdminRegisterRepository::class);
     }
 

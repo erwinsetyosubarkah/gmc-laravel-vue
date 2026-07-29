@@ -53,7 +53,7 @@
                     </RouterLink>
                 </li>
                 <li class="nav-item">
-                    <RouterLink :to="'/admin-myproduct'" class="nav-link">
+                    <RouterLink :to="'/admin/myproduct'" class="nav-link">
                         <i class="nav-icon fas fa-cube"></i>
                         <p>
                             Produk Kami
@@ -61,7 +61,7 @@
                     </RouterLink>
                 </li>
                 <li class="nav-item">
-                    <RouterLink :to="'/admin-category'" class="nav-link">
+                    <RouterLink :to="'/admin/category'" class="nav-link">
                         <i class="nav-icon fas fa-layer-group"></i>
                         <p>
                             Kategori
@@ -73,7 +73,7 @@
 
             <li class="nav-header">KONTEN WEBSITE</li>
             <li class="nav-item">
-                <RouterLink :to="'/admin-post'" class="nav-link">
+                <RouterLink :to="'/admin/post'" class="nav-link">
                     <i class="nav-icon fas fa-newspaper"></i>
                     <p>Artikel</p>
                 </RouterLink>
@@ -81,7 +81,7 @@
 
             <template v-if="auth?.user?.level == 'admin'">
                 <li class="nav-item">
-                    <RouterLink :to="'/admin-event'" class="nav-link">
+                    <RouterLink :to="'/admin/event'" class="nav-link">
                     <i class="nav-icon fas fa-calendar"></i>
                     <p>Event</p>
                     </RouterLink>
@@ -89,7 +89,7 @@
             </template>
 
             <li class="nav-item">
-                <RouterLink :to="'/admin-galery'" class="nav-link">
+                <RouterLink :to="'/admin/galery'" class="nav-link">
                 <i class="nav-icon fas fa-images"></i>
                 <p>Galery Foto</p>
                 </RouterLink>
@@ -97,7 +97,7 @@
 
             <template v-if="auth?.user?.level == 'admin'">
                 <li class="nav-item">
-                    <RouterLink :to="'/admin-myclient'" class="nav-link">
+                    <RouterLink :to="'/admin/myclient'" class="nav-link">
                         <i class="nav-icon fas fa-user-tie"></i>
                         <p>Klien Kami</p>
                     </RouterLink>
@@ -105,7 +105,7 @@
 
                 <li class="nav-header">MANAGEMEN USER</li>
                 <li class="nav-item">
-                    <RouterLink :to="'/admin-user'" class="nav-link">
+                    <RouterLink :to="'/admin/user'" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Users</p>
                     </RouterLink>

@@ -78,11 +78,11 @@ Route::prefix('admin')->group(function () {
     // Route::get('/admin/visidanmisi', [AdminVisidanmisiController::class,'index'])->middleware('admin');
     Route::post('/visidanmisi', [AdminVisidanmisiController::class,'edit'])->middleware('admin');
 
-    // Route::get('/admin-myproduct', [AdminMyproductController::class,'index'])->middleware('admin');
-    // Route::post('/admin-myproduct', [AdminMyproductController::class,'store'])->middleware('admin');
-    // Route::post('/admin-myproduct/{myproduct}', [AdminMyproductController::class,'destroy'])->middleware('admin');
-    // Route::get('/admin-myproduct-edit/{myproduct}', [AdminMyproductController::class,'showedit'])->middleware('admin');
-    // Route::post('/admin-myproduct-edit/{myproduct}', [AdminMyproductController::class,'edit'])->middleware('admin');
+    Route::get('/myproduct', [AdminMyproductController::class,'index'])->middleware('admin');
+    Route::post('/myproduct', [AdminMyproductController::class,'store'])->middleware('admin');
+    Route::post('/myproduct/{myproduct}', [AdminMyproductController::class,'destroy'])->middleware('admin');
+    Route::get('/myproduct-edit/{myproduct}', [AdminMyproductController::class,'showedit'])->middleware('admin');
+    Route::post('/myproduct-edit/{myproduct}', [AdminMyproductController::class,'edit'])->middleware('admin');
 
     // Route::get('/admin-category', [AdminCategoryController::class,'index'])->middleware('admin');
     // Route::post('/admin-category', [AdminCategoryController::class,'store'])->middleware('admin');

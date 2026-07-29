@@ -15,6 +15,8 @@ import KlienKami from '@/components/modules/web/pages/klienkami/KlienKami.vue';
 import Dashboard from '@/components/modules/admin/pages/dashboard/Dashboard.vue';
 import AdminProfile from '@/components/modules/admin/pages/profile/Profile.vue';
 import AdminVisidanmisi from '@/components/modules/admin/pages/visidanmisi/Visidanmisi.vue';
+import AdminMyproduct from '@/components/modules/admin/pages/myproduct/Myproduct.vue';
+import AdminMyproductEdit from '@/components/modules/admin/pages/myproduct/MyproductEdit.vue';
 import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
 import Login from '@/components/modules/auth/Login.vue';
 import Register from '@/components/modules/auth/Register.vue';
@@ -103,6 +105,22 @@ const routes = [
         component: AdminVisidanmisi,
          meta: {
             title: 'Visi dan Misi'
+        }
+    },
+    {
+        path: '/admin/myproduct',
+        name: 'admin-myproduct',
+        component: AdminMyproduct,
+        meta: {
+            title: 'Produk Kami'
+        }
+    },
+    {
+        path: '/admin/myproduct/:id',
+        name: 'admin-myproduct-edit',
+        component: AdminMyproductEdit,
+        meta: {
+            title: 'Edit Produk Kami'
         }
     },
     {

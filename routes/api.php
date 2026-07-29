@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminMyproductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('/myproducts', [AdminMyproductController::class, 'index']);
+    Route::post('/myproducts', [AdminMyproductController::class, 'store']);
+    Route::post('/myproducts/{myproduct}', [AdminMyproductController::class, 'edit']);
+    Route::delete('/myproducts/{myproduct}', [AdminMyproductController::class, 'destroy']);
 });

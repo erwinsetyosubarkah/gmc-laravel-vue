@@ -11,19 +11,6 @@ import Layout from './components/modules/web/layout/Layout.vue';
 
 
 import 'bootstrap';
-import '../../public/vendor/novena/plugins/counterup/jquery.easing.js';
-
-import '../../public/vendor/novena/plugins/slick-carousel/slick/slick.min.js';
-
-import '../../public/vendor/novena/plugins/counterup/jquery.waypoints.min.js';
-
-import '../../public/vendor/novena/plugins/counterup/jquery.counterup.min.js';
-
-import '../../public/vendor/novena/plugins/google-map/map.js';
-import 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap';
-
-import './script.js';
-import './contact.js';
 
 import VueSweetalert2 from 'vue-sweetalert2';
 import dayjs from 'dayjs';

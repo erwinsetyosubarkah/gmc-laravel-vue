@@ -60,7 +60,7 @@ Route::prefix('auth')->group(function () {
         return view('auth.auth',[
             'profile'  => Profile::first()
         ]);
-    })->middleware('guest');
+    })->name('login')->middleware('guest');
     Route::post('/login', [AdminLoginController::class,'authenticate'])->middleware('guest');
     Route::post('/logout', [AdminLoginController::class,'logout'])->middleware('auth');
     Route::post('/register', [AdminRegisterController::class,'store'])->middleware('guest');
@@ -78,18 +78,18 @@ Route::prefix('admin')->group(function () {
     // Route::get('/admin/visidanmisi', [AdminVisidanmisiController::class,'index'])->middleware('admin');
     Route::post('/visidanmisi', [AdminVisidanmisiController::class,'edit'])->middleware('admin');
 
-    Route::get('/myproduct', [AdminMyproductController::class,'index'])->middleware('admin');
+    Route::get('/myproduct-all', [AdminMyproductController::class,'all'])->middleware('admin');
     Route::post('/myproduct', [AdminMyproductController::class,'store'])->middleware('admin');
-    Route::post('/myproduct/{myproduct}', [AdminMyproductController::class,'destroy'])->middleware('admin');
+    Route::delete('/myproduct/{myproduct}', [AdminMyproductController::class,'destroy'])->middleware('admin');
     Route::get('/myproduct-edit/{myproduct}', [AdminMyproductController::class,'showedit'])->middleware('admin');
     Route::post('/myproduct-edit/{myproduct}', [AdminMyproductController::class,'edit'])->middleware('admin');
 
-    // Route::get('/admin-category', [AdminCategoryController::class,'index'])->middleware('admin');
-    // Route::post('/admin-category', [AdminCategoryController::class,'store'])->middleware('admin');
-    // Route::post('/admin-category/{category}', [AdminCategoryController::class,'destroy'])->middleware('admin');
+    Route::get('/category-all', [AdminCategoryController::class,'all'])->middleware('admin');
+    Route::post('/category', [AdminCategoryController::class,'store'])->middleware('admin');
+    Route::delete('/category/{category}', [AdminCategoryController::class,'destroy'])->middleware('admin');
     // Route::get('/admin-category-alldata', [AdminCategoryController::class,'allData'])->middleware('admin');
-    // Route::get('/admin-category-edit/{category}', [AdminCategoryController::class,'showedit'])->middleware('admin');
-    // Route::post('/admin-category-edit/{category}', [AdminCategoryController::class,'edit'])->middleware('admin');
+    Route::get('/category-edit/{category}', [AdminCategoryController::class,'showedit'])->middleware('admin');
+    Route::post('/category-edit/{category}', [AdminCategoryController::class,'edit'])->middleware('admin');
 
     // Route::get('/admin-post', [AdminPostController::class,'index'])->middleware('auth');
     // Route::post('/admin-post', [AdminPostController::class,'store'])->middleware('auth');

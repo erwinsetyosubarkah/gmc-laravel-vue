@@ -1,12 +1,13 @@
 <template>
   <div>
-    <button type="button" class="btn btn-success mb-3" @click="openModal">
+    <ContentLoader v-if="loading" speed="0.5" />
+    <button type="button" class="btn btn-success mb-3" @click="openModal" v-show="!loading">
       <i class="fas fa-plus"></i> Tambah
     </button>
 
     <p v-if="loading" class="text-muted">Memuat data produk...</p>
 
-    <table v-else id="table-myproduct" class="table table-bordered table-striped">
+    <table id="table-myproduct" class="table table-bordered table-striped" v-show="!loading">
       <thead>
         <tr>
           <th class="text-center">No</th>
@@ -19,31 +20,7 @@
         </tr>
       </thead>
 
-      <tbody>
-        <tr v-for="(item, index) in products" :key="item.id ?? index">
-          <td class="text-center">{{ index + 1 }}</td>
-          <td class="text-center">
-            <img
-              :src="getProductImage(item.product_image)"
-              :alt="item.product_name"
-              class="img-fluid"
-              width="100"
-            />
-          </td>
-          <td class="text-center">{{ item.product_name }}</td>
-          <td class="text-center">{{ item.stock }}</td>
-          <td class="text-center">Rp. {{ formatPrice(item.price) }}</td>
-          <td class="text-center">{{ truncateDescription(item.product_description) }}</td>
-          <td class="text-center">
-            <button type="button" class="badge badge-warning mr-2 ml-2 btn-edit border-0" @click="editProduct(item)">
-              <i class="fas fa-edit"></i> Ubah
-            </button>
-            <button type="button" class="badge badge-danger mr-2 ml-2 btn-hapus border-0" @click="deleteProduct(item.id)">
-              <i class="fas fa-trash"></i> Hapus
-            </button>
-          </td>
-        </tr>
-      </tbody>
+        <tbody></tbody>
     </table>
 
     <div v-if="showModal" class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
@@ -56,45 +33,83 @@
             </button>
           </div>
 
-          <form @submit.prevent="submitForm" enctype="multipart/form-data">
+          <form @submit.prevent="onSubmit" enctype="multipart/form-data">
             <div class="modal-body">
               <div class="form-group">
                 <label for="product_name">Nama Produk</label>
-                <input v-model="form.product_name" type="text" class="form-control" id="product_name" placeholder="Masukan nama produk..." required />
+                <input
+                  v-model="product_name"
+                  type="text"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors.product_name }"
+                  id="product_name"
+                  placeholder="Masukan nama produk..."
+                />
+                <div class="invalid-feedback">{{ errors.product_name }}</div>
               </div>
 
               <div class="form-group">
                 <label for="stock">Stok</label>
-                <input v-model.number="form.stock" type="number" class="form-control" id="stock" required />
+                <input
+                  v-model.number="stock"
+                  type="number"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors.stock }"
+                  id="stock"
+                />
+                <div class="invalid-feedback">{{ errors.stock }}</div>
               </div>
 
               <div class="form-group">
                 <label for="price">Harga</label>
-                <input v-model.number="form.price" type="number" class="form-control" id="price" required />
+                <input
+                  v-model.number="price"
+                  type="number"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors.price }"
+                  id="price"
+                />
+                <div class="invalid-feedback">{{ errors.price }}</div>
               </div>
 
               <div class="form-group">
                 <label for="product_image">Foto Produk</label>
-                <input type="file" class="form-control" id="product_image" @change="handleImageChange" />
+                <input
+                  type="file"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors.product_image }"
+                  id="product_image"
+                  @change="handleImageChange"
+                />
+                <div class="invalid-feedback">{{ errors.product_image }}</div>
                 <img
-      v-if="previewImage"
-      :src="previewImage"
-      class="mb-2 mb-md-4 shadow-1-strong rounded mt-2"
-      style="cursor: zoom-in;"
-      width="100"
-      @click="zoomImg(previewImage)"
-    />
+                  v-if="previewImage"
+                  :src="previewImage"
+                  class="mb-2 mb-md-4 shadow-1-strong rounded mt-2"
+                  style="cursor: zoom-in;"
+                  width="100"
+                  @click="zoomImg(previewImage)"
+                />
               </div>
 
               <div class="form-group">
                 <label for="product_description">Deskripsi</label>
-                <textarea v-model="form.product_description" class="form-control ckeditor" id="product_description"></textarea>
+                <textarea
+                  v-model="product_description"
+                  class="form-control ckeditor"
+                  :class="{ 'is-invalid': errors.product_description }"
+                  id="product_description"
+                ></textarea>
+                <div class="invalid-feedback">{{ errors.product_description }}</div>
               </div>
             </div>
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
-              <button type="submit" class="btn btn-primary">Simpan</button>
+              <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                {{ isSubmitting ? 'Menyimpan...' : 'Simpan' }}
+              </button>
             </div>
           </form>
         </div>
@@ -104,7 +119,11 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, nextTick, ref, watch } from 'vue'
+import { ContentLoader } from 'vue-content-loader';
+import { useForm, useField } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/yup'
+import * as yup from 'yup'
 import Swal from 'sweetalert2/dist/sweetalert2'
 import apiClient from '@/services/api'
 
@@ -118,40 +137,51 @@ const props = defineProps({
 const defaultImage = 'https://via.placeholder.com/100x100?text=No+Image'
 const showModal = ref(false)
 const formMode = ref('create')
+const editId = ref(null)
 const previewImage = ref('')
 const loading = ref(false)
 const products = ref([])
 const tableInstance = ref(null)
-const form = ref({
-  id: null,
-  product_name: '',
-  stock: '',
-  price: '',
-  product_image: '',
-  product_description: ''
-})
 
-const resetForm = () => {
-  form.value = {
-    id: null,
+const schema = toTypedSchema(
+  yup.object({
+    product_name: yup.string().required('Nama produk wajib diisi.').min(3, 'Nama produk minimal 3 karakter.'),
+    stock: yup.number().typeError('Stok harus berupa angka.').required('Stok wajib diisi.').min(0, 'Stok minimal 0.'),
+    price: yup.number().typeError('Harga harus berupa angka.').required('Harga wajib diisi.').min(0, 'Harga minimal 0.'),
+    product_image: yup.mixed().nullable(),
+    product_description: yup.string().nullable(),
+  })
+)
+
+const { handleSubmit, errors, isSubmitting, resetForm, setValues } = useForm({
+  validationSchema: schema,
+  initialValues: {
     product_name: '',
     stock: '',
     price: '',
-    product_image: '',
-    product_description: ''
+    product_image: null,
+    product_description: '',
   }
-  previewImage.value = ''
-}
+})
+
+const { value: product_name } = useField('product_name')
+const { value: stock } = useField('stock')
+const { value: price } = useField('price')
+const { value: product_image } = useField('product_image')
+const { value: product_description } = useField('product_description')
 
 const openModal = () => {
   formMode.value = 'create'
+  editId.value = null
   resetForm()
+  previewImage.value = ''
   showModal.value = true
 }
 
 const closeModal = () => {
   showModal.value = false
   resetForm()
+  previewImage.value = ''
 }
 
 const getProductImage = (image) => {
@@ -170,10 +200,19 @@ const truncateDescription = (value) => {
   return plainText.length > 100 ? `${plainText.slice(0, 100)}...` : plainText
 }
 
+const updateDataTable = (data = []) => {
+  if (!tableInstance.value) {
+    initDataTable(data)
+    return
+  }
+
+  tableInstance.value.clear().rows.add(data).draw(false)
+}
+
 const fetchProducts = async () => {
   loading.value = true
   try {
-    const response = await apiClient.get('/api/admin/myproducts')
+    const response = await apiClient.get('/admin/myproduct-all')
     const payload = response?.data
 
     if (payload?.status === 'success' && Array.isArray(payload.data)) {
@@ -183,40 +222,26 @@ const fetchProducts = async () => {
     } else {
       products.value = []
     }
+
+    await nextTick()
+    updateDataTable(products.value)
   } catch (error) {
     console.error(error)
-    Swal.fire({
-      icon: 'error',
-      title: 'Gagal',
-      text: 'Tidak dapat mengambil data produk dari server.'
-    })
+    Swal.fire({ icon: 'error', title: 'Gagal', text: 'Tidak dapat mengambil data produk dari server.' })
   } finally {
     loading.value = false
   }
-}
-
-const dataURLtoFile = (dataUrl, filename) => {
-  const arr = dataUrl.split(',')
-  const mime = arr[0].match(/:(.*?);/)[1]
-  const bstr = atob(arr[1])
-  let n = bstr.length
-  const u8arr = new Uint8Array(n)
-
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n)
-  }
-
-  return new File([u8arr], filename, { type: mime })
 }
 
 const handleImageChange = (event) => {
   const file = event.target.files?.[0]
   if (!file) return
 
+  product_image.value = file
+
   const reader = new FileReader()
   reader.onload = () => {
     previewImage.value = reader.result
-    form.value.product_image = reader.result
   }
   reader.readAsDataURL(file)
 }
@@ -249,16 +274,12 @@ const zoomImg = (src) => {
   document.body.appendChild(modal)
 }
 
-const submitForm = async () => {
+const onSubmit = handleSubmit(async (values) => {
   const formData = new FormData()
-  formData.append('product_name', form.value.product_name)
-  formData.append('stock', form.value.stock)
-  formData.append('price', form.value.price)
-  formData.append('product_description', form.value.product_description || '')
-
-  if (form.value.product_image && typeof form.value.product_image === 'string' && form.value.product_image.startsWith('data:image')) {
-    formData.append('product_image', dataURLtoFile(form.value.product_image, 'product-image.png'))
-  }
+  formData.append('product_name', values.product_name)
+  formData.append('stock', values.stock)
+  formData.append('price', values.price)
+  formData.append('product_description', values.product_description || '')
 
   const fileInput = document.getElementById('product_image')
   if (fileInput?.files?.[0]) {
@@ -267,11 +288,11 @@ const submitForm = async () => {
 
   try {
     if (formMode.value === 'create') {
-      await apiClient.post('/api/admin/myproducts', formData, {
+      await apiClient.post('/admin/myproduct', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
     } else {
-      await apiClient.post(`/api/admin/myproducts/${form.value.id}`, formData, {
+      await apiClient.post(`/admin/myproduct-edit/${editId.value}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
     }
@@ -291,11 +312,18 @@ const submitForm = async () => {
       text: error?.response?.data?.message || 'Proses simpan produk gagal.'
     })
   }
-}
+})
 
 const editProduct = (item) => {
   formMode.value = 'edit'
-  form.value = { ...item }
+  editId.value = item.id
+  setValues({
+    product_name: item.product_name || '',
+    stock: item.stock ?? '',
+    price: item.price ?? '',
+    product_image: null,
+    product_description: item.product_description || '',
+  })
   previewImage.value = getProductImage(item.product_image)
   showModal.value = true
 }
@@ -313,7 +341,7 @@ const deleteProduct = async (id) => {
   if (!result.isConfirmed) return
 
   try {
-    const response = await apiClient.delete(`/api/admin/myproducts/${id}`)
+    const response = await apiClient.delete(`/admin/myproduct/${id}`)
     const payload = response?.data
 
     if (payload?.status === 'success') {
@@ -338,88 +366,113 @@ watch(
   { immediate: true }
 )
 
-onMounted(() => {
-  fetchProducts()
-  initDataTable()
+const getDataTablesOptions = (data) => ({
+  data: data,
+  columns: [
+    {
+      data: null,
+      orderable: false,
+      searchable: false,
+      className: 'text-center',
+      render: (data, type, row, meta) => meta.row + 1
+    },
+    {
+      data: 'product_image',
+      orderable: false,
+      searchable: false,
+      className: 'text-center',
+      render: (data) => {
+        const src = getProductImage(data)
+        return `<img src="${src}" alt="Produk" class="img-fluid" width="100" />`
+      }
+    },
+    { data: 'product_name', className: 'text-center' },
+    { data: 'stock', className: 'text-center' },
+    {
+      data: 'price',
+      className: 'text-center',
+      render: (data) => `Rp. ${formatPrice(data)}`
+    },
+    {
+      data: 'product_description',
+      className: 'text-center',
+      render: (data) => truncateDescription(data)
+    },
+    {
+      data: null,
+      orderable: false,
+      searchable: false,
+      className: 'text-center',
+      render: (data, type, row) => `
+        <button type="button" class="badge badge-warning mr-2 ml-2 btn-edit-product border-0" data-id="${row.id}">
+          <i class="fas fa-edit"></i> Ubah
+        </button>
+        <button type="button" class="badge badge-danger mr-2 ml-2 btn-delete-product border-0" data-id="${row.id}">
+          <i class="fas fa-trash"></i> Hapus
+        </button>`
+    }
+  ],
+  paging: true,
+  lengthChange: true,
+  searching: true,
+  ordering: true,
+  info: true,
+  autoWidth: true,
+  responsive: true,
+  language: {
+    decimal: '',
+    emptyTable: 'Tidak ada data ditemukan di tabel',
+    info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
+    infoEmpty: 'Menampilkan 0 dari 0 dari 0 data',
+    infoFiltered: '(Difilter dari _MAX_ total data)',
+    infoPostFix: '',
+    thousands: ',',
+    lengthMenu: 'Menampilkan _MENU_ data',
+    loadingRecords: 'Loading...',
+    processing: '',
+    search: 'Cari:',
+    zeroRecords: 'Tidak ada data ditemukan',
+    paginate: {
+      first: 'Pertama',
+      last: 'Terakhir',
+      next: 'Selanjutnya',
+      previous: 'Sebelumnya'
+    }
+  }
 })
 
-const initDataTable = () => {
-  if (tableInstance.value) {
-    tableInstance.value.destroy()
-  }
+const initDataTable = (data = []) => {
+  if (!$('#table-myproduct').length) return
 
-  setTimeout(() => {
-    if ($('#table-myproduct').length) {
-      tableInstance.value = $('#table-myproduct').DataTable({
-        paging: true,
-        lengthChange: true,
-        searching: true,
-        ordering: true,
-        info: true,
-        autoWidth: true,
-        responsive: true,
-        language: {
-          decimal: '',
-          emptyTable: 'Tidak ada data ditemukan di tabel',
-          info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
-          infoEmpty: 'Menampilkan 0 dari 0 dari 0 data',
-          infoFiltered: '(Difilter dari _MAX_ total data)',
-          infoPostFix: '',
-          thousands: ',',
-          lengthMenu: 'Menampilkan _MENU_ data',
-          loadingRecords: 'Loading...',
-          processing: '',
-          search: 'Cari:',
-          zeroRecords: 'Tidak ada data ditemukan',
-          paginate: {
-            first: 'Pertama',
-            last: 'Terakhir',
-            next: 'Selanjutnya',
-            previous: 'Sebelumnya'
-          }
-        }
-      })
-    }
-  }, 0)
+  if (tableInstance.value) return updateDataTable(data)
+
+  $('#table-myproduct').off('click', '.btn-edit-product')
+  $('#table-myproduct').off('click', '.btn-delete-product')
+
+  tableInstance.value = $('#table-myproduct').DataTable(getDataTablesOptions(data))
+
+  $('#table-myproduct').on('click', '.btn-edit-product', function () {
+    const id = $(this).data('id')
+    const item = products.value.find((product) => product.id == id)
+    if (item) editProduct(item)
+  })
+
+  $('#table-myproduct').on('click', '.btn-delete-product', function () {
+    const id = $(this).data('id')
+    deleteProduct(id)
+  })
 }
 
-watch(products, () => {
-  setTimeout(() => {
-    if (tableInstance.value) {
-      tableInstance.value.destroy()
-    }
+watch(products, async (newProducts) => {
+  if (tableInstance.value) {
+    await nextTick()
+    tableInstance.value.clear().rows.add(newProducts).draw()
+  }
+}, { flush: 'post' })
 
-    if ($('#table-myproduct').length) {
-      tableInstance.value = $('#table-myproduct').DataTable({
-        paging: true,
-        lengthChange: true,
-        searching: true,
-        ordering: true,
-        info: true,
-        autoWidth: true,
-        responsive: true,
-        language: {
-          decimal: '',
-          emptyTable: 'Tidak ada data ditemukan di tabel',
-          info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
-          infoEmpty: 'Menampilkan 0 dari 0 dari 0 data',
-          infoFiltered: '(Difilter dari _MAX_ total data)',
-          infoPostFix: '',
-          thousands: ',',
-          lengthMenu: 'Menampilkan _MENU_ data',
-          loadingRecords: 'Loading...',
-          processing: '',
-          search: 'Cari:',
-          zeroRecords: 'Tidak ada data ditemukan',
-          paginate: {
-            first: 'Pertama',
-            last: 'Terakhir',
-            next: 'Selanjutnya',
-            previous: 'Sebelumnya'
-          }
-        }
-      })
-    }
-  }, 0)
+onMounted(async () => {
+  initDataTable([])
+  await fetchProducts()
 })
+
 </script>

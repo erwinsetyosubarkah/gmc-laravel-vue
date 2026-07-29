@@ -3,60 +3,55 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\Admin\AdminCategoryRequest;
+use App\Repositories\Contracts\Admin\AdminCategoryRepositoryInterface;
 
 class AdminCategoryController extends Controller
 {
-    public function index() {
-        return view('admin/category',[
-            'page_title' => 'Kategori',
-            'categories' => Category::all()
-        ]);
+    private AdminCategoryRepositoryInterface $adminCategoryRepository;
+
+    public function __construct(AdminCategoryRepositoryInterface $adminCategoryRepository)
+    {
+        $this->adminCategoryRepository = $adminCategoryRepository;
     }
 
-    public function store(Request $request) {
-        $validatedData = $request->validate([
-            'category_name'  => 'required|min:5',
-            'category_slug' => 'required|min:5'
-        ]);
-        Category::create($validatedData);
-        Alert::success('Berhasil', 'Data kategori berhasil ditambah !');
-        return view('admin/category',[
-            'page_title' => 'Kategori',
-            'categories' => Category::all()
-        ]);
-        
+    public function all()
+    {
+        $result = $this->adminCategoryRepository->all();
+
+        return response()->json($result);
     }
 
-    public function destroy(Category $category) {
-        
-        Category::destroy($category->id);
-        Alert::success('Berhasil', 'Data kategori berhasil dihapus !');
-        return redirect('/admin-category');
-        
+    public function store(AdminCategoryRequest $request)
+    {
+        $validatedData = $request->validated();
+
+        $result = $this->adminCategoryRepository->store($validatedData, $request);
+
+        return response()->json($result);
     }
 
-    public function showedit(Category $category) {
-  
-        return view('admin/categoryedit',[
-            'page_title' => 'Ubah Kategori',
-            'category' => Category::find($category->id)
-        ]);
-        
+    public function destroy(Category $category)
+    {
+        $result = $this->adminCategoryRepository->destroy($category);
+
+        return response()->json($result);
     }
 
-    public function edit(Category $category,Request $request) {
-        $validatedData = $request->validate([
-            'category_name'  => 'required|min:5',
-            'category_slug' => 'required|min:5'
-        ]);
+    public function showedit(Category $category)
+    {
+        $result = $this->adminCategoryRepository->showEdit($category);
 
-        Category::where('id',$category->id)
-                    ->update($validatedData);
-        Alert::success('Berhasil', 'Data kategori berhasil diubah !');
-        return redirect('/admin-category');
-        
+        return response()->json($result);
+    }
+
+    public function edit(Category $category, AdminCategoryRequest $request)
+    {
+        $validatedData = $request->validated();
+
+        $result = $this->adminCategoryRepository->edit($validatedData, $category, $request);
+
+        return response()->json($result);
     }
 }

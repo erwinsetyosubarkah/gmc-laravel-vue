@@ -16,7 +16,7 @@ class AdminMyproductController extends Controller
         $this->adminMyproductRepository = $adminMyproductRepository;
     }
 
-    public function index()
+    public function all()
     {
         $result = $this->adminMyproductRepository->all();
 
@@ -51,7 +51,6 @@ class AdminMyproductController extends Controller
         $validatedData = $request->validated();
 
         $result = $this->adminMyproductRepository->edit($validatedData, $myproduct, $request);
-
         return response()->json($result);
     }
 }

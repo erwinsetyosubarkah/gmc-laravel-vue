@@ -1,5 +1,6 @@
 <template>
-  <form @submit.prevent="onSubmit">
+    <ContentLoader v-if="loading" speed="0.5" />
+  <form v-else @submit.prevent="onSubmit">
     <div class="form-group">
       <label for="title">Judul</label>
       <input
@@ -28,6 +29,7 @@
 
 <script setup>
 import { onMounted, ref, onBeforeUnmount } from 'vue';
+import { ContentLoader } from 'vue-content-loader';
 import { useForm, useField } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';

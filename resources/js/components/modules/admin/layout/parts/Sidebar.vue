@@ -12,7 +12,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img v-if="auth?.user?.photo == ''" src="../../../../../../../public/vendor/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img v-if="!auth?.user?.photo" src="../../../../../../../public/vendor/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 <img v-else :src="'/storage/'+auth?.user?.photo" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">

@@ -7,9 +7,9 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\{ArtikelRepository, EventRepository, GaleryRepository, HomeRepository, KlienkamiRepository, KontakkamiRepository, ProdukkamiRepository, ProfileRepository, VisidanmisiRepository};
-use App\Repositories\Admin\{AdminMyproductRepository, AdminPostRepository, AdminProfileRepository, AdminRegisterRepository};
+use App\Repositories\Admin\{AdminCategoryRepository, AdminMyproductRepository, AdminPostRepository, AdminProfileRepository, AdminRegisterRepository};
 use App\Repositories\Contracts\{ArtikelRepositoryInterface, EventRepositoryInterface, GaleryRepositoryInterface, HomeRepositoryInterface, KlienkamiRepositoryInterface, KontakkamiRepositoryInterface, ProdukkamiRepositoryInterface, ProfileRepositoryInterface, VisidanmisiRepositoryInterface};
-use App\Repositories\Contracts\Admin\{AdminMyproductRepositoryInterface, AdminPostRepositoryInterface, AdminProfileRepositoryInterface, AdminRegisterRepositoryInterface};
+use App\Repositories\Contracts\Admin\{AdminCategoryRepositoryInterface, AdminMyproductRepositoryInterface, AdminPostRepositoryInterface, AdminProfileRepositoryInterface, AdminRegisterRepositoryInterface};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminProfileRepositoryInterface::class, AdminProfileRepository::class);
         $this->app->bind(AdminMyproductRepositoryInterface::class, AdminMyproductRepository::class);
         $this->app->bind(AdminRegisterRepositoryInterface::class, AdminRegisterRepository::class);
+        $this->app->bind(AdminCategoryRepositoryInterface::class, AdminCategoryRepository::class);
     }
 
     /**
@@ -45,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
-        Gate::define('admin',function(User $user){
+        Gate::define('admin', function (User $user) {
             return $user->level === 'admin';
         });
     }

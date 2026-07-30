@@ -1,81 +1,83 @@
 <template>
   <div>
     <ContentLoader v-if="loading" speed="0.5" />
-    <button type="button" class="btn btn-success mb-3" @click="openModal" v-show="!loading">
-      <i class="fas fa-plus"></i> Tambah
-    </button>
+		<template v-else>
+			<button type="button" class="btn btn-success mb-3" @click="openModal">
+				<i class="fas fa-plus"></i> Tambah
+			</button>
 
-    <p v-if="loading" class="text-muted">Memuat data galeri...</p>
+			<p v-if="loading" class="text-muted">Memuat data galeri...</p>
 
-    <table id="table-galery" class="table table-bordered table-striped" v-show="!loading">
-      <thead>
-        <tr>
-          <th class="text-center">No</th>
-          <th class="text-center">Foto</th>
-          <th class="text-center">Judul</th>
-          <th class="text-center">Aksi</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+			<table id="table-galery" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="text-center">No</th>
+						<th class="text-center">Foto</th>
+						<th class="text-center">Judul</th>
+						<th class="text-center">Aksi</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
 
-    <div v-if="showModal" class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ formMode === 'create' ? 'Tambah Galeri' : 'Ubah Galeri' }}</h5>
-            <button type="button" class="close" @click="closeModal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+			<div v-if="showModal" class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">{{ formMode === 'create' ? 'Tambah Galeri' : 'Ubah Galeri' }}</h5>
+							<button type="button" class="close" @click="closeModal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
 
-          <form @submit.prevent="onSubmit" enctype="multipart/form-data">
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="image_title">Judul</label>
-                <input
-                  v-model="image_title"
-                  type="text"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.image_title }"
-                  id="image_title"
-                  placeholder="Masukan judul foto..."
-                />
-                <div class="invalid-feedback">{{ errors.image_title }}</div>
-              </div>
+						<form @submit.prevent="onSubmit" enctype="multipart/form-data">
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="image_title">Judul</label>
+									<input
+										v-model="image_title"
+										type="text"
+										class="form-control"
+										:class="{ 'is-invalid': errors.image_title }"
+										id="image_title"
+										placeholder="Masukan judul foto..."
+									/>
+									<div class="invalid-feedback">{{ errors.image_title }}</div>
+								</div>
 
-              <div class="form-group">
-                <label for="galery_image">Foto</label>
-                <input
-                  type="file"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.galery_image }"
-                  id="galery_image"
-                  @change="handleImageChange"
-                />
-                <div class="invalid-feedback">{{ errors.galery_image }}</div>
-                <img
-                  v-if="previewImage"
-                  :src="previewImage"
-                  class="mb-2 mb-md-4 shadow-1-strong rounded mt-2"
-                  style="cursor: zoom-in;"
-                  width="100"
-                  @click="zoomImg(previewImage)"
-                />
-              </div>
-            </div>
+								<div class="form-group">
+									<label for="galery_image">Foto</label>
+									<input
+										type="file"
+										class="form-control"
+										:class="{ 'is-invalid': errors.galery_image }"
+										id="galery_image"
+										@change="handleImageChange"
+									/>
+									<div class="invalid-feedback">{{ errors.galery_image }}</div>
+									<img
+										v-if="previewImage"
+										:src="previewImage"
+										class="mb-2 mb-md-4 shadow-1-strong rounded mt-2"
+										style="cursor: zoom-in;"
+										width="100"
+										@click="zoomImg(previewImage)"
+									/>
+								</div>
+							</div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
-              <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                {{ isSubmitting ? 'Menyimpan...' : 'Simpan' }}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
+								<button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+									<span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+									{{ isSubmitting ? 'Menyimpan...' : 'Simpan' }}
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</template>
   </div>
 </template>
 

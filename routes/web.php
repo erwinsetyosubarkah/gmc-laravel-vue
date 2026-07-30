@@ -115,11 +115,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/myclient-edit/{myclient}', [AdminMyclientController::class,'showedit'])->middleware('admin');
     Route::post('/myclient-edit/{myclient}', [AdminMyclientController::class,'edit'])->middleware('admin');
 
-    // Route::get('/admin-user', [AdminUserController::class,'index'])->middleware('admin');
-    // Route::post('/admin-user', [AdminUserController::class,'store'])->middleware('admin');
-    // Route::post('/admin-user/{user}', [AdminUserController::class,'destroy'])->middleware('admin');
-    // Route::get('/admin-user-edit/{user}', [AdminUserController::class,'showedit'])->middleware('admin');
-    // Route::post('/admin-user-edit/{user}', [AdminUserController::class,'edit'])->middleware('admin');
+    Route::get('/user-all', [AdminUserController::class,'all'])->middleware('admin');
+    Route::post('/user', [AdminUserController::class,'store'])->middleware('admin');
+    Route::delete('/user/{user}', [AdminUserController::class,'destroy'])->middleware('admin');
+    Route::get('/user-edit/{user}', [AdminUserController::class,'showedit'])->middleware('admin');
+    Route::post('/user-edit/{user}', [AdminUserController::class,'edit'])->middleware('admin');
 
     Route::get('/dashboard', function () {
         return view('admin.layouts.main',[

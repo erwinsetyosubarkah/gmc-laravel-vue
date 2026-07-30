@@ -1,108 +1,108 @@
 <template>
   <div>
     <ContentLoader v-if="loading" speed="0.5" />
-    <button type="button" class="btn btn-success mb-3" @click="openModal" v-show="!loading">
-      <i class="fas fa-plus"></i> Tambah
-    </button>
+    <template v-else>
+			<button type="button" class="btn btn-success mb-3" @click="openModal">
+				<i class="fas fa-plus"></i> Tambah
+			</button>
 
-    <p v-if="loading" class="text-muted">Memuat data klien...</p>
+			<table id="table-myclient" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="text-center">No</th>
+						<th class="text-center">Foto</th>
+						<th class="text-center">Nama Klien</th>
+						<th class="text-center">Perusahaan</th>
+						<th class="text-center">Alamat</th>
+						<th class="text-center">Aksi</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
 
-    <table id="table-myclient" class="table table-bordered table-striped" v-show="!loading">
-      <thead>
-        <tr>
-          <th class="text-center">No</th>
-          <th class="text-center">Foto</th>
-          <th class="text-center">Nama Klien</th>
-          <th class="text-center">Perusahaan</th>
-          <th class="text-center">Alamat</th>
-          <th class="text-center">Aksi</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+			<div v-if="showModal" class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">{{ formMode === 'create' ? 'Tambah Klien' : 'Ubah Klien' }}</h5>
+							<button type="button" class="close" @click="closeModal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
 
-    <div v-if="showModal" class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ formMode === 'create' ? 'Tambah Klien' : 'Ubah Klien' }}</h5>
-            <button type="button" class="close" @click="closeModal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+						<form @submit.prevent="onSubmit" enctype="multipart/form-data">
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="client_name">Nama Klien</label>
+									<input
+										v-model="client_name"
+										type="text"
+										class="form-control"
+										:class="{ 'is-invalid': errors.client_name }"
+										id="client_name"
+										placeholder="Masukan nama klien..."
+									/>
+									<div class="invalid-feedback">{{ errors.client_name }}</div>
+								</div>
 
-          <form @submit.prevent="onSubmit" enctype="multipart/form-data">
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="client_name">Nama Klien</label>
-                <input
-                  v-model="client_name"
-                  type="text"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.client_name }"
-                  id="client_name"
-                  placeholder="Masukan nama klien..."
-                />
-                <div class="invalid-feedback">{{ errors.client_name }}</div>
-              </div>
+								<div class="form-group">
+									<label for="company_name">Perusahaan</label>
+									<input
+										v-model="company_name"
+										type="text"
+										class="form-control"
+										:class="{ 'is-invalid': errors.company_name }"
+										id="company_name"
+										placeholder="Masukan nama perusahaan..."
+									/>
+									<div class="invalid-feedback">{{ errors.company_name }}</div>
+								</div>
 
-              <div class="form-group">
-                <label for="company_name">Perusahaan</label>
-                <input
-                  v-model="company_name"
-                  type="text"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.company_name }"
-                  id="company_name"
-                  placeholder="Masukan nama perusahaan..."
-                />
-                <div class="invalid-feedback">{{ errors.company_name }}</div>
-              </div>
+								<div class="form-group">
+									<label for="client_image">Foto</label>
+									<input
+										type="file"
+										class="form-control"
+										:class="{ 'is-invalid': errors.client_image }"
+										id="client_image"
+										@change="handleImageChange"
+									/>
+									<div class="invalid-feedback">{{ errors.client_image }}</div>
+									<img
+										v-if="previewImage"
+										:src="previewImage"
+										class="mb-2 mb-md-4 shadow-1-strong rounded mt-2"
+										style="cursor: zoom-in;"
+										width="100"
+										@click="zoomImg(previewImage)"
+									/>
+								</div>
 
-              <div class="form-group">
-                <label for="client_image">Foto</label>
-                <input
-                  type="file"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.client_image }"
-                  id="client_image"
-                  @change="handleImageChange"
-                />
-                <div class="invalid-feedback">{{ errors.client_image }}</div>
-                <img
-                  v-if="previewImage"
-                  :src="previewImage"
-                  class="mb-2 mb-md-4 shadow-1-strong rounded mt-2"
-                  style="cursor: zoom-in;"
-                  width="100"
-                  @click="zoomImg(previewImage)"
-                />
-              </div>
+								<div class="form-group">
+									<label for="client_address">Alamat</label>
+									<textarea
+										v-model="client_address"
+										class="form-control ckeditor"
+										:class="{ 'is-invalid': errors.client_address }"
+										id="client_address"
+										placeholder="Masukan alamat..."
+									></textarea>
+									<div class="invalid-feedback">{{ errors.client_address }}</div>
+								</div>
+							</div>
 
-              <div class="form-group">
-                <label for="client_address">Alamat</label>
-                <textarea
-                  v-model="client_address"
-                  class="form-control ckeditor"
-                  :class="{ 'is-invalid': errors.client_address }"
-                  id="client_address"
-                  placeholder="Masukan alamat..."
-                ></textarea>
-                <div class="invalid-feedback">{{ errors.client_address }}</div>
-              </div>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
-              <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                {{ isSubmitting ? 'Menyimpan...' : 'Simpan' }}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
+								<button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+									<span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+									{{ isSubmitting ? 'Menyimpan...' : 'Simpan' }}
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</template>
   </div>
 </template>
 

@@ -1,120 +1,122 @@
 <template>
   <div>
     <ContentLoader v-if="loading" speed="0.5" />
-    <button type="button" class="btn btn-success mb-3" @click="openModal" v-show="!loading">
-      <i class="fas fa-plus"></i> Tambah
-    </button>
+    <template v-else>
+			<button type="button" class="btn btn-success mb-3" @click="openModal">
+				<i class="fas fa-plus"></i> Tambah
+			</button>
 
-    <p v-if="loading" class="text-muted">Memuat data produk...</p>
+			<p v-if="loading" class="text-muted">Memuat data produk...</p>
 
-    <table id="table-myproduct" class="table table-bordered table-striped" v-show="!loading">
-      <thead>
-        <tr>
-          <th class="text-center">No</th>
-          <th class="text-center">Foto Produk</th>
-          <th class="text-center">Nama Produk</th>
-          <th class="text-center">Stok</th>
-          <th class="text-center">Harga</th>
-          <th class="text-center">Deskripsi Produk</th>
-          <th class="text-center">Aksi</th>
-        </tr>
-      </thead>
+			<table id="table-myproduct" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="text-center">No</th>
+						<th class="text-center">Foto Produk</th>
+						<th class="text-center">Nama Produk</th>
+						<th class="text-center">Stok</th>
+						<th class="text-center">Harga</th>
+						<th class="text-center">Deskripsi Produk</th>
+						<th class="text-center">Aksi</th>
+					</tr>
+				</thead>
 
-        <tbody></tbody>
-    </table>
+					<tbody></tbody>
+			</table>
 
-    <div v-if="showModal" class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ formMode === 'create' ? 'Tambah Produk' : 'Ubah Produk' }}</h5>
-            <button type="button" class="close" @click="closeModal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+			<div v-if="showModal" class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">{{ formMode === 'create' ? 'Tambah Produk' : 'Ubah Produk' }}</h5>
+							<button type="button" class="close" @click="closeModal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
 
-          <form @submit.prevent="onSubmit" enctype="multipart/form-data">
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="product_name">Nama Produk</label>
-                <input
-                  v-model="product_name"
-                  type="text"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.product_name }"
-                  id="product_name"
-                  placeholder="Masukan nama produk..."
-                />
-                <div class="invalid-feedback">{{ errors.product_name }}</div>
-              </div>
+						<form @submit.prevent="onSubmit" enctype="multipart/form-data">
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="product_name">Nama Produk</label>
+									<input
+										v-model="product_name"
+										type="text"
+										class="form-control"
+										:class="{ 'is-invalid': errors.product_name }"
+										id="product_name"
+										placeholder="Masukan nama produk..."
+									/>
+									<div class="invalid-feedback">{{ errors.product_name }}</div>
+								</div>
 
-              <div class="form-group">
-                <label for="stock">Stok</label>
-                <input
-                  v-model.number="stock"
-                  type="number"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.stock }"
-                  id="stock"
-                />
-                <div class="invalid-feedback">{{ errors.stock }}</div>
-              </div>
+								<div class="form-group">
+									<label for="stock">Stok</label>
+									<input
+										v-model.number="stock"
+										type="number"
+										class="form-control"
+										:class="{ 'is-invalid': errors.stock }"
+										id="stock"
+									/>
+									<div class="invalid-feedback">{{ errors.stock }}</div>
+								</div>
 
-              <div class="form-group">
-                <label for="price">Harga</label>
-                <input
-                  v-model.number="price"
-                  type="number"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.price }"
-                  id="price"
-                />
-                <div class="invalid-feedback">{{ errors.price }}</div>
-              </div>
+								<div class="form-group">
+									<label for="price">Harga</label>
+									<input
+										v-model.number="price"
+										type="number"
+										class="form-control"
+										:class="{ 'is-invalid': errors.price }"
+										id="price"
+									/>
+									<div class="invalid-feedback">{{ errors.price }}</div>
+								</div>
 
-              <div class="form-group">
-                <label for="product_image">Foto Produk</label>
-                <input
-                  type="file"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.product_image }"
-                  id="product_image"
-                  @change="handleImageChange"
-                />
-                <div class="invalid-feedback">{{ errors.product_image }}</div>
-                <img
-                  v-if="previewImage"
-                  :src="previewImage"
-                  class="mb-2 mb-md-4 shadow-1-strong rounded mt-2"
-                  style="cursor: zoom-in;"
-                  width="100"
-                  @click="zoomImg(previewImage)"
-                />
-              </div>
+								<div class="form-group">
+									<label for="product_image">Foto Produk</label>
+									<input
+										type="file"
+										class="form-control"
+										:class="{ 'is-invalid': errors.product_image }"
+										id="product_image"
+										@change="handleImageChange"
+									/>
+									<div class="invalid-feedback">{{ errors.product_image }}</div>
+									<img
+										v-if="previewImage"
+										:src="previewImage"
+										class="mb-2 mb-md-4 shadow-1-strong rounded mt-2"
+										style="cursor: zoom-in;"
+										width="100"
+										@click="zoomImg(previewImage)"
+									/>
+								</div>
 
-              <div class="form-group">
-                <label for="product_description">Deskripsi</label>
-                <textarea
-                  v-model="product_description"
-                  class="form-control ckeditor"
-                  :class="{ 'is-invalid': errors.product_description }"
-                  id="product_description"
-                ></textarea>
-                <div class="invalid-feedback">{{ errors.product_description }}</div>
-              </div>
-            </div>
+								<div class="form-group">
+									<label for="product_description">Deskripsi</label>
+									<textarea
+										v-model="product_description"
+										class="form-control ckeditor"
+										:class="{ 'is-invalid': errors.product_description }"
+										id="product_description"
+									></textarea>
+									<div class="invalid-feedback">{{ errors.product_description }}</div>
+								</div>
+							</div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
-              <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                {{ isSubmitting ? 'Menyimpan...' : 'Simpan' }}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
+								<button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+									<span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+									{{ isSubmitting ? 'Menyimpan...' : 'Simpan' }}
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+    </template>
   </div>
 </template>
 

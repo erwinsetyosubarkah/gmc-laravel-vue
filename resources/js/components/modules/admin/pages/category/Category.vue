@@ -1,78 +1,80 @@
 <template>
   <div>
     <ContentLoader v-if="loading" speed="0.5" />
-    <button type="button" class="btn btn-success mb-3" @click="openModal" v-show="!loading">
-      <i class="fas fa-plus"></i> Tambah
-    </button>
+		<template v-else>
+			<button type="button" class="btn btn-success mb-3" @click="openModal">
+				<i class="fas fa-plus"></i> Tambah
+			</button>
 
-    <p v-if="loading" class="text-muted">Memuat data kategori...</p>
+			<p v-if="loading" class="text-muted">Memuat data kategori...</p>
 
-    <table id="table-category" class="table table-bordered table-striped" v-show="!loading">
-      <thead>
-        <tr>
-          <th class="text-center">No</th>
-          <th class="text-center">Kategori</th>
-          <th class="text-center">Slug</th>
-          <th class="text-center">Aksi</th>
-        </tr>
-      </thead>
+			<table id="table-category" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="text-center">No</th>
+						<th class="text-center">Kategori</th>
+						<th class="text-center">Slug</th>
+						<th class="text-center">Aksi</th>
+					</tr>
+				</thead>
 
-      <tbody>
+				<tbody>
 
-      </tbody>
-    </table>
+				</tbody>
+			</table>
 
-    <div v-if="showModal" class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ formMode === 'create' ? 'Tambah Kategori' : 'Ubah Kategori' }}</h5>
-            <button type="button" class="close" @click="closeModal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+			<div v-if="showModal" class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">{{ formMode === 'create' ? 'Tambah Kategori' : 'Ubah Kategori' }}</h5>
+							<button type="button" class="close" @click="closeModal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
 
-          <form @submit.prevent="onSubmit">
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="category_name">Kategori</label>
-                <input
-                  v-model="category_name"
-                  type="text"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.category_name }"
-                  id="category_name"
-                  placeholder="Masukan nama kategori..."
-                  @input="autoSlug"
-                />
-                <div class="invalid-feedback">{{ errors.category_name }}</div>
-              </div>
+						<form @submit.prevent="onSubmit">
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="category_name">Kategori</label>
+									<input
+										v-model="category_name"
+										type="text"
+										class="form-control"
+										:class="{ 'is-invalid': errors.category_name }"
+										id="category_name"
+										placeholder="Masukan nama kategori..."
+										@input="autoSlug"
+									/>
+									<div class="invalid-feedback">{{ errors.category_name }}</div>
+								</div>
 
-              <div class="form-group">
-                <label for="category_slug">Slug</label>
-                <input
-                  v-model="category_slug"
-                  type="text"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.category_slug }"
-                  id="category_slug"
-                  placeholder="Masukan slug..."
-                />
-                <div class="invalid-feedback">{{ errors.category_slug }}</div>
-              </div>
-            </div>
+								<div class="form-group">
+									<label for="category_slug">Slug</label>
+									<input
+										v-model="category_slug"
+										type="text"
+										class="form-control"
+										:class="{ 'is-invalid': errors.category_slug }"
+										id="category_slug"
+										placeholder="Masukan slug..."
+									/>
+									<div class="invalid-feedback">{{ errors.category_slug }}</div>
+								</div>
+							</div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
-              <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                {{ isSubmitting ? 'Menyimpan...' : 'Simpan' }}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
+								<button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+									<span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+									{{ isSubmitting ? 'Menyimpan...' : 'Simpan' }}
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</template>
   </div>
 </template>
 

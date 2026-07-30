@@ -24,10 +24,15 @@ export default defineConfig({
         })
     ],
     server: {
+        // Mengamankan performa HMR di browser agar selalu instan
+        hmr: {
+            host: 'localhost',
+        },
         watch: {
             // Batasi file yang diawasi agar Vite tidak mendeteksi perubahan dari folder sampah
-            ignored: ['**/node_modules/**', '**/dist/**', '**/.git/**']
-        }
+            ignored: ['**/node_modules/**', '**/dist/**', '**/.git/**'],
+            usePolling: true, // Membantu deteksi perubahan berkas jika Anda menggunakan WSL2 / Docker
+        },
     },
     resolve: {
         alias: {

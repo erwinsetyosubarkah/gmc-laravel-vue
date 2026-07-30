@@ -12,7 +12,6 @@ import Layout from './components/modules/web/layout/Layout.vue';
 
 import 'bootstrap';
 
-import VueSweetalert2 from 'vue-sweetalert2';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/id';
@@ -65,7 +64,6 @@ if (rootElement) {
             }
         }
     });
-    app.use(VueSweetalert2);
 
     app.component('layout', Layout);
     app.mount('#app')

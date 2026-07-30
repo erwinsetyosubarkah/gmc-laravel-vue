@@ -84,13 +84,6 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('/') }}vendor/adminlte/dist/js/adminlte.js"></script>
 
-
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-@if(request()->is('admin-dashboard'))
-<script src="{{ asset('/') }}vendor/adminlte/dist/js/pages/dashboard.js"></script>
-@endif
-@include('sweetalert::alert')
-<script src="{{ asset('/') }}vendor/sweetalert/sweetalert.all.js"></script>
 <script src="{{ asset('/') }}vendor/ckeditor5/ckeditor.js"></script>
 <script>
     function previmg(src){

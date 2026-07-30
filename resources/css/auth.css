@@ -1,5 +1,2 @@
+@import 'sweetalert2/dist/sweetalert2.min.css';
 
-@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback';
-@import '../../public/vendor/adminlte/plugins/fontawesome-free/css/all.min.css';
-@import '../../public/vendor/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css';
-@import '../../public/vendor/adminlte/dist/css/adminlte.min.css';

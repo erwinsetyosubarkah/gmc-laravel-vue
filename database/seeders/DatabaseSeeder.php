@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Panjul',
             'username' => 'panjul',
             'email' => 'panjul@example.com',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make(hash('sha256', '12345678')),
             'level' => 'author'
         ]);
 
@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Administrator',
             'username' => 'admin',
             'email' => 'admin@example.com',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make(hash('sha256', '12345678')),
             'level' => 'admin'
         ]);
     }

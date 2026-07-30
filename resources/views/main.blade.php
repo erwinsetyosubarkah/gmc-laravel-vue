@@ -20,7 +20,7 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="{{ asset('/') }}vendor/novena/css/style.css">
 
-@vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/script.js', 'resources/js/contact.js'])
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app" data-profile="{{ json_encode($profile) }}" data-categories="{{ json_encode($categories) }}" data-newevents="{{ json_encode($newevents) }}">
@@ -44,8 +44,8 @@
     {{-- <script src="{{ asset('/') }}vendor/novena/plugins/google-map/map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script> --}}
 
-    {{-- <script src="{{ asset('/') }}vendor/novena/js/script.js"></script>
-    <script src="{{ asset('/') }}vendor/novena/js/contact.js"></script> --}}
+    <script src="{{ asset('/') }}vendor/novena/js/script.js"></script>
+    <script src="{{ asset('/') }}vendor/novena/js/contact.js"></script>
 
 </body>
 </html>

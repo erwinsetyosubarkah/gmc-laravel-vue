@@ -103,11 +103,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/event-edit/{event}', [AdminEventController::class,'showedit'])->middleware('admin');
     Route::post('/event-edit/{event}', [AdminEventController::class,'edit'])->middleware('admin');
 
-    // Route::get('/admin-galery', [AdminGaleryController::class,'index'])->middleware('auth');
-    // Route::post('/admin-galery', [AdminGaleryController::class,'store'])->middleware('auth');
-    // Route::post('/admin-galery/{galery}', [AdminGaleryController::class,'destroy'])->middleware('auth');
-    // Route::get('/admin-galery-edit/{galery}', [AdminGaleryController::class,'showedit'])->middleware('auth');
-    // Route::post('/admin-galery-edit/{galery}', [AdminGaleryController::class,'edit'])->middleware('auth');
+    Route::get('/galery-all', [AdminGaleryController::class,'all'])->middleware('auth');
+    Route::post('/galery', [AdminGaleryController::class,'store'])->middleware('auth');
+    Route::delete('/galery/{galery}', [AdminGaleryController::class,'destroy'])->middleware('auth');
+    Route::get('/galery-edit/{galery}', [AdminGaleryController::class,'showedit'])->middleware('auth');
+    Route::post('/galery-edit/{galery}', [AdminGaleryController::class,'edit'])->middleware('auth');
 
     // Route::get('/admin-myclient', [AdminMyclientController::class,'index'])->middleware('admin');
     // Route::post('/admin-myclient', [AdminMyclientController::class,'store'])->middleware('admin');

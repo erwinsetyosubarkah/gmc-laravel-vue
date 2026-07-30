@@ -19,6 +19,7 @@ import AdminMyproduct from '@/components/modules/admin/pages/myproduct/Myproduct
 import AdminCategory from '@/components/modules/admin/pages/category/Category.vue';
 import AdminPost from '@/components/modules/admin/pages/post/Post.vue';
 import AdminEvent from '@/components/modules/admin/pages/event/Event.vue';
+import AdminGalery from '@/components/modules/admin/pages/galery/Galery.vue';
 import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
 import Login from '@/components/modules/auth/Login.vue';
 import Register from '@/components/modules/auth/Register.vue';
@@ -139,6 +140,14 @@ const routes = [
         component: AdminEvent,
         meta: {
             title: 'Event'
+        }
+    },
+    {
+        path: '/admin/galery',
+        name: 'admin-galery',
+        component: AdminGalery,
+        meta: {
+            title: 'Galeri'
         }
     },
     {

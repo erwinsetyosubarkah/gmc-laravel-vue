@@ -3,78 +3,55 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Galery;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\Admin\AdminGaleryRequest;
+use App\Repositories\Contracts\Admin\AdminGaleryRepositoryInterface;
 
 class AdminGaleryController extends Controller
 {
-    public function index() {
-        return view('admin/galery',[
-            'page_title' => 'Galeri',
-            'galeries' => Galery::all()
-        ]);
+    private AdminGaleryRepositoryInterface $adminGaleryRepository;
+
+    public function __construct(AdminGaleryRepositoryInterface $adminGaleryRepository)
+    {
+        $this->adminGaleryRepository = $adminGaleryRepository;
     }
 
-    public function store(Request $request) {
-        $validatedData = $request->validate([
-            'image_title'  => 'required',
-            'galery_image' => 'image|file|max:2048|required'
-        ]);
+    public function all()
+    {
+        $result = $this->adminGaleryRepository->all();
 
-        //jika ada gambar baru
-        if($request->file('galery_image')){
-            $validatedData['galery_image'] = $request->file('galery_image')->store('post-images/galery');
-        }
-        
-        Galery::create($validatedData);
-        Alert::success('Berhasil', 'Data galery berhasil ditambah !');
-        return view('admin/galery',[
-            'page_title' => 'Galeri',
-            'galeries' => Galery::all()
-        ]);
-        
+        return response()->json($result);
     }
 
-    public function destroy(Galery $galery) {
-        
-        Storage::delete($galery->galery_image);
-        Galery::destroy($galery->id);
-        Alert::success('Berhasil', 'Data galeri berhasil dihapus !');
-        return redirect('/admin-galery');
-        
+    public function store(AdminGaleryRequest $request)
+    {
+        $validatedData = $request->validated();
+
+        $result = $this->adminGaleryRepository->store($validatedData, $request);
+
+        return response()->json($result);
     }
 
-    public function showedit(Galery $galery) {
-  
-        return view('admin/galeryedit',[
-            'page_title' => 'Galeri',
-            'galery' => Galery::find($galery->id)
-        ]);
-        
+    public function destroy(Galery $galery)
+    {
+        $result = $this->adminGaleryRepository->destroy($galery);
+
+        return response()->json($result);
     }
 
-    public function edit(Galery $galery,Request $request) {
-        $validatedData = $request->validate([
-            'image_title'  => 'required',
-            'galery_image' => 'image|file|max:2048'
-        ]);
+    public function showedit(Galery $galery)
+    {
+        $result = $this->adminGaleryRepository->showEdit($galery);
 
-        //jika ada gambar baru
-        if($request->file('galery_image')){
-            //jika gambar lama isi (ada gambar lama)
-            if($request->old_galery_image){
-                // hapus gambar lama
-                Storage::delete($request->old_galery_image);
-            }
-            $validatedData['galery_image'] = $request->file('galery_image')->store('post-images/galery');
-        }
+        return response()->json($result);
+    }
 
-        Galery::where('id',$galery->id)
-                    ->update($validatedData);
-        Alert::success('Berhasil', 'Data galeri berhasil diubah !');
-        return redirect('/admin-galery');
-        
+    public function edit(Galery $galery, AdminGaleryRequest $request)
+    {
+        $validatedData = $request->validated();
+
+        $result = $this->adminGaleryRepository->edit($validatedData, $galery, $request);
+
+        return response()->json($result);
     }
 }

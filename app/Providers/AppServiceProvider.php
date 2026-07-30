@@ -7,9 +7,9 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\{ArtikelRepository, EventRepository, GaleryRepository, HomeRepository, KlienkamiRepository, KontakkamiRepository, ProdukkamiRepository, ProfileRepository, VisidanmisiRepository};
-use App\Repositories\Admin\{AdminCategoryRepository, AdminEventRepository, AdminMyproductRepository, AdminPostRepository, AdminProfileRepository, AdminRegisterRepository};
+use App\Repositories\Admin\{AdminCategoryRepository, AdminEventRepository, AdminGaleryRepository, AdminMyproductRepository, AdminPostRepository, AdminProfileRepository, AdminRegisterRepository};
 use App\Repositories\Contracts\{ArtikelRepositoryInterface, EventRepositoryInterface, GaleryRepositoryInterface, HomeRepositoryInterface, KlienkamiRepositoryInterface, KontakkamiRepositoryInterface, ProdukkamiRepositoryInterface, ProfileRepositoryInterface, VisidanmisiRepositoryInterface};
-use App\Repositories\Contracts\Admin\{AdminCategoryRepositoryInterface, AdminEventRepositoryInterface, AdminMyproductRepositoryInterface, AdminPostRepositoryInterface, AdminProfileRepositoryInterface, AdminRegisterRepositoryInterface};
+use App\Repositories\Contracts\Admin\{AdminCategoryRepositoryInterface, AdminEventRepositoryInterface, AdminGaleryRepositoryInterface, AdminMyproductRepositoryInterface, AdminPostRepositoryInterface, AdminProfileRepositoryInterface, AdminRegisterRepositoryInterface};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminPostRepositoryInterface::class, AdminPostRepository::class);
         $this->app->bind(AdminProfileRepositoryInterface::class, AdminProfileRepository::class);
         $this->app->bind(AdminMyproductRepositoryInterface::class, AdminMyproductRepository::class);
+        $this->app->bind(AdminGaleryRepositoryInterface::class, AdminGaleryRepository::class);
         $this->app->bind(AdminEventRepositoryInterface::class, AdminEventRepository::class);
         $this->app->bind(AdminRegisterRepositoryInterface::class, AdminRegisterRepository::class);
         $this->app->bind(AdminCategoryRepositoryInterface::class, AdminCategoryRepository::class);

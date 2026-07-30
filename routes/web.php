@@ -109,11 +109,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/galery-edit/{galery}', [AdminGaleryController::class,'showedit'])->middleware('auth');
     Route::post('/galery-edit/{galery}', [AdminGaleryController::class,'edit'])->middleware('auth');
 
-    // Route::get('/admin-myclient', [AdminMyclientController::class,'index'])->middleware('admin');
-    // Route::post('/admin-myclient', [AdminMyclientController::class,'store'])->middleware('admin');
-    // Route::post('/admin-myclient/{myclient}', [AdminMyclientController::class,'destroy'])->middleware('admin');
-    // Route::get('/admin-myclient-edit/{myclient}', [AdminMyclientController::class,'showedit'])->middleware('admin');
-    // Route::post('/admin-myclient-edit/{myclient}', [AdminMyclientController::class,'edit'])->middleware('admin');
+    Route::get('/myclient-all', [AdminMyclientController::class,'all'])->middleware('admin');
+    Route::post('/myclient', [AdminMyclientController::class,'store'])->middleware('admin');
+    Route::delete('/myclient/{myclient}', [AdminMyclientController::class,'destroy'])->middleware('admin');
+    Route::get('/myclient-edit/{myclient}', [AdminMyclientController::class,'showedit'])->middleware('admin');
+    Route::post('/myclient-edit/{myclient}', [AdminMyclientController::class,'edit'])->middleware('admin');
 
     // Route::get('/admin-user', [AdminUserController::class,'index'])->middleware('admin');
     // Route::post('/admin-user', [AdminUserController::class,'store'])->middleware('admin');

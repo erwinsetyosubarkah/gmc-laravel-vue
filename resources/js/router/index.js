@@ -20,6 +20,7 @@ import AdminCategory from '@/components/modules/admin/pages/category/Category.vu
 import AdminPost from '@/components/modules/admin/pages/post/Post.vue';
 import AdminEvent from '@/components/modules/admin/pages/event/Event.vue';
 import AdminGalery from '@/components/modules/admin/pages/galery/Galery.vue';
+import AdminMyclient from '@/components/modules/admin/pages/myclient/Myclient.vue';
 import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
 import Login from '@/components/modules/auth/Login.vue';
 import Register from '@/components/modules/auth/Register.vue';
@@ -148,6 +149,14 @@ const routes = [
         component: AdminGalery,
         meta: {
             title: 'Galeri'
+        }
+    },
+    {
+        path: '/admin/myclient',
+        name: 'admin-myclient',
+        component: AdminMyclient,
+        meta: {
+            title: 'Klien Kami'
         }
     },
     {

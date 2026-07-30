@@ -30,64 +30,70 @@ class AdminPostController extends Controller
     }
 
     /**
-     * Summary of index
-     * @return \Illuminate\Contracts\View\View
+     * Summary of all
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index() {
-        $posts = $this->adminPostRepository->all();
-        return view('admin/post',$posts);
+    public function all()
+    {
+        $result = $this->adminPostRepository->all();
+
+        return response()->json($result);
     }
 
     /**
      * Summary of store
      * @param AdminPostStoreRequest $request
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(AdminPostStoreRequest $request) {
+    public function store(AdminPostStoreRequest $request)
+    {
         $validatedData = $request->validated();
+        $result = $this->adminPostRepository->store($validatedData, $request);
 
-        $storeDataReturn = $this->adminPostRepository->store($validatedData, $request);
-        return view('admin/post',$storeDataReturn);
-
+        return response()->json($result);
     }
 
     /**
      * Summary of destroy
      * @param Post $post
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Post $post) {
-
+    public function destroy(Post $post)
+    {
         $this->adminPostRepository->destroy($post);
 
-        return redirect('/admin-post');
-
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data artikel berhasil dihapus.'
+        ]);
     }
 
     /**
      * Summary of showedit
      * @param Post $post
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function showedit(Post $post) {
-        $showEditDataReturn = $this->adminPostRepository->showEdit($post);
+    public function showedit(Post $post)
+    {
+        $result = $this->adminPostRepository->showEdit($post);
 
-        return view('admin/postedit',$showEditDataReturn);
-
+        return response()->json($result);
     }
 
     /**
      * Summary of edit
      * @param Post $post
      * @param AdminPostEditRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function edit(Post $post,AdminPostEditRequest $request) {
-
+    public function edit(Post $post, AdminPostEditRequest $request)
+    {
         $validatedData = $request->validated();
         $this->adminPostRepository->edit($validatedData, $post, $request);
 
-        return redirect('/admin-post');
-
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data artikel berhasil diubah.'
+        ]);
     }
 }

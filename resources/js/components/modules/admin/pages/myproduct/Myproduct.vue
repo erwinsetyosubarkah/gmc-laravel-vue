@@ -119,7 +119,7 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, nextTick, ref, watch } from 'vue'
+import { onMounted, nextTick, ref, watch } from 'vue'
 import { ContentLoader } from 'vue-content-loader';
 import { useForm, useField } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/yup'
@@ -175,6 +175,7 @@ const openModal = () => {
   editId.value = null
   resetForm()
   previewImage.value = ''
+  clearFileInput()
   showModal.value = true
 }
 
@@ -182,6 +183,12 @@ const closeModal = () => {
   showModal.value = false
   resetForm()
   previewImage.value = ''
+  clearFileInput()
+}
+
+const clearFileInput = () => {
+  const fileInput = document.getElementById('product_image')
+  if (fileInput) fileInput.value = ''
 }
 
 const getProductImage = (image) => {
@@ -297,7 +304,7 @@ const onSubmit = handleSubmit(async (values) => {
       })
     }
 
-    await fetchProducts()
+await fetchProducts()
     closeModal()
     Swal.fire({
       icon: 'success',
@@ -442,25 +449,25 @@ const getDataTablesOptions = (data) => ({
 })
 
 const initDataTable = (data = []) => {
-  if (!$('#table-myproduct').length) return
+    if (!$('#table-myproduct').length) return
 
-  if (tableInstance.value) return updateDataTable(data)
+    if (tableInstance.value) return updateDataTable(data)
 
-  $('#table-myproduct').off('click', '.btn-edit-product')
-  $('#table-myproduct').off('click', '.btn-delete-product')
+    $(document).off('click', '#table-myproduct .btn-edit-product')
+    $(document).off('click', '#table-myproduct .btn-delete-product')
 
-  tableInstance.value = $('#table-myproduct').DataTable(getDataTablesOptions(data))
+    tableInstance.value = $('#table-myproduct').DataTable(getDataTablesOptions(data))
 
-  $('#table-myproduct').on('click', '.btn-edit-product', function () {
-    const id = $(this).data('id')
-    const item = products.value.find((product) => product.id == id)
-    if (item) editProduct(item)
-  })
+    $(document).on('click', '#table-myproduct .btn-edit-product', function () {
+        const id = $(this).data('id')
+        const item = products.value.find((product) => product.id == id)
+        if (item) editProduct(item)
+    })
 
-  $('#table-myproduct').on('click', '.btn-delete-product', function () {
-    const id = $(this).data('id')
-    deleteProduct(id)
-  })
+    $(document).on('click', '#table-myproduct .btn-delete-product', function () {
+        const id = $(this).data('id')
+        deleteProduct(id)
+    })
 }
 
 watch(products, async (newProducts) => {

@@ -17,6 +17,8 @@ import AdminProfile from '@/components/modules/admin/pages/profile/Profile.vue';
 import AdminVisidanmisi from '@/components/modules/admin/pages/visidanmisi/Visidanmisi.vue';
 import AdminMyproduct from '@/components/modules/admin/pages/myproduct/Myproduct.vue';
 import AdminCategory from '@/components/modules/admin/pages/category/Category.vue';
+import AdminPost from '@/components/modules/admin/pages/post/Post.vue';
+import AdminEvent from '@/components/modules/admin/pages/event/Event.vue';
 import NotFoundPage from '@/components/modules/errors/NotFoundPage.vue';
 import Login from '@/components/modules/auth/Login.vue';
 import Register from '@/components/modules/auth/Register.vue';
@@ -121,6 +123,22 @@ const routes = [
         component: AdminCategory,
         meta: {
             title: 'Kategori'
+        }
+    },
+    {
+        path: '/admin/post',
+        name: 'admin-post',
+        component: AdminPost,
+        meta: {
+            title: 'Artikel'
+        }
+    },
+    {
+        path: '/admin/event',
+        name: 'admin-event',
+        component: AdminEvent,
+        meta: {
+            title: 'Event'
         }
     },
     {

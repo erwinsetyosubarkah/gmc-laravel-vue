@@ -25,7 +25,7 @@ class AdminPostRepository implements AdminPostRepositoryInterface
     public function all()
     {
         $user = auth()->user();
-        $posts = Post::where('user_id',$user->id)->get();
+        $posts = Post::where('user_id', $user->id)->with(['category', 'user'])->get();
         $categories = Category::all();
         return [
             'page_title' => 'Artikel',

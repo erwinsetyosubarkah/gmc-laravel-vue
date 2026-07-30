@@ -23,6 +23,12 @@ export default defineConfig({
             },
         })
     ],
+    server: {
+        watch: {
+            // Batasi file yang diawasi agar Vite tidak mendeteksi perubahan dari folder sampah
+            ignored: ['**/node_modules/**', '**/dist/**', '**/.git/**']
+        }
+    },
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './resources/js'),

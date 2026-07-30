@@ -77,7 +77,7 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, nextTick, ref, watch } from 'vue'
+import { onMounted, nextTick, ref, watch } from 'vue'
 import { ContentLoader } from 'vue-content-loader';
 import { useForm, useField } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/yup'
@@ -307,14 +307,16 @@ const initDataTable = (data = []) => {
     }
 
     tableInstance.value = $('#table-category').DataTable(getDataTablesOptions(data))
+    $(document).off('click', '#table-category .btn-edit-category')
+    $(document).off('click', '#table-category .btn-delete-category')
 
-    $('#table-category').on('click', '.btn-edit-category', function () {
+    $(document).on('click', '#table-category .btn-edit-category', function () {
         const id = $(this).data('id')
         const item = categories.value.find(c => c.id == id)
         if (item) editCategory(item)
     })
 
-    $('#table-category').on('click', '.btn-delete-category', function () {
+    $(document).on('click', '#table-category .btn-delete-category', function () {
         const id = $(this).data('id')
         deleteCategory(id)
     })

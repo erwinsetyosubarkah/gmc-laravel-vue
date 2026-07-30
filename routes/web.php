@@ -91,17 +91,17 @@ Route::prefix('admin')->group(function () {
     Route::get('/category-edit/{category}', [AdminCategoryController::class,'showedit'])->middleware('admin');
     Route::post('/category-edit/{category}', [AdminCategoryController::class,'edit'])->middleware('admin');
 
-    // Route::get('/admin-post', [AdminPostController::class,'index'])->middleware('auth');
-    // Route::post('/admin-post', [AdminPostController::class,'store'])->middleware('auth');
-    // Route::post('/admin-post/{post}', [AdminPostController::class,'destroy'])->middleware('auth');
-    // Route::get('/admin-post-edit/{post}', [AdminPostController::class,'showedit'])->middleware('auth');
-    // Route::post('/admin-post-edit/{post}', [AdminPostController::class,'edit'])->middleware('auth');
+    Route::get('/post-all', [AdminPostController::class,'all'])->middleware('auth');
+    Route::post('/post', [AdminPostController::class,'store'])->middleware('auth');
+    Route::delete('/post/{post}', [AdminPostController::class,'destroy'])->middleware('auth');
+    Route::get('/post-edit/{post}', [AdminPostController::class,'showedit'])->middleware('auth');
+    Route::post('/post-edit/{post}', [AdminPostController::class,'edit'])->middleware('auth');
 
-    // Route::get('/admin-event', [AdminEventController::class,'index'])->middleware('admin');
-    // Route::post('/admin-event', [AdminEventController::class,'store'])->middleware('admin');
-    // Route::post('/admin-event/{event}', [AdminEventController::class,'destroy'])->middleware('admin');
-    // Route::get('/admin-event-edit/{event}', [AdminEventController::class,'showedit'])->middleware('admin');
-    // Route::post('/admin-event-edit/{event}', [AdminEventController::class,'edit'])->middleware('admin');
+    Route::get('/event-all', [AdminEventController::class,'all'])->middleware('admin');
+    Route::post('/event', [AdminEventController::class,'store'])->middleware('admin');
+    Route::delete('/event/{event}', [AdminEventController::class,'destroy'])->middleware('admin');
+    Route::get('/event-edit/{event}', [AdminEventController::class,'showedit'])->middleware('admin');
+    Route::post('/event-edit/{event}', [AdminEventController::class,'edit'])->middleware('admin');
 
     // Route::get('/admin-galery', [AdminGaleryController::class,'index'])->middleware('auth');
     // Route::post('/admin-galery', [AdminGaleryController::class,'store'])->middleware('auth');

@@ -2,6 +2,7 @@
   <div>
     <input
       :id="id"
+      :type="type"
       :placeholder="placeholder"
       :class="['form-control', inputClass]"
       :value="modelValue"
@@ -14,6 +15,7 @@
 <script setup>
 const props = defineProps({
   modelValue: { type: [String, Number], default: '' },
+  type: { type: String, default: 'text' },
   placeholder: { type: String, default: '' },
   id: { type: String, default: '' },
   inputClass: { type: String, default: '' },

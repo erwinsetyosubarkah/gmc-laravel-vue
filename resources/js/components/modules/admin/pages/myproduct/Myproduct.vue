@@ -99,7 +99,7 @@
 										v-model="product_description"
 										class="form-control ckeditor"
 										:class="{ 'is-invalid': errors.product_description }"
-										id="product_description"
+										ref="productDescriptionRef" id="product_description"
 									></textarea>
 									<div class="invalid-feedback">{{ errors.product_description }}</div>
 								</div>
@@ -121,7 +121,7 @@
 </template>
 
 <script setup>
-import { onMounted, nextTick, ref, watch } from 'vue'
+import { onMounted, onBeforeUnmount, nextTick, ref, watch } from 'vue'
 import { ContentLoader } from 'vue-content-loader';
 import { useForm, useField } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/yup'
@@ -144,6 +144,8 @@ const previewImage = ref('')
 const loading = ref(false)
 const products = ref([])
 const tableInstance = ref(null)
+const productDescriptionRef = ref(null)
+let productDescriptionEditor = null
 
 const schema = toTypedSchema(
   yup.object({
@@ -186,6 +188,7 @@ const closeModal = () => {
   resetForm()
   previewImage.value = ''
   clearFileInput()
+  destroyEditor()
 }
 
 const clearFileInput = () => {
@@ -255,6 +258,40 @@ const handleImageChange = (event) => {
   reader.readAsDataURL(file)
 }
 
+const initEditor = async () => {
+  if (!window.ClassicEditor || !productDescriptionRef.value) return
+
+  destroyEditor()
+
+  productDescriptionEditor = await window.ClassicEditor.create(productDescriptionRef.value)
+  productDescriptionEditor.model.document.on('change:data', () => {
+    product_description.value = productDescriptionEditor.getData()
+  })
+  productDescriptionEditor.setData(product_description.value || '')
+}
+
+const destroyEditor = async () => {
+  if (productDescriptionEditor) {
+    await productDescriptionEditor.destroy()
+    productDescriptionEditor = null
+  }
+}
+
+const syncEditorContent = async () => {
+  if (productDescriptionEditor) {
+    product_description.value = productDescriptionEditor.getData()
+  }
+}
+
+watch(showModal, async (visible) => {
+  if (visible) {
+    await nextTick()
+    await initEditor()
+  } else {
+    await destroyEditor()
+  }
+})
+
 const zoomImg = (src) => {
   if (!src) return
 
@@ -284,6 +321,8 @@ const zoomImg = (src) => {
 }
 
 const onSubmit = handleSubmit(async (values) => {
+  await syncEditorContent()
+
   const formData = new FormData()
   formData.append('product_name', values.product_name)
   formData.append('stock', values.stock)
@@ -482,6 +521,10 @@ watch(products, async (newProducts) => {
 onMounted(async () => {
   initDataTable([])
   await fetchProducts()
+})
+
+onBeforeUnmount(async () => {
+  await destroyEditor()
 })
 
 </script>

@@ -58,6 +58,12 @@ const { handleSubmit, errors, isSubmitting, setValues } = useForm({
 const { value: title } = useField('title');
 const { value: content } = useField('content');
 
+const syncEditorContent = async () => {
+  if (instance) {
+    content.value = await instance.getData();
+  }
+};
+
 const fetchVisiMisi = async () => {
   loading.value = true;
 
@@ -69,6 +75,10 @@ const fetchVisiMisi = async () => {
       title: data.title || '',
       content: data.content || ''
     });
+
+    if (instance) {
+      await instance.setData(data.content || '');
+    }
   } catch (error) {
     Swal.fire({
       title: 'Gagal!',
@@ -81,8 +91,15 @@ const fetchVisiMisi = async () => {
 };
 
 const onSubmit = handleSubmit(async (values) => {
+  await syncEditorContent();
+
+  const payload = {
+    ...values,
+    content: content.value
+  };
+
   try {
-    const response = await apiClient.post('/admin/visidanmisi', values);
+    const response = await apiClient.post('/admin/visidanmisi', payload);
 
     if (response?.data?.status === 'success') {
       await Swal.fire({
@@ -109,6 +126,10 @@ const onSubmit = handleSubmit(async (values) => {
 onMounted(async () => {
   await fetchVisiMisi();
   instance = await ClassicEditor.create(editor.value);
+
+  instance.model.document.on('change:data', async () => {
+    await syncEditorContent();
+  });
 });
 
 onBeforeUnmount(async () => {

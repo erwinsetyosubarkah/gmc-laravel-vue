@@ -11,7 +11,7 @@
     </div>
 
     <div class="modal-footer">
-      <BaseButton type="button" variant="secondary" @click="$emit('cancel')">Close</BaseButton>
+      <BaseButton type="button" variant="secondary" @click="$emit('cancel')">Batal</BaseButton>
       <BaseButton type="submit" :disabled="isSubmitting">{{ isSubmitting ? 'Menyimpan...' : 'Simpan' }}</BaseButton>
     </div>
   </form>

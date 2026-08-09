@@ -6,7 +6,7 @@
         <td class="text-center">{{ row.category_name }}</td>
         <td class="text-center">{{ row.category_slug }}</td>
         <td class="text-center">
-          <ActionButtons :id="row.id" @edit="emit('edit', $event)" @delete="emit('delete', $event)" />
+          <CategoryActionButtons :id="row.id" @edit="emit('edit', $event)" @delete="emit('delete', $event)" />
         </td>
       </tr>
     </template>
@@ -15,7 +15,7 @@
 
 <script setup>
 import BaseTable from '../atoms/BaseTable.vue'
-import ActionButtons from '../molecules/ActionButtons.vue'
+import CategoryActionButtons from '../molecules/CategoryActionButtons.vue'
 
 const props = defineProps({ rows: { type: Array, default: () => [] } })
 const emit = defineEmits(['edit', 'delete'])

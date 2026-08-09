@@ -2,12 +2,12 @@
   <div>
     <BaseButton
       type="button"
-      customClass="badge badge-warning mr-2 ml-2 btn-edit-category border-0"
+      customClass="badge badge-warning mr-2 ml-2 border-0"
       @click="$emit('edit', id)"
     ><i class="fas fa-edit"></i> Ubah</BaseButton>
     <BaseButton
       type="button"
-      customClass="badge badge-danger mr-2 ml-2 btn-delete-category border-0"
+      customClass="badge badge-danger mr-2 ml-2 border-0"
       @click="$emit('delete', id)"
     ><i class="fas fa-trash"></i> Hapus</BaseButton>
   </div>

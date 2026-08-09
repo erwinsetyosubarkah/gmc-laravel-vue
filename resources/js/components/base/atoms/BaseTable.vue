@@ -6,7 +6,12 @@
       </tr>
     </thead>
     <tbody>
-      <slot name="rows" :rows="rows" />
+      <template v-if="rows.length">
+        <slot name="rows" :rows="rows" />
+      </template>
+      <tr v-else>
+        <td :colspan="columns.length" class="text-center">tidak ada data ditemukan di tabel</td>
+      </tr>
     </tbody>
   </table>
 </template>

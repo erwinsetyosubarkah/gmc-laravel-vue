@@ -5,7 +5,8 @@
         <label for="club_name" class="form-label">Nama Club</label>
         <BaseInput
           id="club_name"
-          v-model="values.club_name"
+          name="club_name"
+          v-model="club_name"
           :error="errors.club_name"
           placeholder="Masukan nama club..."
         />
@@ -15,7 +16,8 @@
         <label for="club_name_abbreviation" class="form-label">Singkatan Nama Club</label>
         <BaseInput
           id="club_name_abbreviation"
-          v-model="values.club_name_abbreviation"
+          name="club_name_abbreviation"
+          v-model="club_name_abbreviation"
           :error="errors.club_name_abbreviation"
           placeholder="Masukan singkatan nama club..."
         />
@@ -25,8 +27,9 @@
         <label for="email" class="form-label">Email</label>
         <BaseInput
           id="email"
+          name="email"
           type="email"
-          v-model="values.email"
+          v-model="email"
           :error="errors.email"
           placeholder="Masukan email contoh : example@dmail.com"
         />
@@ -36,7 +39,8 @@
         <label for="leader_name" class="form-label">Nama Ketua</label>
         <BaseInput
           id="leader_name"
-          v-model="values.leader_name"
+          name="leader_name"
+          v-model="leader_name"
           :error="errors.leader_name"
           placeholder="Masukan Nama Ketua..."
         />
@@ -46,8 +50,9 @@
         <label for="leader_email" class="form-label">Email Ketua</label>
         <BaseInput
           id="leader_email"
+          name="leader_email"
           type="email"
-          v-model="values.leader_email"
+          v-model="leader_email"
           :error="errors.leader_email"
           placeholder="Masukan email contoh : example@dmail.com"
         />
@@ -57,8 +62,9 @@
         <label for="phone" class="form-label">Telephone / HP</label>
         <BaseInput
           id="phone"
+          name="phone"
           type="tel"
-          v-model="values.phone"
+          v-model="phone"
           :error="errors.phone"
           placeholder="Masukan nomor telpon atau HP ..."
         />
@@ -67,7 +73,7 @@
       <div class="col-12 form-group">
         <label for="club_logo" class="form-label">Logo Club</label>
         <BaseFileInput id="club_logo" @change="onFileChange" />
-        <input type="hidden" name="old_club_logo" :value="values.old_club_logo" />
+        <input type="hidden" name="old_club_logo" :value="old_club_logo" />
 
         <img
           v-if="previewImage"

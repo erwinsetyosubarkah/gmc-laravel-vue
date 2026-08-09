@@ -107,6 +107,7 @@ const onSubmit = handleSubmit(async (values) => {
         text: response.data.message || 'Data visi dan misi berhasil disimpan.',
         icon: 'success'
       });
+      router.go(0)
     } else {
       await Swal.fire({
         title: 'Gagal!',

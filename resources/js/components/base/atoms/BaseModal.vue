@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+  <div v-if="show" class="modal fade show d-block" tabindex="-1" role="dialog" style="overflow:auto;" aria-modal="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

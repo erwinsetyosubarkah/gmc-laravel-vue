@@ -85,6 +85,7 @@ const handleSubmit = async (values) => {
         icon: response.data?.status,
       })
       router.go(0)
+
     } else {
       throw new Error(response.data?.message || 'Proses simpan profil gagal.')
     }

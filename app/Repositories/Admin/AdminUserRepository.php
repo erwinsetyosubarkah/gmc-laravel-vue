@@ -31,9 +31,9 @@ class AdminUserRepository implements AdminUserRepositoryInterface
     {
         try {
             unset($data['password2']);
-
             $defaultPassword = '12345678';
-            $data['password'] = Hash::make($data['password'] ?? $defaultPassword);
+            $rawPassword = $data['password'] ?? $defaultPassword;
+            $data['password'] = Hash::make(hash('sha256', $rawPassword));
 
             if ($request->file('photo')) {
                 $data['photo'] = $request->file('photo')->store('post-images/user');
@@ -102,10 +102,14 @@ class AdminUserRepository implements AdminUserRepositoryInterface
         try {
             unset($data['password2']);
 
+
+            $rawPassword = $data['password'];
+
             if (array_key_exists('password', $data) && $data['password'] !== null && $data['password'] !== '') {
-                $data['password'] = Hash::make($data['password']);
+                $data['password'] = Hash::make(hash('sha256', $rawPassword));
             } else {
-                $data['password'] = Hash::make('12345678');
+                $rawPassword = '12345678';
+                $data['password'] = Hash::make(hash('sha256', $rawPassword));
             }
 
             if ($request->file('photo')) {

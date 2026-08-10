@@ -47,6 +47,7 @@ const showModal = ref(false)
 const formMode = ref('create')
 const editId = ref(null)
 const loading = ref(false)
+const isSubmitting = ref(false)
 const posts = ref([])
 const categories = ref([])
 const previewImage = ref('')
@@ -120,6 +121,8 @@ const submitForm = async (values) => {
     formData.append('post_image', selectedFile.value)
   }
 
+  isSubmitting.value = true
+
   try {
     if (formMode.value === 'create') {
       await apiClient.post('/admin/post', formData, {
@@ -145,6 +148,8 @@ const submitForm = async (values) => {
       title: 'Gagal',
       text: error?.response?.data?.message || 'Proses simpan artikel gagal.'
     })
+  } finally {
+    isSubmitting.value = false
   }
 }
 

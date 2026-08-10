@@ -44,6 +44,7 @@ const loading = ref(false)
 const products = ref([])
 const previewImage = ref('')
 const selectedFile = ref(null)
+const isSubmitting = ref(false)
 
 const formValues = reactive({
   product_name: '',
@@ -99,6 +100,8 @@ const handleFileChange = (file) => {
 }
 
 const submitForm = async (values) => {
+  isSubmitting.value = true
+
   const formData = new FormData()
   formData.append('product_name', values.product_name)
   formData.append('stock', values.stock)
@@ -134,6 +137,8 @@ const submitForm = async (values) => {
       title: 'Gagal',
       text: error?.response?.data?.message || 'Proses simpan produk gagal.'
     })
+  } finally {
+    isSubmitting.value = false
   }
 }
 

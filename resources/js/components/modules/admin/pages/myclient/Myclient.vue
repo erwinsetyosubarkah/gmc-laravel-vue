@@ -41,6 +41,7 @@ const showModal = ref(false)
 const formMode = ref('create')
 const editId = ref(null)
 const loading = ref(false)
+const isSubmitting = ref(false)
 const clients = ref([])
 const previewImage = ref('')
 const selectedFile = ref(null)
@@ -109,6 +110,8 @@ const submitForm = async (values) => {
     formData.append('client_image', selectedFile.value)
   }
 
+  isSubmitting.value = true
+
   try {
     if (formMode.value === 'create') {
       await apiClient.post('/admin/myclient', formData, {
@@ -134,6 +137,8 @@ const submitForm = async (values) => {
       title: 'Gagal',
       text: error?.response?.data?.message || 'Proses simpan klien gagal.'
     })
+  } finally {
+    isSubmitting.value = false
   }
 }
 

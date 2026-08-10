@@ -21,33 +21,33 @@ class AdminLoginController extends Controller
 
     public function authenticate(AdminAuthRequest $request){
         $credentials = $request->validated();
-        $result = [];
+        $credentials['username'] = trim($credentials['username']);
+        $credentials['username'] = strtolower($credentials['username']);
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            $result = [
-                "status"    => "success",
-                "message"   => "Login Berhasil !"
-            ];
-            echo json_encode($result);
-            return;
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Login Berhasil !'
+            ]);
         }
 
-        $user = User::where('username', $credentials['username'])->first();
+        $user = User::whereRaw('LOWER(username) = ?', [$credentials['username']])->first();
         if ($user && Hash::check($credentials['password'], $user->password)) {
             Auth::login($user);
             $request->session()->regenerate();
-            $result = [
-                "status"    => "success",
-                "message"   => "Login Berhasil !"
-            ];
-        } else {
-            $result = [
-                "status"    => "error",
-                "message"   => "Login Gagal !"
-            ];
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Login Berhasil !'
+            ]);
         }
 
-        echo json_encode($result);
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Login Gagal !'
+        ]);
     }
 
     public function check()

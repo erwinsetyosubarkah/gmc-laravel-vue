@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('client_name');
             $table->string('company_name');
             $table->text('client_address');
-            $table->string('client_image');
+            $table->string('client_image')->nullable();
             $table->timestamps();
         });
     }

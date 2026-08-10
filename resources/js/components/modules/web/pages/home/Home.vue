@@ -1,16 +1,22 @@
 <template>
     <ContentLoader v-if="loading" />
-    <template v-else>
-        <CustBanner :backgroundImage="'/storage/banner.png'" :description="home?.profile?.short_description" />
-        <CustCarousel v-if="carouselData" :dataImage="carouselData" />
-        <section class="newest-articles mt-5">
-            <div class="container">
-                <h4 class="text-capitalize">Artikel Terbaru</h4>
-                <div class="divider mb-4"></div>
-                <CustListCard :listDataCard="listDataCard"/>
-            </div>
-        </section>
-    </template>
+    <WebHomePageShell v-else>
+        <template #banner>
+            <CustBanner :backgroundImage="'/storage/banner.png'" :description="home?.profile?.short_description" />
+        </template>
+        <template #carousel>
+            <CustCarousel v-if="carouselData" :dataImage="carouselData" />
+        </template>
+        <template #article-list>
+            <section class="newest-articles mt-5">
+                <div class="container">
+                    <h4 class="text-capitalize">Artikel Terbaru</h4>
+                    <div class="divider mb-4"></div>
+                    <CustListCard :listDataCard="listDataCard"/>
+                </div>
+            </section>
+        </template>
+    </WebHomePageShell>
 </template>
 
 <script setup>
@@ -19,6 +25,7 @@
     import Swal from 'sweetalert2/dist/sweetalert2';
     import apiClient from '@/services/api'
     import { ContentLoader } from 'vue-content-loader';
+    import WebHomePageShell from '../../../../base/organisms/WebHomePageShell.vue'
     import CustBanner from '@/components/base/templates/CustBanner.vue'
     import CustCarousel from '@/components/base/templates/CustCarousel.vue'
     import CustListCard from '@/components/base/templates/CustListCard.vue';

@@ -1,84 +1,37 @@
 <template>
     <ContentLoader v-if="loading" />
-    <section v-else class="section doctor-single shadow mb-4" style="padding: 0 !important;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="doctor-details mt-4 mt-lg-0">
-                        <h2 class="text-md">{{ eventsData.page_title }}</h2>
-                        <div class="divider my-4"></div>
-                        <div class="row justify-content-center mb-4">
-                            <div class="col-md-6">
-                                <form @submit.prevent="searchEvent">
-                                    <div class="input-group mb-3">
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Masukan kata kunci..."
-                                            name="search"
-                                            v-model="searchKeyword"
-                                        >
-                                        <div class="input-group-append">
-                                        <button class="btn btn-primary" style="background-color: #223a66 !important;" type="submit" id="button-addon2">Cari</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <section class="section service-2" style="padding: 0 !important;">
-                            <div class="container">
-                                <template v-if="eventsData?.events?.data?.length > 0">
-                                    <div class="row">
-                                        <template v-for="(item, index) in eventsData.events.data" :key="index">
-                                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                                <div class="service-block">
-                                                    <img :src="'storage/'+ item.event_image" :alt="item.event_title" class="img-fluid">
-                                                    <div class="content">
-                                                        <h4 class="mt-4 mb-2 title-color"><RouterLink :to="'/web/event/'+ item.id">{{ item.event_title }}</RouterLink></h4>
-                                                        <small class=""> <strong> <i class="icofont-book-mark mr-2"></i>Dilaksanakan: {{ item.event_date}}</strong></small>
-                                                        <p class="mt-2" v-html="limitText(item.event_description)"></p>
-                                                        <small><RouterLink :to="'/web/event/'+ item.id">Selengkapnya</RouterLink></small>
-                                                        <small class="float-right mb-4"><strong> <i class="icofont-calendar mr-2"></i> {{ $diffForHumans(item.created_at) }}</strong></small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </template>
-
-                                    </div>
-                                    <div class="d-flex justify-content-center">
-                                        <nav aria-label="Page navigation">
-                                            <ul class="pagination">
-                                                <li
-                                                    v-for="(link, index) in paginationLinks"
-                                                    :key="index"
-                                                    class="page-item"
-                                                    :class="{ 'active': link.active, 'disabled': !link.url }"
-                                                >
-                                                    <a
-                                                    class="page-link"
-                                                    href="#"
-                                                    @click.prevent="changePage(link.url)"
-                                                    v-html="link.label"
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </template>
-                                <template v-else>
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 text-center p-3">
-                                            Produk tidak ditemukan.
-                                        </div>
-                                    </div>
-                                </template>
-                            </div>
-                        </section>
-                    </div>
+    <WebEventPageShell v-else>
+        <template #header>
+            <BaseWebPageTitle :title="eventsData.page_title" />
+        </template>
+        <template #search>
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-6">
+                    <WebSearchForm v-model="searchKeyword" @search="searchEvent" />
                 </div>
             </div>
-        </div>
-    </section>
+        </template>
+        <template v-if="eventsData?.events?.data?.length > 0">
+            <div class="row">
+                <template v-for="(item, index) in eventsData.events.data" :key="index">
+                    <WebEventItem
+                        :imageUrl="'/storage/' + item.event_image"
+                        :title="item.event_title"
+                        :detailUrl="'/web/event/' + item.id"
+                        :eventDate="item.event_date"
+                        :description="limitText(item.event_description)"
+                        :createdAt="$diffForHumans(item.created_at)"
+                    />
+                </template>
+            </div>
+            <div class="d-flex justify-content-center">
+                <WebPagination :links="paginationLinks" @change-page="changePage" />
+            </div>
+        </template>
+        <template v-else>
+            <BaseWebEmptyState message="Event tidak ditemukan." />
+        </template>
+    </WebEventPageShell>
 </template>
 
 <script setup>
@@ -87,6 +40,12 @@
     import Swal from 'sweetalert2/dist/sweetalert2';
     import apiClient from '@/services/api';
     import { limitText } from '@/utils/substr'
+    import WebEventPageShell from '../../../../base/organisms/WebEventPageShell.vue'
+    import WebEventItem from '../../../../base/molecules/WebEventItem.vue'
+    import WebSearchForm from '../../../../base/molecules/WebSearchForm.vue'
+    import WebPagination from '../../../../base/molecules/WebPagination.vue'
+    import BaseWebPageTitle from '../../../../base/atoms/BaseWebPageTitle.vue'
+    import BaseWebEmptyState from '../../../../base/atoms/BaseWebEmptyState.vue'
 
     const eventsData = ref(null)
     const paginationLinks = ref([]);

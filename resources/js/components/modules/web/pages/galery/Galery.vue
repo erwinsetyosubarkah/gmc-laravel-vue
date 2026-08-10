@@ -1,82 +1,34 @@
 <template>
     <ContentLoader v-if="loading" />
-    <section v-else class="section doctor-single shadow mb-4" style="padding: 0 !important;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="doctor-details mt-4 mt-lg-0">
-                        <h2 class="text-md">{{ galeriesData.page_title }}</h2>
-                        <div class="divider my-4"></div>
-                        <div class="row justify-content-center mb-4">
-                            <div class="col-md-6">
-                                <form @submit.prevent="searchGaleries">
-                                    <div class="input-group mb-3">
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Masukan kata kunci..."
-                                            name="search"
-                                            v-model="searchKeyword"
-                                        >
-                                        <div class="input-group-append">
-                                        <button class="btn btn-primary" style="background-color: #223a66 !important;" type="submit" id="button-addon2">Cari</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <section class="section service-2" style="padding: 0 !important;">
-                            <div class="container mb-5">
-                                <template v-if="galeriesData?.galeries?.data?.length > 0">
-                                    <div class="row">
-                                        <template v-for="(item, index) in galeriesData.galeries.data" :key="index">
-                                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                                <div class="service-block">
-                                                    <img :src="'/storage/'+ item.galery_image" :alt="item.image_title" class="img-fluid" onclick="zoomImg()" style="cursor: zoom-in;" id="prevImg">
-                                                    <div class="content">
-                                                        <h4 class="mt-4 mb-2 title-color d-inline">{{ item.image_title }}</h4>
-
-                                                        <small class="float-right"><i class="icofont-calendar mr-2"></i><strong> {{ $diffForHumans(item.created_at) }}</strong></small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </template>
-
-                                    </div>
-                                    <div class="d-flex justify-content-center">
-                                        <nav aria-label="Page navigation">
-                                            <ul class="pagination">
-                                                <li
-                                                    v-for="(link, index) in paginationLinks"
-                                                    :key="index"
-                                                    class="page-item"
-                                                    :class="{ 'active': link.active, 'disabled': !link.url }"
-                                                >
-                                                    <a
-                                                    class="page-link"
-                                                    href="#"
-                                                    @click.prevent="changePage(link.url)"
-                                                    v-html="link.label"
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </template>
-                                <template v-else>
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 text-center p-3">
-                                            Produk tidak ditemukan.
-                                        </div>
-                                    </div>
-                                </template>
-                            </div>
-                        </section>
-                    </div>
+    <WebEventPageShell v-else>
+        <template #header>
+            <BaseWebPageTitle :title="galeriesData.page_title" />
+        </template>
+        <template #search>
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-6">
+                    <WebSearchForm v-model="searchKeyword" @search="searchGaleries" />
                 </div>
             </div>
-        </div>
-    </section>
+        </template>
+        <template v-if="galeriesData?.galeries?.data?.length > 0">
+            <div class="row">
+                <template v-for="(item, index) in galeriesData.galeries.data" :key="index">
+                    <WebGalleryItem
+                        :imageUrl="'/storage/' + item.galery_image"
+                        :title="item.image_title"
+                        :createdAt="$diffForHumans(item.created_at)"
+                    />
+                </template>
+            </div>
+            <div class="d-flex justify-content-center">
+                <WebPagination :links="paginationLinks" @change-page="changePage" />
+            </div>
+        </template>
+        <template v-else>
+            <BaseWebEmptyState message="Galeri tidak ditemukan." />
+        </template>
+    </WebEventPageShell>
 </template>
 
 <script setup>
@@ -84,6 +36,12 @@
     import { ContentLoader } from 'vue-content-loader';
     import Swal from 'sweetalert2/dist/sweetalert2';
     import apiClient from '@/services/api';
+    import WebEventPageShell from '../../../../base/organisms/WebEventPageShell.vue'
+    import WebGalleryItem from '../../../../base/molecules/WebGalleryItem.vue'
+    import WebSearchForm from '../../../../base/molecules/WebSearchForm.vue'
+    import WebPagination from '../../../../base/molecules/WebPagination.vue'
+    import BaseWebPageTitle from '../../../../base/atoms/BaseWebPageTitle.vue'
+    import BaseWebEmptyState from '../../../../base/atoms/BaseWebEmptyState.vue'
 
     const galeriesData = ref(null)
     const paginationLinks = ref([]);

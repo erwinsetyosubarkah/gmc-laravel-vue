@@ -1,73 +1,59 @@
 <template>
-    <section class="page-title bg-1">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="block text-center">
-                        <span class="text-white">Kontak Kami</span>
-                        <h1 class="text-capitalize mb-5 text-lg">Segera Bergabung</h1>
+    <WebContactPageShell>
+        <template #page-title>
+            <section class="page-title bg-1">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="block text-center">
+                                <span class="text-white">Kontak Kami</span>
+                                <h1 class="text-capitalize mb-5 text-lg">Segera Bergabung</h1>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
+        </template>
 
-    <!-- contact form start -->
-    <section class="section contact-info pb-0">
-        <div class="container">
-            <!-- PERBAIKAN 1: Menghapus style inline padding agar layout grid Bootstrap bekerja normal -->
-            <div class="row" id="card-parent">
-                <!-- PERBAIKAN 2: Menggunakan class 'd-flex' pada kolom agar layout di dalamnya bisa otomatis ditarik penuh -->
-                <div class="col-lg-4 col-sm-6 col-md-6 d-flex mb-4">
-                    <div class="contact-block w-100 mb-lg-0">
-                        <i class="icofont-live-support"></i>
-                        <h5>Hubungi Kami</h5>
-                        <p class="mb-0">{{ profileData?.phone }}</p>
+        <template #contact-cards>
+            <section class="section contact-info pb-0">
+                <div class="container">
+                    <div class="row" id="card-parent">
+                        <WebContactInfoCard icon="icofont-live-support" title="Hubungi Kami" :value="profileData?.phone" />
+                        <WebContactInfoCard icon="icofont-support-faq" title="Email Kami" :value="profileData?.email" />
+                        <WebContactInfoCard icon="icofont-location-pin" title="Alamat" :value="profileData?.address" />
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6 col-md-6 d-flex mb-4">
-                    <div class="contact-block w-100 mb-lg-0">
-                        <i class="icofont-support-faq"></i>
-                        <h5>Email Kami</h5>
-                        <p class="mb-0">{{ profileData?.email }}</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-md-6 d-flex mb-4">
-                    <div class="contact-block w-100 mb-lg-0">
-                        <i class="icofont-location-pin"></i>
-                        <h5>Alamat</h5>
-                        <p class="mb-0">{{ profileData?.address }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
+        </template>
 
-    <section class="contact-form-wrap section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="section-title text-center">
-                        <h2 class="text-md mb-2">Kontak Kami</h2>
-                        <div class="divider mx-auto my-4"></div>
-                        <p class="mb-5">Hubungi Kami untuk info lebih lengkap.</p>
+        <template #contact-callout>
+            <section class="contact-form-wrap section">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="section-title text-center">
+                                <h2 class="text-md mb-2">Kontak Kami</h2>
+                                <div class="divider mx-auto my-4"></div>
+                                <p class="mb-5">Hubungi Kami untuk info lebih lengkap.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
+        </template>
+    </WebContactPageShell>
 </template>
 
 <script setup>
     import { computed } from 'vue';
-    // Gunakan optional chaining (?.) di template untuk menghindari error sebelum state terisi
     import { useStore } from 'vuex'
+    import WebContactPageShell from '../../../../base/organisms/WebContactPageShell.vue'
+    import WebContactInfoCard from '../../../../base/molecules/WebContactInfoCard.vue'
 
     const store = useStore()
     const profileData = computed(() => store.state.profile)
-
-    // PERBAIKAN 3: Blok onMounted & jQuery dihapus total karena digantikan oleh CSS scoped di bawah
 </script>
 
 <style scoped>

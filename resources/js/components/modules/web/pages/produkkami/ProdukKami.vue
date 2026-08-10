@@ -1,84 +1,37 @@
 <template>
     <ContentLoader v-if="loading" />
-    <section v-else class="section doctor-single shadow" style="padding: 0 !important;">
-      <div class="container mt-4 mb-4 pt-5 pb-5">
-          <div class="row">
-              <div class="col-lg-12">
-                  <div class="doctor-details mt-4 mt-lg-0">
-                        <h2 class="text-md">{{ produkkamiData.page_title }}</h2>
-                      <div class="divider my-4"></div>
-                        <div class="row justify-content-center mb-4">
-                            <div class="col-md-6">
-                                <form @submit.prevent="searchProducts">
-                                    <div class="input-group mb-3">
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Masukan kata kunci..."
-                                            name="search"
-                                            v-model="searchKeyword"
-                                        >
-                                        <div class="input-group-append">
-                                        <button class="btn btn-primary" style="background-color: #223a66 !important;" type="submit" id="button-addon2">Cari</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                      <section class="section service-2" style="padding: 0 !important;">
-                        <div class="container">
-                            <template v-if="produkkamiData?.produkkami?.data?.length > 0">
-                                <div class="row">
-                                    <template v-for="(item, index) in produkkamiData.produkkami.data" :key="index">
-
-                                        <div class="col-lg-6 col-md-6 col-sm-6">
-                                            <div class="service-block">
-                                                <img :src="'/storage/'+ item.product_image" :alt="item.product_name" class="img-fluid" style="width: 300px;height: 200px;object-fit: cover;object-position: center;">
-                                                <div class="content">
-                                                    <h4 class="mt-4 mb-2 title-color"><RouterLink :to="'/web/produkkami/'+ item.id">{{ item.product_name }}</RouterLink></h4>
-                                                    <small class=""> <strong> Stock : {{ numberFormat(item.stock) }}</strong></small>
-                                                    <small class="float-right"><strong> Harga : {{ formatRupiah(item.price)  }}</strong></small>
-                                                    <p class="mb-4 mt-2" v-html="limitText(item.product_description)"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </template>
-
-                                </div>
-                                <div class="d-flex justify-content-center mt-4">
-                                    <nav aria-label="Page navigation">
-                                        <ul class="pagination">
-                                            <li
-                                                v-for="(link, index) in paginationLinks"
-                                                :key="index"
-                                                class="page-item"
-                                                :class="{ 'active': link.active, 'disabled': !link.url }"
-                                            >
-                                                <a
-                                                class="page-link"
-                                                href="#"
-                                                @click.prevent="changePage(link.url)"
-                                                v-html="link.label"
-                                                ></a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </template>
-                            <template v-else>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 text-center p-3">
-                                         Produk tidak ditemukan.
-                                    </div>
-                                </div>
-                            </template>
-                        </div>
-                    </section>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
+    <WebProductPageShell v-else>
+        <template #header>
+            <BaseWebPageTitle :title="produkkamiData.page_title" />
+        </template>
+        <template #search>
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-6">
+                    <WebSearchForm v-model="searchKeyword" @search="searchProducts" />
+                </div>
+            </div>
+        </template>
+        <template v-if="produkkamiData?.produkkami?.data?.length > 0">
+            <div class="row">
+                <template v-for="(item, index) in produkkamiData.produkkami.data" :key="index">
+                    <WebProductItem
+                        :imageUrl="'/storage/' + item.product_image"
+                        :title="item.product_name"
+                        :detailUrl="'/web/produkkami/' + item.id"
+                        :stock="numberFormat(item.stock)"
+                        :price="formatRupiah(item.price)"
+                        :description="limitText(item.product_description)"
+                    />
+                </template>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <WebPagination :links="paginationLinks" @change-page="changePage" />
+            </div>
+        </template>
+        <template v-else>
+            <BaseWebEmptyState message="Produk tidak ditemukan." />
+        </template>
+    </WebProductPageShell>
 </template>
 
 <script setup>
@@ -88,6 +41,12 @@
     import apiClient from '@/services/api';
     import { formatRupiah, numberFormat } from '@/utils/format'
     import { limitText } from '@/utils/substr'
+    import WebProductPageShell from '../../../../base/organisms/WebProductPageShell.vue'
+    import WebProductItem from '../../../../base/molecules/WebProductItem.vue'
+    import WebSearchForm from '../../../../base/molecules/WebSearchForm.vue'
+    import WebPagination from '../../../../base/molecules/WebPagination.vue'
+    import BaseWebPageTitle from '../../../../base/atoms/BaseWebPageTitle.vue'
+    import BaseWebEmptyState from '../../../../base/atoms/BaseWebEmptyState.vue'
 
     const produkkamiData = ref(null)
     const paginationLinks = ref([]);

@@ -4,9 +4,9 @@
 ;(function ($) {
 
 	'use strict';
-	
+
  // SCROLL TO TOP
-  
+
   $(window).on('scroll', function () {
     if ($(window).scrollTop() > 70) {
         $('.backtop').addClass('reveal');
@@ -14,7 +14,7 @@
         $('.backtop').removeClass('reveal');
     }
 });
- 
+
 	$('.portfolio-single-slider').slick({
 		infinite: true,
 		arrows: false,
@@ -60,7 +60,7 @@
 		        slidesToScroll: 2
 		      }
 		    }
-		  
+
   		]
 	});
 
@@ -104,7 +104,7 @@
 		        slidesToScroll: 1
 		      }
 		    }
-		  
+
   		]
 	});
 
@@ -146,7 +146,7 @@
 		        slidesToScroll: 1
 		      }
 		    }
-		  
+
   		]
 	});
 
@@ -176,21 +176,24 @@
 	      time: 1000
 	  });
 
-		
+
  // Shuffle js filter and masonry
     var Shuffle = window.Shuffle;
     var jQuery = window.jQuery;
 
-    var myShuffle = new Shuffle(document.querySelector('.shuffle-wrapper'), {
-        itemSelector: '.shuffle-item',
-        buffer: 1
-    });
+    var shuffleContainer = document.querySelector('.shuffle-wrapper');
+    if (shuffleContainer) {
+        var myShuffle = new Shuffle(shuffleContainer, {
+            itemSelector: '.shuffle-item',
+            buffer: 1
+        });
 
-    jQuery('input[name="shuffle-filter"]').on('change', function (evt) {
-        var input = evt.currentTarget;
-        if (input.checked) {
-            myShuffle.filter(input.value);
-        }
-    });
+        jQuery('input[name="shuffle-filter"]').on('change', function (evt) {
+            var input = evt.currentTarget;
+            if (input.checked) {
+                myShuffle.filter(input.value);
+            }
+        });
+    }
 
 })(jQuery);

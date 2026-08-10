@@ -2,6 +2,7 @@ import { createApp, nextTick } from 'vue';
 
 
 import '../css/app.css';
+import './script';
 
 import router from './router';
 import store from './store';

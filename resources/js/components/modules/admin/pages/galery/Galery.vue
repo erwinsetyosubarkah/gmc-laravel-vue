@@ -45,6 +45,7 @@ const galleries = ref([])
 const selectedFile = ref(null)
 const previewImage = ref('')
 const previewObjectUrl = ref('')
+const isSubmitting = ref(false)
 
 const formValues = reactive({
   image_title: ''
@@ -116,6 +117,8 @@ const submitForm = async (values) => {
     return
   }
 
+  isSubmitting.value = true
+
   const formData = new FormData()
   formData.append('image_title', values.image_title)
   if (selectedFile.value) {
@@ -147,6 +150,8 @@ const submitForm = async (values) => {
       title: 'Gagal',
       text: error?.response?.data?.message || 'Proses simpan galeri gagal.'
     })
+  } finally {
+    isSubmitting.value = false
   }
 }
 

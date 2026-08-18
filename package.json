@@ -3,15 +3,20 @@
     "scripts": {
         "predev": "npx kill-port 5173",
         "dev": "rm -rf node_modules/.vite && vite dev",
-        "build": "vite build"
+        "build": "vite build",
+        "test": "vitest",
+        "test:run": "vitest run"
     },
     "devDependencies": {
         "@rollup/plugin-inject": "^5.0.5",
+        "@vue/test-utils": "^2.4.6",
         "axios": "^1.1.2",
+        "jsdom": "^26.1.0",
         "laravel-vite-plugin": "^3.1.0",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
-        "vite": "^8.1.2"
+        "vite": "^8.1.2",
+        "vitest": "^3.2.4"
     },
     "dependencies": {
         "@fontsource/roboto": "^5.2.10",

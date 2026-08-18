@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ref, defineExpose } from 'vue'
+import { ref } from 'vue'
 const props = defineProps({
   modelValue: { type: [String, Number], default: '' },
   placeholder: { type: String, default: '' },

@@ -12,7 +12,7 @@
                 <div class="container">
                     <h4 class="text-capitalize">Artikel Terbaru</h4>
                     <div class="divider mb-4"></div>
-                    <CustListCard :listDataCard="listDataCard"/>
+                    <CustListCard :listDataCard="listDataCard" noData="Artikel tidak ditemukan."/>
                 </div>
             </section>
         </template>

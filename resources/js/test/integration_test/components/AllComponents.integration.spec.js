@@ -96,7 +96,7 @@ const mountOptions = {
 }
 
 const defaultProps = {
-    modelValue: { name: '', username: '', email: '', password: '', password2: '' },
+    modelValue: '',
     errors: {},
     links: [],
     articles: [],
@@ -122,13 +122,20 @@ const defaultProps = {
 }
 
 function propsFor(component, path) {
-    const props = { ...defaultProps }
     const declaredProps = component?.props || {}
+    const props = {}
 
     Object.keys(declaredProps).forEach((name) => {
+        props[name] = defaultProps[name]
+
         if (name === 'modelValue' && /LoginForm|RegisterForm/.test(path)) {
-            props[name] = defaultProps.modelValue
-        } else if (!(name in props)) {
+            props[name] = { name: '', username: '', email: '', password: '', password2: '' }
+        }
+
+        if (name === 'id' && /ActionButtons/.test(path)) props[name] = 1
+        if (name === 'rows' && /BaseTextarea/.test(path)) props[name] = 3
+
+        if (props[name] === undefined) {
             props[name] = Array.isArray(declaredProps[name]?.default) ? [] : undefined
         }
     })
